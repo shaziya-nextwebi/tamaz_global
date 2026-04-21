@@ -1,0 +1,334 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Admin_MasterPage" %>
+
+<!DOCTYPE html>
+<html data-layout="vertical" data-topbar="light" data-sidebar="<%=((Request.Cookies["sq_theme"] == null  ) ? "" : Context.Request.Cookies["sq_theme"].Value == "dark" ? "dark" :"light" )%>" data-sidebar-size="<%=((Request.Cookies["sq_tray"] == null  ) ? "" : Context.Request.Cookies["sq_tray"].Value == "closed" ? "sm" :"lg" )%>" data-sidebar-image="none" data-preloader="disable" data-layout-mode="<%=((Request.Cookies["sq_theme"] == null  ) ? "" : Context.Request.Cookies["sq_theme"].Value == "dark" ? "dark" :"light" )%>">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>Tamaz Global | Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Qlux Portfolio" name="description" />
+    <meta content="Qlux Portfolio" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <!-- Layout config Js -->
+    <script src="assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatable/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="assets/libs/datatable/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/libs/datatable/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/snackbar/snackbar.min.css" rel="stylesheet" />
+    <link href="assets/libs/summernote/summernote-lite.min.css" rel="stylesheet" />
+    <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" />
+    <link href="assets/libs/fSelect/fSelect.css" rel="stylesheet" />
+    <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+    <link href="assets/libs/drag-and-drop/dragula/dragula.css" rel="stylesheet" />
+    <link href="assets/libs/drag-and-drop/dragula/example.css" rel="stylesheet" />
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+<style>
+    :root {
+        --primary-brand: #162e7d;
+        --secondary-brand: #0d1d50;
+    }
+
+    /* 1. Sidebar - Force the background color */
+    .navbar-menu, 
+    .navbar-menu .navbar-brand-box {
+        background-color: var(--secondary-brand) !important;
+    }
+
+    /* 2. Header - Clean white with subtle border */
+    #page-topbar {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* 3. Footer - Keeping your nice dark blue */
+    .footer {
+        background-color: var(--secondary-brand) !important;
+        color: #ffffff !important;
+    }
+
+    /* 4. Sidebar Links - White/Light text to match the new dark sidebar */
+    .navbar-menu .navbar-nav .nav-link {
+        color: #d1d9e6 !important;
+    }
+    .navbar-menu .navbar-nav .nav-link:hover, 
+    .navbar-menu .navbar-nav .nav-link.active {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* 5. Logo area - Ensure logo isn't cut off */
+    .navbar-brand-box {
+        border-bottom: none !important;
+    }
+</style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="layout-wrapper">
+
+            <header id="page-topbar">
+                <div class="layout-width">
+                    <div class="navbar-header">
+                        <div class="d-flex">
+                            <!-- LOGO -->
+                            <div class="navbar-brand-box horizontal-logo">
+                                <a href="/admin/dashboard.aspx" class="logo logo-dark">
+                                    <span class="logo-sm">
+
+                                        <img src="assets/images/logo.png" style="padding: 0px" alt="" height="30">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="assets/images/logo.png" style="padding: 10px" alt="" height="70">
+                                    </span>
+                                </a>
+
+                                <a href="/admin/dashboard.aspx" class="logo logo-light">
+                                    <span class="logo-sm">
+                                        <img src="assets/images/logo.png" style="padding: 0px" alt="" height="30">
+                                    </span>
+                                    <span class="logo-lg">
+                                        <img src="assets/images/logo.png" style="padding: 10px" alt="" height="70">
+                                    </span>
+                                </a>
+                            </div>
+
+                            <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none" id="topnav-hamburger-icon">
+                                <span class="hamburger-icon ">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </button>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="ms-1 header-item  d-sm-flex">
+                                <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none" data-toggle="fullscreen">
+                                    <i class='bx bx-fullscreen fs-22'></i>
+                                </button>
+                            </div>
+
+                            <div class="ms-1 header-item  d-sm-flex">
+                                <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode shadow-none">
+                                    <i class='bx bx-moon fs-22'></i>
+                                </button>
+                            </div>
+                            <div class="dropdown ms-sm-3 header-item topbar-user">
+                                <button type="button" class="btn shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="d-flex align-items-center">
+                                        <img class="rounded-circle header-profile-user" src="<%=strProfileImage %>" alt="<%=strUserName %>">
+                                        <span class="text-start ms-xl-2">
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"><%=strUserName %></span>
+                                            <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text"><%=strRole %></span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <!-- item-->
+                                    <h6 class="dropdown-header">Welcome <%=strUserName2 %>!</h6>
+                                    <a class="dropdown-item" href="my-profile.aspx"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i><span class="align-middle">Profile</span></a>
+                                    <a class="dropdown-item" href="change-password.aspx"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i><span class="align-middle">Change Password</span></a>
+                                    <asp:LinkButton class="dropdown-item" ID="lnkLogout" runat="server" OnClick="btnLogout_Click"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i><span class="align-middle" data-key="t-logout">Logout</span></asp:LinkButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- ========== App Menu ========== -->
+            <div class="app-menu navbar-menu">
+                <!-- LOGO -->
+                <div class="navbar-brand-box">
+                    <!-- Dark Logo-->
+                    <a href="/admin/dashboard.aspx" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo.png" style="padding: 5px" alt="" height="50">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo.png" style="padding: 10px" alt="" height="70">
+                        </span>
+                    </a>
+                    <!-- Light Logo-->
+                    <a href="/admin/dashboard.aspx" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="assets/images/logo.png" style="padding: 5px" alt="" height="50">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/images/logo.png" style="padding: 10px" alt="" height="70">
+                        </span>
+                    </a>
+                    <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                        <i class="ri-record-circle-line"></i>
+                    </button>
+                </div>
+
+                <div id="scrollbar">
+                    <div class="container-fluid">
+
+                        <div id="two-column-menu">
+                        </div>
+                        <ul class="navbar-nav" id="navbar-nav">
+                            <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                            <%=strMenuLink %>
+                        </ul>
+                    </div>
+                    <!-- Sidebar -->
+                </div>
+
+                <div class="sidebar-background"></div>
+            </div>
+            <!-- Left Sidebar End -->
+            <!-- Vertical Overlay-->
+            <div class="vertical-overlay"></div>
+            <div class="main-content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script>
+                                © Tamaz Global . All rights reserved                       
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Designed & Developed by Nextwebi 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
+        <!-- END layout-wrapper -->
+        <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="assets/libs/node-waves/waves.min.js"></script>
+        <script src="assets/libs/feather-icons/feather.min.js"></script>
+        <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+        <script src="assets/js/plugins.js"></script>
+        <!-- apexcharts -->
+
+        <script src="assets/libs/snackbar/snackbar.min.js"></script>
+        <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+        <script src="assets/libs/fSelect/fSelect.js"></script>
+        <script src="assets/libs/tinymce/tinymce.min.js"></script>
+        <!-- Dashboard init -->
+
+        <script src="assets/libs/datatable/jquery.dataTables.min.js"></script>
+        <script src="assets/libs/datatable/dataTables.bootstrap5.min.js"></script>
+        <script src="assets/libs/datatable/dataTables.responsive.min.js"></script>
+        <script src="assets/libs/summernote/summernote-lite.min.js"></script>
+        <script src="assets/libs/flatpickr/flatpickr.min.js"></script>
+        <script src="assets/js/common_app.js"></script>
+        <script src="assets/libs/drag-and-drop/dragula/dragula.min.js"></script>
+        <script src="assets/libs/drag-and-drop/dragula/custom-dragula.js"></script>
+        <script src="assets/js/sweetalert2@11.js"></script>
+        <script src="assets/js/Sortable.min.js"></script>
+        <script src="assets/js/select2.min.js"></script>
+        <script> 
+            function example_image_upload_handler(blobInfo, success, failure, progress) {
+                var xhr, formData;
+
+                xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.open('POST', 'file-upload.ashx');
+
+                //xhr.upload.onprogress = function (e) {
+                //    progress(e.loaded / e.total * 100);
+                //};
+
+                xhr.onload = function () {
+                    var json;
+
+                    if (xhr.status === 403) {
+                        failure('HTTP Error: ' + xhr.status, { remove: true });
+                        return;
+                    }
+
+                    if (xhr.status < 200 || xhr.status >= 300) {
+                        failure('HTTP Error: ' + xhr.status);
+                        return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != 'string') {
+                        failure('Invalid JSON: ' + xhr.responseText);
+                        return;
+                    }
+
+                    success(json.location);
+                };
+
+                xhr.onerror = function () {
+                    failure('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+                };
+
+                formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+                xhr.send(formData);
+            };
+            $(document).ready(function () {
+                tinymce.init({
+                    selector: 'textarea.summernote',
+                    convert_urls: false,
+                    images_upload_url: 'file-upload.ashx',
+                    skin: "<%=((Request.Cookies["sa_theme"] == null  ) ? "oxide" : Context.Request.Cookies["sa_theme"].Value == "dark" ? "oxide-dark" :"oxide" ) %>",
+                    content_css: "<%=((Request.Cookies["sa_theme"] == null  ) ? "default" : Context.Request.Cookies["sa_theme"].Value == "dark" ? "dark" :"default" ) %>",
+                    plugins: [
+                        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                        'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                        'table', 'emoticons', 'template', 'help', 'codesample'
+                    ],
+                    toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                        'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                        'forecolor backcolor emoticons | help | codesample',
+                    menubar: 'file edit view insert format tools table help',
+                    codesample_global_prismjs: true
+                });
+                $(".fSelect").fSelect();
+                $('.summernote-air').summernote({
+                    airMode: true,
+                    height: 150
+                });
+                $('.myTable').DataTable({
+                    "lengthMenu": [30, 50, 100, 200],
+                    "pageLength": 30,
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': ['nosort']
+                    }],
+                    "scrollX": !0
+                });
+                $(document.body).on('click', '.copyItem', function () {
+                    var elem = $(this);
+                    var $temp = $("<input>");
+                    $("body").append($temp);
+                    $temp.val("" + elem.attr("data-url")).select();
+                    document.execCommand("copy");
+                    $temp.remove();
+                    Snackbar.show({ text: 'Copied.', duration: 10000 });
+                });
+            });
+        </script>
+        <!-- App js -->
+        <script src="assets/js/app.js"></script>
+    </form>
+</body>
+</html>

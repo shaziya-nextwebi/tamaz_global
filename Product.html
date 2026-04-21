@@ -1,0 +1,1893 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Detail - TAMAZ Global</title>
+    <link
+      rel="icon"
+      hreflang="en"
+      type="image/png"
+      href="assests/Images/favicon.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <!-- Swiper CSS for Product Slider -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header (Reuse from main site) -->
+    <!-- Top Bar -->
+    <!-- <div class="top-bar">
+      <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            Retail: +91 99882 27622
+          </span>
+          <span class="hidden md:flex items-center gap-2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            Wholesale: +91 99007 46748
+          </span>
+        </div>
+        <div class="flex items-center gap-4 text-sm">
+          <a href="#" class="hover:text-orange-300 transition-colors"
+            >Track Order</a
+          >
+          <span class="opacity-50">|</span>
+          <a href="#" class="hover:text-orange-300 transition-colors">Help</a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="py-4 header-wrap pt-0">
+        <div
+          class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-4"
+        >
+          <!-- Logo -->
+          <a href="index.html" class="flex items-center gap-3 logo-image-wrap">
+            <img src="assests/Images/TAMAZ-logo.png" class="logo-image" />
+          </a>
+
+          <!-- Search -->
+          <div class="search-container hidden md:block">
+            <input
+              type="text"
+              placeholder="Search for products, brands and more..."
+            />
+            <button class="search-btn">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Phone Numbers & Cart -->
+          <div class="phone-numbers flex items-center gap-4">
+            <a href="tel:919988227622">
+              <div class="phone-item">
+                <div class="phone-icon">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    />
+                  </svg>
+                </div>
+                <div class="text-sm">
+                  <div class="text-xs text-gray-500">
+                    Retail Orders <span class="text-small">(Dr.Aliya)</span>
+                  </div>
+                  <div class="font-semibold">+91 99882 27622</div>
+                </div>
+              </div>
+            </a>
+
+            <a href="tel:919900746748">
+              <div class="phone-item">
+                <div class="phone-icon">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    />
+                  </svg>
+                </div>
+                <div class="text-sm">
+                  <div class="text-xs text-gray-500">
+                    Wholesale <span>(Mr. Aby)</span>
+                  </div>
+                  <div class="font-semibold">+91 99007 46748</div>
+                </div>
+              </div>
+            </a>
+            <a
+              class="relative p-3 hover:bg-gray-100 rounded-xl transition-colors"
+              href="cart.html"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center"
+                >3</span
+              >
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="mobile-menu-btn">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <nav
+          class="desktop-nav mt-4 pt-4 border-t border-gray-100 bg-linear-gradient"
+        >
+          <div class="flex items-center justify-center gap-2">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Us</a>
+
+            <!-- Categories with Dropdown -->
+            <div class="nav-item-group">
+              <a href="category.html" class="nav-link">
+                Categories
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="menu-icon"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+
+              <!-- Dropdown Menu -->
+              <div class="dropdown-menu">
+                <div class="flex gap-6">
+                  <div class="grid grid-cols-3 gap-2">
+                    <!-- Item 1 -->
+                    <a href="category.html" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                          <path d="M2 17l10 5 10-5" />
+                          <path d="M2 12l10 5 10-5" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Glutathione Injections</span>
+                      <span class="dropdown-count">(144)</span>
+                    </a>
+
+                    <!-- Item 2 -->
+                    <a href="category.html" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                          />
+                          <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Other Injections</span>
+                      <span class="dropdown-count">(34)</span>
+                    </a>
+
+                    <!-- Item 3 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M10.5 20.5L3.5 13.5a4.95 4.95 0 1 1 7-7l7 7a4.95 4.95 0 0 1-7 7z"
+                          />
+                          <path d="M8.5 8.5l7 7" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Skin Whitening Pills</span>
+                      <span class="dropdown-count">(36)</span>
+                    </a>
+
+                    <!-- Item 4 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"
+                          />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Skin Whitening Cream</span>
+                      <span class="dropdown-count">(9)</span>
+                    </a>
+
+                    <!-- Item 5 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="8" x2="12" y2="16" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Skin Whitening Soap</span>
+                      <span class="dropdown-count">(17)</span>
+                    </a>
+
+                    <!-- Item 6 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                          <path
+                            d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"
+                          />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Skin Whitening Lotions</span>
+                      <span class="dropdown-count">(2)</span>
+                    </a>
+
+                    <!-- Item 7 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                          />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Glutathione Products</span>
+                      <span class="dropdown-count">(9)</span>
+                    </a>
+
+                    <!-- Item 8 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+                          />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Weight Gain Products</span>
+                      <span class="dropdown-count">(3)</span>
+                    </a>
+
+                    <!-- Item 9 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Weight Loss Products</span>
+                      <span class="dropdown-count">(4)</span>
+                    </a>
+
+                    <!-- Item 10 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Men Health Care</span>
+                      <span class="dropdown-count">(2)</span>
+                    </a>
+
+                    <!-- Item 11 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Women Health Care</span>
+                      <span class="dropdown-count">(1)</span>
+                    </a>
+
+                    <!-- Item 12 -->
+                    <a href="#" class="dropdown-item">
+                      <div class="dropdown-icon">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect
+                            x="3"
+                            y="3"
+                            width="18"
+                            height="18"
+                            rx="2"
+                            ry="2"
+                          />
+                          <line x1="3" y1="9" x2="21" y2="9" />
+                          <line x1="9" y1="21" x2="9" y2="9" />
+                        </svg>
+                      </div>
+                      <span class="dropdown-text">Other Health Products</span>
+                      <span class="dropdown-count">(4)</span>
+                    </a>
+
+                    <!-- Image Column -->
+                  </div>
+                  <div class="w-[250px] hidden md:block">
+                    <div
+                      class="relative h-full rounded-xl overflow-hidden bg-gray-100"
+                    >
+                      <!-- Image -->
+                      <img
+                        src="assests/Images/About-us-Images/2.png"
+                        alt="Product"
+                        class="w-full h-full object-cover"
+                      />
+
+                      <!-- Overlay Content -->
+                      <div
+                        class="absolute inset-0 bg-white/0 p-4 flex flex-col justify-between"
+                      >
+                        <!-- Top -->
+                        <div>
+                          <span
+                            class="inline-block bg-[#b91c1c] text-white text-[10px] px-2 py-1 mb-2"
+                          >
+                            New Launch
+                          </span>
+
+                          <h3
+                            class="text-lg font-bold text-gray-900 leading-tight"
+                          >
+                            Skin Whitening <br />
+                            Cream
+                          </h3>
+
+                          <span class="text-orange-500 font-bold text-sm"
+                            >3.5%</span
+                          >
+                        </div>
+
+                        <!-- Bottom -->
+                        <div>
+                          <!-- <p class="text-xs text-white mb-3 leading-relaxed">
+          New addition to our Hair Care Range. Advanced formula to remove flakes and soothe scalp.
+        </p> -->
+
+                          <button
+                            class="w-full bg-[#0a1b50] text-[#000] py-2 text-sm font-semibold rounded rounded-1"
+                          >
+                            <a
+                              href="Product.html"
+                              class="text-[#fff] no-underline"
+                            >
+                              Book Now
+                            </a>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="contactus.html" class="nav-link">Contact Us</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="bg-[#f8fafc] py-3 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4">
+        <nav class="text-sm text-[#64748B] breadcrumb">
+          <a href="#" class="hover:text-[#B91C1C]">Home</a>
+          <span class="mx-2">/</span>
+          <a href="#" class="hover:text-[#B91C1C]">Injections</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#0F172A] font-medium"
+            >Vesco Pharma Gluta C 1000</span
+          >
+        </nav>
+      </div>
+    </section>
+
+    <!-- Product Top Section -->
+    <!-- Product Top Section -->
+    <section class="py-8 md:py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-10">
+          <!-- Left: Product Images -->
+          <div class="flex flex-col gap-3">
+            <!-- Main Image Container -->
+            <div
+              class="relative w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 group main-product-image-wrap"
+            >
+              <img
+                id="mainProductImage"
+                src="assests/Images/old-product/p-5.jpg"
+                alt="Product Main"
+                onclick="openModal(currentIndex)"
+                class="object-contain transition-transform duration-500 group-hover:scale-105 mainProductImage cursor-pointer"
+              />
+
+              <!-- Badge -->
+              <span
+                class="absolute top-4 left-4 bg-[#B91C1C] text-white text-xs font-bold px-3 py-1 rounded-full"
+                >Best Seller</span
+              >
+
+              <!-- Wishlist Button -->
+              <!-- <button
+                  class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                    />
+                  </svg>
+                </button> -->
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="grid grid-cols-4 gap-3">
+              <button
+                onclick="changeImage(0)"
+                class="thumb-btn active rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all"
+              >
+                <img
+                  src="assests/Images/old-product/p-1.jpg"
+                  class="w-full h-20 object-cover"
+                />
+              </button>
+              <button
+                onclick="changeImage(1)"
+                class="thumb-btn rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all"
+              >
+                <img
+                  src="assests/Images/old-product/p-2.jpg"
+                  class="w-full h-20 object-cover"
+                />
+              </button>
+              <button
+                onclick="changeImage(2)"
+                class="thumb-btn rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all"
+              >
+                <img
+                  src="assests/Images/old-product/p-3.jpg"
+                  class="w-full h-20 object-cover"
+                />
+              </button>
+              <button
+                onclick="changeImage(3)"
+                class="thumb-btn active rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all"
+              >
+                <img
+                  src="assests/Images/old-product/p-4.jpg"
+                  class="w-full h-20 object-cover"
+                />
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Product Info -->
+          <div class="flex flex-col">
+            <div class="flex items-center mb-4 flex-wrap gap-3">
+              <!-- Brand Name -->
+              <span
+                class="text-xs font-bold text-[#1E3A8A] uppercase tracking-wider"
+                >Vesco Pharma</span
+              >
+
+              <!-- Availability Badge (Pill Design) -->
+              <span
+                class="inline-flex items-center gap-2 bg-[#2E7D32] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-sm"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 23 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="flex-shrink-0"
+                >
+                  <path
+                    d="M19.0312 4.03125H16.0312V0H2.01562C0.9375 0 0 0.9375 0 2.01562V13.0312H2.01562C2.01562 14.6719 3.375 16.0312 5.01562 16.0312C6.65625 16.0312 8.01562 14.6719 8.01562 13.0312H14.0156C14.0156 14.6719 15.375 16.0312 17.0156 16.0312C18.6562 16.0312 20.0156 14.6719 20.0156 13.0312H22.0312V8.01562L19.0312 4.03125ZM18.5156 5.53125L20.4844 8.01562H16.0312V5.53125H18.5156ZM5.01562 14.0156C4.45312 14.0156 4.03125 13.5469 4.03125 13.0312C4.03125 12.4688 4.45312 12 5.01562 12C5.57812 12 6 12.4688 6 13.0312C6 13.5469 5.57812 14.0156 5.01562 14.0156ZM7.21875 11.0156C6.70312 10.4062 5.90625 10.0312 5.01562 10.0312C4.125 10.0312 3.32812 10.4062 2.8125 11.0156H2.01562V2.01562H14.0156V11.0156H7.21875ZM17.0156 14.0156C16.4531 14.0156 16.0312 13.5469 16.0312 13.0312C16.0312 12.4688 16.4531 12 17.0156 12C17.5781 12 18 12.4688 18 13.0312C18 13.5469 17.5781 14.0156 17.0156 14.0156Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Available
+              </span>
+            </div>
+            <h1
+              class="text-2xl section-title md:text-3xl font-bold text-[#0F172A] mb-3"
+            >
+              Vesco Pharma Gluta C 1000 Glutathione Skin Whitening Injection
+            </h1>
+
+            <!-- Short Description -->
+            <p class="text-sm md:text-base text-[#64748B] mb-6 leading-relaxed">
+              High concentration Glutathione formula for effective skin
+              whitening and anti-aging benefits. Contains Vitamin C for enhanced
+              absorption and radiance.
+            </p>
+
+            <!-- Key Highlights Section (Added Based on Reference) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+              <div
+                class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-100"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-gray-800">Designed by</h4>
+                  <p class="text-xs text-gray-500">Dermatologists</p>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-100"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    ></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-gray-800">
+                    Honest Disclosure
+                  </h4>
+                  <p class="text-xs text-gray-500">Active Percentage</p>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-100"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-gray-800">Safe &</h4>
+                  <p class="text-xs text-gray-500">Effective</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meta Data Grid (Redesigned as Tab/Button Cards) -->
+            <div class="mb-6">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                <!-- Category -->
+                <div
+                  class="flex items-center gap-2 p-3 rounded-lg hover:border-red-200 hover:bg-red-50/30 transition-colors cursor-pointer group"
+                >
+                  <div
+                    class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <span
+                      class="block text-[10px] text-gray-400 uppercase tracking-wider"
+                      >Category</span
+                    >
+                    <span class="block text-xs font-semibold text-gray-700"
+                      >Glutathione Injections</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Brand -->
+                <!-- <div class="flex items-center gap-2 p-3 border border-gray-200 rounded-lg hover:border-red-200 hover:bg-red-50/30 transition-colors cursor-pointer group">
+                          <div class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                              </svg>
+                          </div>
+                          <div>
+                              <span class="block text-[10px] text-gray-400 uppercase tracking-wider">Brand</span>
+                              <span class="block text-xs font-semibold text-gray-700">Vesco Pharma</span>
+                          </div>
+                      </div> -->
+
+                <!-- Country -->
+                <div
+                  class="flex items-center gap-2 p-3 rounded-lg hover:border-red-200 hover:bg-red-50/30 transition-colors cursor-pointer group"
+                >
+                  <div
+                    class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <span
+                      class="block text-[10px] text-gray-400 uppercase tracking-wider"
+                      >Place of Origin:</span
+                    >
+                    <span class="block text-xs font-semibold text-gray-700"
+                      >Thailand</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Ingredients -->
+                <!-- <div class="col-span-2 sm:col-span-3 flex items-center gap-2 p-3 border border-gray-200 rounded-lg hover:border-red-200 hover:bg-red-50/30 transition-colors cursor-pointer group">
+                          <div class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors flex-shrink-0">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0-6v6m18-6v6"></path>
+                              </svg>
+                          </div>
+                          <div>
+                              <span class="block text-[10px] text-gray-400 uppercase tracking-wider">Key Ingredients</span>
+                              <span class="block text-xs font-semibold text-gray-700">Liquid Nano Glutathione and Vitamin C</span>
+                          </div>
+                      </div> -->
+              </div>
+            </div>
+
+            <!-- Meta Data Section (Redesigned) -->
+            <div class="mb-6">
+              <!-- Ingredients Section (Tabs/Pills Style) -->
+              <div>
+                <h4
+                  class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2"
+                >
+                  Key Ingredients
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  <!-- Separated Ingredients -->
+                  <span
+                    class="px-3 py-1.5 bg-[#dbeafe] text-sky-800 text-xs font-semibold rounded-lg border border-sky-200"
+                  >
+                    Liquid Nano Glutathione
+                  </span>
+                  <span
+                    class="px-3 py-1.5 bg-green-100 text-green-800 text-xs font-semibold rounded-lg border border-green-200"
+                  >
+                    Vitamin C
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price -->
+            <div class="flex items-end gap-3 mb-6 items-center">
+              <span class="text-3xl font-bold text-[#000]">Rs. 4,400</span>
+              <!-- <span class="text-lg text-gray-400 line-through mb-1"
+                  >Rs. 5,500</span
+                >
+                <span
+                  class="px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded"
+                  >20% OFF</span
+                > -->
+            </div>
+
+            <!-- Add to Cart & Wholesale Enquiry -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+              <div
+                class="flex items-center border border-gray-200 rounded-lg overflow-hidden"
+              >
+                <button
+                  class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold"
+                >
+                  −
+                </button>
+                <input
+                  type="number"
+                  value="1"
+                  class="w-6 text-center border-0 focus:ring-0 text-lg font-semibold ps-1"
+                />
+                <button
+                  class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold"
+                >
+                  +
+                </button>
+              </div>
+              <button
+                class="flex-1 flex items-center justify-center gap-2 bg-[#B91C1C] text-white py-4 px-2 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path
+                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  />
+                </svg>
+                Add to Cart
+              </button>
+              <button
+                onclick="openWholesaleModal()"
+                class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors border border-gray-800 shadow-lg"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+                Wholesale Enquiry
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Tabs Section -->
+    <section class="pb-10 product-tab">
+      <div class="max-w-7xl mx-auto px-4">
+        <!-- Tab Navigation -->
+        <div
+          class="sticky top-[120px] z-20 p-2 mb-8 overflow-x-auto scrollbar-hide border-b bg-white"
+        >
+          <div class="flex gap-1 min-w-max">
+            <button class="tab-btn active" data-tab="description">
+              Product Description
+            </button>
+            <button class="tab-btn" data-tab="benefits">Benefits</button>
+            <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+            <button class="tab-btn" data-tab="usage">Usage</button>
+            <button class="tab-btn" data-tab="faq">FAQs</button>
+            <button class="tab-btn" data-tab="enquiry">Quick Enquiry</button>
+          </div>
+        </div>
+
+        <!-- Content Area: All sections stacked vertically -->
+        <div
+          class="bg-white rounded-xl shadow-sm border border-gray-100 px-0 md:px-6 py-8 pt-0"
+        >
+          <!-- 1. Description Section -->
+          <div id="description" class="tab-pane pt-0">
+            <div class="editor-content">
+              <h2>
+                Vesco Pharma Gluta C 1000 Glutathione Skin Whitening Injection
+              </h2>
+              <p>
+                Vesco Pharma's Gluta C 1000 Glutathione Skin Whitening
+                Injections are enriched with high-concentration Glutathione and
+                Vitamin C. This powerful formula is designed to brighten skin,
+                reduce pigmentation, and promote a youthful glow. It works by
+                inhibiting melanin production, resulting in a lighter and more
+                even skin tone.
+              </p>
+              <p>
+                Manufactured under strict quality control standards, these
+                injections ensure maximum efficacy and safety. Suitable for all
+                skin types.
+              </p>
+              <h3>Key Highlights</h3>
+              <ul>
+                <li>High Quality Glutathione (1000mg)</li>
+                <li>Enriched with Vitamin C for better absorption</li>
+                <li>Visible results within weeks</li>
+              </ul>
+              <h3>What Makes Vesco Pharma Gluta C 1000 Special?</h3>
+              <p>
+                Vesco Pharma's Gluta C 1000 is a powerful blend of Liquid Nano
+                Glutathione and Vitamin C, designed to improve your skin's
+                health and appearance. This product is available in a package
+                containing 10 ampoules, each with 1000mg of Liquid Nano
+                Glutathione and 1000mg of Vitamin C.
+              </p>
+              <p>
+                The injections can be administered intravenously (IV) or
+                intramuscularly (IM), depending on your preference or medical
+                advice. The combination of Glutathione and Vitamin C works
+                synergistically to deliver impressive skin whitening results.
+              </p>
+              <h3>Understanding Glutathione & Vitamin C</h3>
+              <p>
+                Melanocytes are the cells in our skin responsible for producing
+                melanin, the pigment that determines our skin color. Higher
+                melanin levels result in darker skin tones, while lower melanin
+                levels result in lighter skin tones. The production of melanin
+                is influenced by genetic factors.
+              </p>
+              <p>
+                Glutathione is a natural antioxidant and detoxifying agent in
+                our body. It is a protein-based molecule composed of three amino
+                acids: cysteine, glutamate, and glycine. Glutathione inhibits
+                the enzyme tyrosinase, which is responsible for melanin
+                production. By blocking tyrosinase, Glutathione reduces melanin
+                production, leading to lighter skin. Vitamin C, a key component
+                of Vesco Pharma's Gluta C 1000, enhances the effects of
+                Glutathione by stimulating the skin's cells and promoting
+                hydration. This combination not only whitens the skin but also
+                nourishes it, making it healthier and more radiant.
+              </p>
+              <p>
+                For a radiant and glowing complexion, Vesco Pharma Gluta C 1000
+                is your ultimate solution. Transform your skin and boost your
+                confidence with this revolutionary skin whitening
+                injection.Choosing the right skin whitening product is crucial.
+                Vesco Pharma Gluta C 1000 Glutathione Skin Whitening Injection
+                not only whitens your skin but also improves overall skin
+                health. With regular use and proper care, you can achieve a
+                brighter, more youthful appearance.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-100 my-8 mb-0"></div>
+
+          <!-- 2. Benefits Section -->
+          <div id="benefits" class="tab-pane pt-0">
+            <div class="editor-content">
+              <h2>Key Benefits</h2>
+              <ul>
+                <li>
+                  <strong>Skin Whitening:</strong> The antioxidant properties of
+                  Glutathione detoxify your body, eliminating free radicals.
+                </li>
+                <li>
+                  <strong>Anti-Aging:</strong> Reduces fine lines and wrinkles
+                  by boosting collagen production.
+                </li>
+                <li>
+                  <strong>Detoxification:</strong> Glutathione acts as a
+                  powerful antioxidant, detoxifying the liver and body.
+                </li>
+                <li>
+                  <strong>UV Protection:</strong> Helps in repairing skin damage
+                  caused by sun exposure.
+                </li>
+                <li>
+                  <strong>Even Skin Tone:</strong> Reduces dark spots, acne
+                  scars, and hyperpigmentation.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-100 my-8 mb-0"></div>
+
+          <!-- 3. Ingredients Section -->
+          <div id="ingredients" class="tab-pane pt-0">
+            <div class="editor-content">
+              <h2>Ingredients List</h2>
+              <ol>
+                <li>Glutathione 1000mg</li>
+                <li>Vitamin C (Ascorbic Acid) 500mg</li>
+                <li>Thioctic Acid</li>
+                <li>Epidermal Growth Factor (EGF)</li>
+                <li>Alpha Lipoic Acid</li>
+              </ol>
+              <p>
+                * Please consult the packaging or your healthcare provider for
+                the complete list of excipients.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-100 my-8 mb-0"></div>
+
+          <!-- 4. Usage Section -->
+          <div id="usage" class="tab-pane pt-0">
+            <div class="editor-content">
+              <h2>How to Use</h2>
+              <ol>
+                <li>
+                  Consult a dermatologist or healthcare professional before use.
+                </li>
+                <li>
+                  Administer via intravenous (IV) or intramuscular (IM)
+                  injection.
+                </li>
+                <li>
+                  Recommended frequency is once or twice a week for best
+                  results.
+                </li>
+                <li>
+                  Maintain a healthy diet and hydration levels during the
+                  course.
+                </li>
+                <li>
+                  Avoid sun exposure immediately after the session; use
+                  sunscreen.
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-100 my-8 mb-0"></div>
+
+          <!-- 5. FAQ Section -->
+          <div id="faq" class="tab-pane pt-0">
+            <h2 class="text-2xl section-title font-bold text-[#0F172A] mb-6">
+              Frequently Asked Questions
+            </h2>
+
+            <div class="space-y-4">
+              <!-- FAQ Item 1 -->
+              <div
+                class="faq-item border border-gray-200 rounded-xl overflow-hidden"
+              >
+                <button
+                  class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors"
+                >
+                  <span>Is it safe to use Glutathione injections?</span>
+                  <svg
+                    class="faq-icon w-5 h-5 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
+                  Yes, Glutathione is a naturally occurring antioxidant in the
+                  body. However, it is crucial to use high-quality products from
+                  reputable sellers like Tamaz Global and consult a doctor
+                  before starting any treatment.
+                </div>
+              </div>
+
+              <!-- FAQ Item 2 -->
+              <div
+                class="faq-item border border-gray-200 rounded-xl overflow-hidden"
+              >
+                <button
+                  class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors"
+                >
+                  <span>How many sessions are required to see results?</span>
+                  <svg
+                    class="faq-icon w-5 h-5 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
+                  Results vary based on individual metabolism and skin type.
+                  Generally, visible changes are noticed after 4 to 8 sessions.
+                  Consistency and proper dosage are key.
+                </div>
+              </div>
+
+              <!-- FAQ Item 3 -->
+              <div
+                class="faq-item border border-gray-200 rounded-xl overflow-hidden"
+              >
+                <button
+                  class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors"
+                >
+                  <span>Are there any side effects?</span>
+                  <svg
+                    class="faq-icon w-5 h-5 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
+                  When administered correctly, side effects are rare. Some
+                  individuals might experience mild digestive issues or allergic
+                  reactions. Always get tested for allergies first.
+                </div>
+              </div>
+
+              <!-- FAQ Item 4 -->
+              <div
+                class="faq-item border border-gray-200 rounded-xl overflow-hidden"
+              >
+                <button
+                  class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors"
+                >
+                  <span
+                    >Do Vesco Pharma Gluta C 1000 Injections affect aging?</span
+                  >
+                  <svg
+                    class="faq-icon w-5 h-5 transform transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
+                  As a powerful antioxidant, Glutathione helps reduce signs of
+                  aging like wrinkles and fine lines.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-100 my-8 mb-0"></div>
+
+          <!-- 6. Enquiry Form Section -->
+          <div id="enquiry" class="tab-pane pt-4">
+            <div class="grid lg:grid-cols-2 gap-10">
+              <div>
+                <h2
+                  class="text-2xl section-title font-bold text-[#0F172A] mb-2"
+                >
+                  Quick Enquiry
+                </h2>
+                <p class="text-[#64748B] mb-6">
+                  Fill out the form below and we will get back to you shortly.
+                </p>
+
+                <form class="space-y-4">
+                  <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Name *</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all"
+                        placeholder="Your Name"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >City</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all"
+                        placeholder="Your City"
+                      />
+                    </div>
+                  </div>
+                  <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Phone *</label
+                      >
+                      <input
+                        type="tel"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all"
+                        placeholder="+91 XXXXX XXXXX"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Message</label
+                    >
+                    <textarea
+                      rows="4"
+                      class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all resize-none"
+                      placeholder="Write your message..."
+                    ></textarea>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-gray-600 font-medium">6 + 1 = ?</span>
+                    <input
+                      type="text"
+                      class="w-24 border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none"
+                      placeholder="?"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="w-full sm:w-auto bg-[#0F172A] text-white font-semibold px-10 py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg"
+                  >
+                    Send Now
+                  </button>
+                </form>
+              </div>
+
+              <!-- Contact Info Sidebar -->
+              <div
+                class="rounded-2xl p-8 border border-gray-100 flex flex-col contact-info-block"
+              >
+                <h3 class="text-xl font-bold text-[#0F172A] mb-6">
+                  Contact Information
+                </h3>
+                <div class="space-y-6">
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-[#EFF6FF] br-12 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#1E3A8A"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-[#0F172A]">
+                        Retail Orders
+                      </h4>
+                      <p class="text-sm text-gray-500">Dr. Aliya</p>
+                      <a
+                        href="tel:+919988227622"
+                        class="font-semibold hover:underline"
+                        >+91 99882 27622</a
+                      >
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-[#EFF6FF] br-12 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#1E3A8A"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-[#0F172A]">
+                        Wholesale Orders
+                      </h4>
+                      <p class="text-sm text-gray-500">Mr. Aby</p>
+                      <a
+                        href="tel:+919900746748"
+                        class="font-semibold hover:underline"
+                        >+91 99007 46748</a
+                      >
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 bg-[#EFF6FF] br-12 flex items-center justify-center flex-shrink-0"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#1E3A8A"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-[#0F172A]">Email Us</h4>
+                      <a
+                        href="mailto:sales@tamazglobal.com"
+                        class="font-semibold hover:underline"
+                        >sales@tamazglobal.com</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-10">
+          <div>
+            <div class="footer-logo">
+              <img src="assests/Images/logo.png" width="100" />
+            </div>
+            <p class="footer-desc">
+              Your trusted partner for premium health and wellness products.
+              Quality guaranteed with worldwide shipping.
+            </p>
+            <div class="flex gap-4 mt-6">
+              <a
+                href="#"
+                class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 class="footer-title">Popular Brands</h4>
+            <ul class="footer-links">
+              <li><a href="#">Active White Products</a></li>
+              <li><a href="#">Aqua Skin</a></li>
+              <li><a href="#">Dr James Products</a></li>
+              <li><a href="#">Gluta C Products</a></li>
+              <li><a href="#">Glutax Series</a></li>
+              <li><a href="#">Health Tone Products</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Categories</h4>
+            <ul class="footer-links">
+              <li><a href="#">Glutathione Injections</a></li>
+              <li><a href="#">Other Injections</a></li>
+              <li><a href="#">Skin Whitening Pills</a></li>
+              <li><a href="#">Skin Whitening Cream</a></li>
+              <li><a href="#">Skin Whitening Soap</a></li>
+              <li><a href="#">Skin Whitening Lotions</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Contact Us</h4>
+            <div class="footer-contact-item">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <div>
+                <div class="text-sm opacity-70">Retail Orders (Dr. Aliya)</div>
+                <div>+91 99882 27622</div>
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <div>
+                <div class="text-sm opacity-70">Wholesale Orders(Mr. Aby)</div>
+                <div>+91 99007 46748</div>
+              </div>
+            </div>
+            <div class="footer-contact-item">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <div>
+                <div class="text-sm opacity-70">Email</div>
+                <div>
+                  <a href="mailto:sales@tamazglobal.com"
+                    >sales@tamazglobal.com</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>2026 TAMAZ Global. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Wholesale Enquiry Modal -->
+    <div
+      id="wholesaleModal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+    >
+      <!-- Modal Content Container -->
+      <div
+        class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 relative transform transition-all duration-300 scale-95 opacity-0"
+        id="modalContent"
+      >
+        <!-- Close Button -->
+        <button
+          onclick="closeWholesaleModal()"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- Header -->
+        <div class="p-8 pb-0 text-center">
+          <h2 class="text-2xl section-title font-bold text-[#0F172A]">
+            Get Whole Sale Enquiry
+          </h2>
+          <p class="text-sm text-gray-500 mt-2">
+            Fill in the details below and we will get back to you shortly.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form class="p-8 pt-6 space-y-4">
+          <!-- Name -->
+          <div>
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm"
+            />
+          </div>
+
+          <!-- City -->
+          <div>
+            <input
+              type="text"
+              placeholder="City"
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm"
+            />
+          </div>
+
+          <!-- Phone -->
+          <div>
+            <input
+              type="tel"
+              placeholder="Phone"
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm"
+            />
+          </div>
+
+          <!-- Message -->
+          <div>
+            <textarea
+              rows="3"
+              placeholder="Your Message"
+              class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full btn-primary text-center hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg shadow-blue-200 justify-center"
+          >
+            Send Now
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Image Popup Modal -->
+    <div
+      id="imageModal"
+      class="fixed inset-0 bg-black/80 hidden items-center justify-center z-100 image-modal-container"
+    >
+      <button
+        onclick="closeModal()"
+        class="absolute top-5 right-5 text-white text-3xl"
+      >
+        &times;
+      </button>
+
+      <button onclick="prevImage()" class="absolute left-5 text-white text-3xl">
+        &#10094;
+      </button>
+
+      <img
+        id="modalImage"
+        class="max-w-[90%] max-h-[90%] rounded-lg shadow-lg"
+      />
+
+      <button
+        onclick="nextImage()"
+        class="absolute right-5 text-white text-3xl"
+      >
+        &#10095;
+      </button>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- //this js is for header sticky on scroll -->
+    <script>
+      const header = document.querySelector(".main-header");
+
+      // Read true header height once on load
+      let headerHeight = header.offsetHeight;
+
+      // Keep height updated on resize
+      window.addEventListener("resize", () => {
+        if (!header.classList.contains("sticky")) {
+          headerHeight = header.offsetHeight;
+        }
+      });
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 10) {
+          if (!header.classList.contains("sticky")) {
+            headerHeight = header.offsetHeight; // snapshot before going fixed
+            document.body.style.paddingTop = headerHeight + "px";
+            header.classList.add("sticky", "shrink");
+          }
+        } else {
+          if (header.classList.contains("sticky")) {
+            header.classList.remove("sticky", "shrink");
+            document.body.style.paddingTop = "0px";
+          }
+        }
+      });
+    </script>
+
+    <script>
+      const images = [
+        "assests/Images/old-product/p-1.jpg",
+        "assests/Images/old-product/p-2.jpg",
+        "assests/Images/old-product/p-3.jpg",
+        "assests/Images/old-product/p-4.jpg",
+      ];
+
+      let currentIndex = 0;
+
+      function changeImage(index) {
+        currentIndex = index;
+        document.getElementById("mainProductImage").src = images[index];
+
+        // Update active thumbnail border
+        document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
+          btn.classList.toggle("border-[#B91C1C]", i === index);
+          btn.classList.toggle("border-transparent", i !== index);
+        });
+      }
+
+      function openModal(index) {
+        currentIndex = index;
+        document.getElementById("imageModal").classList.remove("hidden");
+        document.getElementById("imageModal").classList.add("flex");
+        updateModalImage();
+      }
+
+      function closeModal() {
+        document.getElementById("imageModal").classList.add("hidden");
+        document.getElementById("imageModal").classList.remove("flex");
+      }
+
+      function updateModalImage() {
+        document.getElementById("modalImage").src = images[currentIndex];
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateModalImage();
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateModalImage();
+      }
+    </script>
+
+    <script>
+      // Image Gallery Function
+      // function changeImage(src) {
+      // document.getElementById("mainProductImage").src = src;
+      // Manage active state for thumbnails
+      // document.querySelectorAll(".thumb-btn").forEach((btn) => {
+      //     btn.classList.remove("border-[#B91C1C]");
+      //     btn.classList.add("border-transparent");
+      //   });
+      //   event.currentTarget.classList.remove("border-transparent");
+      //   event.currentTarget.classList.add("border-[#B91C1C]");
+      // }
+
+      // Tabs Logic
+      // ✅ Smooth scroll instead of tab switching
+      document.querySelectorAll(".tab-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const targetId = this.getAttribute("data-tab");
+          const target = document.getElementById(targetId);
+
+          if (target) {
+            const headerOffset = 190; // adjust if needed
+            const elementPosition =
+              target.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+
+          // Active tab UI (no content hiding)
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((btn) => btn.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+      // FAQ Accordion Logic
+      document.querySelectorAll(".faq-question").forEach((button) => {
+        button.addEventListener("click", () => {
+          const answer = button.nextElementSibling;
+          const icon = button.querySelector(".faq-icon");
+
+          // Toggle current
+          answer.classList.toggle("hidden");
+          icon.classList.toggle("rotate-180");
+        });
+      });
+    </script>
+
+    <script>
+      // Modal Functions
+      const wholesaleModal = document.getElementById("wholesaleModal");
+      const modalContent = document.getElementById("modalContent");
+
+      function openWholesaleModal() {
+        wholesaleModal.classList.remove("hidden");
+        wholesaleModal.classList.add("flex");
+
+        // Small timeout to trigger animation
+        setTimeout(() => {
+          wholesaleModal.classList.add("opacity-100");
+          wholesaleModal.classList.remove("bg-opacity-0");
+          modalContent.classList.remove("scale-95", "opacity-0");
+          modalContent.classList.add("scale-100", "opacity-100");
+        }, 10);
+
+        // Prevent body scroll
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeWholesaleModal() {
+        modalContent.classList.remove("scale-100", "opacity-100");
+        modalContent.classList.add("scale-95", "opacity-0");
+
+        setTimeout(() => {
+          wholesaleModal.classList.add("hidden");
+          wholesaleModal.classList.remove("flex", "opacity-100");
+          document.body.style.overflow = "auto";
+        }, 300);
+      }
+
+      // Close modal when clicking outside the content
+      wholesaleModal.addEventListener("click", (e) => {
+        if (e.target === wholesaleModal) {
+          closeWholesaleModal();
+        }
+      });
+    </script>
+  </body>
+</html>
