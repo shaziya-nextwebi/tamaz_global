@@ -65,8 +65,8 @@
 
             .MobileHeroSlider {
     width: 100%;
-    height: auto; /* adjust */
-    background: #000; /* optional: fills empty space */
+    height: auto; 
+   
     display:none;
 }
 
@@ -85,7 +85,7 @@
 
 /* Pagination */
 .mobile-hero-pagination {
-    bottom: 8px !important;
+    bottom: 0px !important;
 }
       @media(max-width:576px)
       {
@@ -641,7 +641,7 @@
 
         // Spotlight Mobile Swiper
         new Swiper(".spotlightSwiper", {
-            slidesPerView: 1.7,
+            slidesPerView: 1.2,
             spaceBetween: 16,
         });
 

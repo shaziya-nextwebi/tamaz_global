@@ -2024,6 +2024,14 @@ body.sticky-active {
     .extra-point-grid-detail {
         grid-template-columns: repeat(1, 1fr) !important;
     }
+    .client-card {
+        width: 100px !important;
+        height: 50px !important;
+    }
+    .slider-track {
+        
+        animation: slideLeft 10s linear infinite;
+    }
 
 }
 
@@ -2031,19 +2039,25 @@ body.sticky-active {
 
 
 
-.spotlightSwiper {
-  padding-left: 16px;
+.spotlightSwiper .spotlight-card {
+width:100%;
 }
-
-/* .spotlightSwiper .swiper-slide {
+    .spotlightSwiper .spotlight-card .spotlight-bridge {
+        font-size: 10px !important;
+        color: white !important;
+        padding: 2px 8px;
+    }
+    .spotlightSwiper .spotlight-card .overlay-gradient {
+        background: rgb(39 36 36 / 22%) !important;
+    }
+    /* .spotlightSwiper .swiper-slide {
   width: 75% !important;
 } */
-
-/* Optional premium effect */
-.spotlightSwiper .swiper-slide {
-  transform: scale(0.92);
-  transition: 0.3s;
-}
+    /* Optional premium effect */
+    .spotlightSwiper .swiper-slide {
+        transform: scale(0.92);
+        transition: 0.3s;
+    }
 
 .spotlightSwiper .swiper-slide-active {
   transform: scale(1);
