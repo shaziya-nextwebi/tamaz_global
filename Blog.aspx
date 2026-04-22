@@ -30,7 +30,7 @@
                     <span class="text-primary font-medium">Blogs</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Our Blogs</h1>
-                <p class="text-lg text-text-muted max-w-2xl mx-auto">
+                <p class="text-lg text-text-muted max-w-2xl mx-auto banner-aub-text">
                     Dive into stories, tips, and trends designed to inform, inspire, and elevate your knowledge.
                
                 </p>
@@ -260,10 +260,7 @@
 
     </section>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50">
-        <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
-    </a>
+
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="assests/js/pages/blog.js"></script>

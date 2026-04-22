@@ -45,7 +45,7 @@
                     <span class="text-primary font-medium">About Us</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">About Us</h1>
-                <p class="text-lg text-text-muted max-w-2xl mx-auto">Discover the story behind Tamaz Global Trading Co. and our commitment to quality.</p>
+                <p class="text-lg text-text-muted max-w-2xl mx-auto banner-aub-text">Discover the story behind Tamaz Global Trading Co. and our commitment to quality.</p>
             </div>
         </div>
     </section>
@@ -53,12 +53,12 @@
     <!-- About Company Section -->
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 md:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-bg-light br-12 -z-10"></div>
                         <img src="assests/Images/about-us-page/about-us--intro.png" alt="Our Team" class="w-full h-auto br-12 shadow-xl" />
-                        <div class="absolute -bottom-6 -right-6 bg-white br-12 shadow-xl p-6 border border-gray-100">
+                        <div class="absolute -bottom-6 -right-6 bg-white br-12 shadow-xl p-6 border border-gray-100 about-side-strip">
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 feature-icon rounded-full flex items-center justify-center text-[#0a1b50] text-2xl font-bold">
                                     15+
@@ -87,26 +87,26 @@
                             We believe in empowering our customers with genuine products that enhance their well-being. Our extensive network allows us to offer competitive pricing without compromising on quality.
                         </p>
                     </div>
-                    <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="grid sm:grid-cols-2 gap-4 about-point-grid-2">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                                 <span class="iconify w-5 h-5 text-green-600" data-icon="lucide:check-circle"></span>
                             </div>
-                            <span class="text-primary font-medium">100% Authentic</span>
+                            <span class="text-primary font-medium fs-sm-14">100% Authentic</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
                                 <span class="iconify w-5 h-5 text-secondary" data-icon="lucide:users"></span>
                             </div>
-                            <span class="text-primary font-medium">Wholesale Focus</span>
+                            <span class="text-primary font-medium fs-sm-14">Wholesale Focus</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
                                 <span class="iconify w-5 h-5 text-purple-600" data-icon="lucide:globe"></span>
                             </div>
-                            <span class="text-primary font-medium">Global Shipping</span>
+                            <span class="text-primary font-medium fs-sm-14">Global Shipping</span>
                         </div>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 fs-sm-14">
                             <div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
                                 <span class="iconify w-5 h-5 text-orange-600" data-icon="lucide:headphones"></span>
                             </div>
@@ -124,30 +124,30 @@
             <div class="text-center mb-6 reveal">
                 <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] mb-4">Why Choose Us</h2>
                 <p class="text-text-muted max-w-xl mx-auto">We are committed to providing the best service and genuine products to our valued customers.</p>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
-                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+            </div> 
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 reveal about-point-grid-2">
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group why-points-card">
                     <div class="w-16 h-16 rounded-2xl bg-accent/5 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent transition-colors">
                         <span class="iconify w-8 h-8 text-accent group-hover:text-white transition-colors" data-icon="lucide:badge-check"></span>
                     </div>
                     <h3 class="text-lg font-bold text-primary mb-2">100% Authentic</h3>
                     <p class="text-sm text-text-muted">Sourced directly from authorized manufacturers.</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group why-points-card">
                     <div class="w-16 h-16 rounded-2xl bg-accent/5 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent transition-colors">
                         <span class="iconify w-8 h-8 text-accent group-hover:text-white transition-colors" data-icon="lucide:truck"></span>
                     </div>
                     <h3 class="text-lg font-bold text-primary mb-2">Free Shipping</h3>
                     <p class="text-sm text-text-muted">On all orders over $150 worldwide.</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group why-points-card">
                     <div class="w-16 h-16 rounded-2xl bg-accent/5 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent transition-colors">
                         <span class="iconify w-8 h-8 text-accent group-hover:text-white transition-colors" data-icon="lucide:shield-check"></span>
                     </div>
                     <h3 class="text-lg font-bold text-primary mb-2">Secure Payment</h3>
                     <p class="text-sm text-text-muted">100% secure transaction guarantee.</p>
                 </div>
-                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group why-points-card">
                     <div class="w-16 h-16 rounded-2xl bg-accent/5 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent transition-colors">
                         <span class="iconify w-8 h-8 text-accent group-hover:text-white transition-colors" data-icon="lucide:headphones"></span>
                     </div>
@@ -161,25 +161,25 @@
     <!-- Stats Section -->
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-gradient-to-r from-primary to-secondary br-12 p-10 md:p-16 relative overflow-hidden">
+            <div class="bg-gradient-to-r from-primary to-secondary br-12 p-10 md:p-16 relative overflow-hidden stats-point-wrap">
                 <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-                <div class="relative z-10 grid md:grid-cols-4 gap-8 text-center">
+                <div class="relative z-10 grid sm:grid-cols-2 md:grid-cols-4 gap-8 text-center about-point-grid-2">
                     <div>
-                        <p class="text-5xl font-bold text-white mb-2">15+</p>
-                        <p class="text-blue-200 font-medium">Years Experience</p>
+                        <p class="text-5xl font-bold text-white mb-2 fs-sm-28">15+</p>
+                        <p class="text-blue-200 font-medium fs-sm-14 ">Years Experience</p>
                     </div>
                     <div>
-                        <p class="text-5xl font-bold text-white mb-2">500+</p>
-                        <p class="text-blue-200 font-medium">Products</p>
+                        <p class="text-5xl font-bold text-white mb-2 fs-sm-28">500+</p>
+                        <p class="text-blue-200 font-medium fs-sm-14">Products</p>
                     </div>
                     <div>
-                        <p class="text-5xl font-bold text-white mb-2">50K+</p>
-                        <p class="text-blue-200 font-medium">Happy Customers</p>
+                        <p class="text-5xl font-bold text-white mb-2 fs-sm-28">50K+</p>
+                        <p class="text-blue-200 font-medium fs-sm-14">Happy Customers</p>
                     </div>
                     <div>
-                        <p class="text-5xl font-bold text-white mb-2">15+</p>
-                        <p class="text-blue-200 font-medium">Countries Served</p>
+                        <p class="text-5xl font-bold text-white mb-2 fs-sm-28">15+</p>
+                        <p class="text-blue-200 font-medium fs-sm-14">Countries Served</p>
                     </div>
                 </div>
             </div>
@@ -189,7 +189,7 @@
     <!-- Our Mission Section -->
     <section class="section-padding bg-bg-light">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="grid lg:grid-cols-2 gap-16 items-center mobile-gap-20">
                 <div class="reveal order-2 lg:order-1">
                     <span class="inline-block text-xs md:text-sm font-bold text-[#1E3A8A] uppercase tracking-wider mb-4 relative">
                         OUR MISSION
@@ -210,15 +210,15 @@
                     </a>
                 </div>
                 <div class="reveal order-1 lg:order-2">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-4 grid-sm-1">
                         <img src="assests/Images/about-us-page/our-mission-image/1.png" alt="products" class="w-full h-64 object-cover rounded-2xl shadow-lg" />
-                        <img src="assests/Images/about-us-page/our-mission-image/2.png" alt="products" class="w-full h-64 object-cover rounded-2xl shadow-lg mt-8" />
+                        <img src="assests/Images/about-us-page/our-mission-image/2.png" alt="products" class="w-full h-64 object-cover rounded-2xl shadow-lg mt-8 mobile-d-none" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="max-w-7xl mx-auto mt-8 our-mission-points">
+            <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-6 about-point-grid-2">
                 <div class="flex items-center gap-4 p-4">
                     <span class="iconify w-12 h-12 text-accent" data-icon="lucide:truck"></span>
                     <div>
@@ -247,7 +247,7 @@
     <!-- Call To Action -->
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 text-center reveal">
-            <div class="br-12 p-12 md:p-16 border border-gray-100 relative overflow-hidden cta-bg-image">
+            <div class="br-12 p-12 md:p-16 border border-gray-100 relative overflow-hidden cta-bg-image stats-point-wrap">
                 <h2 class="text-2xl md:text-3xl font-bold text-[#ffffff] mb-4">Partner With Us Today</h2>
                 <p class="text-white max-w-xl mx-auto mb-8">Join our network of satisfied customers and distributors. Contact us for wholesale inquiries.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -264,10 +264,7 @@
         </div>
     </section>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50">
-        <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
-    </a>
+  
 
 </asp:Content>
 

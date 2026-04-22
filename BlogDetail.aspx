@@ -25,7 +25,7 @@
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
                 <a href="Blog.aspx" class="hover:text-red-700 transition-colors">Blog</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
-                <span class="text-slate-900 font-medium"><%= BlogTitle %></span>
+                <span class="text-slate-900 font-medium blog-tittle-breadCrumb"><%= BlogTitle %></span>
             </div>
         </div>
     </div>
@@ -41,10 +41,10 @@
                         <!-- Featured Image -->
                         <div class="relative h-64 md:h-96 w-full">
                             <img src="/<%= ImageUrl %>" alt="image" class="w-full h-full object-cover" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent blog-Detailcard-overlay"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-6">
                                 <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-semibold mb-3 inline-block"><%= CategoryName %></span>
-                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4"><%= BlogTitle %></h1>
+                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4 blog-detail-title" ><%= BlogTitle %></h1>
                             </div>
                         </div>
 
@@ -217,7 +217,7 @@
 
                 <!-- Sidebar (Right Side) -->
                 <div class="lg:col-span-1">
-                    <div class="sticky top-2 space-y-6">
+                    <div class="sticky top-2 blog-right-side space-y-6">
 
                         <!-- Categories Widget -->
                         <div class="bg-white p-6 br-12 shadow-sm border border-slate-100 reveal">
@@ -289,10 +289,7 @@
         </div>
     </section>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50">
-        <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
-    </a>
+ 
 
 </asp:Content>
 

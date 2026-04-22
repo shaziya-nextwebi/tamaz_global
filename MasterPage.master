@@ -37,6 +37,105 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        .mobileNavDrawerMenu {
+            z-index: 9999 !important;
+        }
+        /*      .dropdown-item
+          {
+              transition:0.3s ease;
+          }
+        .dropdown-item:hover{
+            color:#0a1b50;
+            transform:translateX(4px);
+        }
+      */
+        .visible-xs {
+            display: none;
+        }
+
+        @media(max-width:576px) {
+            .logo-image {
+                width: 100px;
+            }
+
+            .main-header.shrink .logo-image {
+                width: 80px;
+            }
+
+            .whats-app-float {
+                display: none !important;
+            }
+
+            .visible-xs {
+                display: block;
+            }
+
+            footer {
+                padding: 30px 0px 50px !important;
+            }
+
+            .search-container input {
+                padding: 8px 40px 8px 24px;
+                border-radius: 18px;
+            }
+
+            .search-btn {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        .mobile-bottom {
+            width: 100%;
+            position: fixed;
+            bottom: -1px;
+            height: auto;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+            .mobile-bottom ul li.call {
+                padding: 8px 10px;
+                background: #f00;
+                /*    text-transform: uppercase;*/
+                color: #fff;
+                margin-left: 0;
+                float: left;
+                text-align: center;
+                list-style: none;
+                width: 50%;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+            .mobile-bottom ul li a {
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-bottom ul li.wtsapp {
+                padding: 8px 10px;
+                background: #008000;
+                /*    text-transform: uppercase;*/
+                color: #fff;
+                margin-left: 0;
+                float: left;
+                text-align: center;
+                list-style: none;
+                width: 50%;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+            .mobile-bottom ul li a {
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
     </style>
 
     <!-- Page-level head content -->
@@ -108,13 +207,42 @@
                     </div>
 
                     <!-- Mobile Menu Button -->
-                    <button class="mobile-menu-btn">
+                    <%--        <button class="mobile-menu-btn">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="3" y1="12" x2="21" y2="12" />
                             <line x1="3" y1="6" x2="21" y2="6" />
                             <line x1="3" y1="18" x2="21" y2="18" />
                         </svg>
-                    </button>
+                    </button>--%>
+                    <div class="flex  items-center gap-1 md:hidden">
+                        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                        <a class="relative p-1 mobile-cart-icon" href="Cart.aspx">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <path d="M16 10a4 4 0 0 1-8 0" />
+                            </svg>
+                            <span class="absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center">3</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile Search Bar (max-width: 767px) -->
+                <div class="mobile-search-bar md:hidden px-4 pb-3 mt-2">
+                    <div class="search-container w-full">
+                        <input type="text" placeholder="Search for products, brands and more..." />
+                        <button class="search-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Desktop Nav -->
@@ -311,7 +439,144 @@
                 </div>
             </div>
         </footer>
+        <!-- WhatsApp Floating Button -->
+        <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50 whats-app-float">
+            <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
+        </a>
+        <%--//call and Whats App For Footer--%>
+        <div class="mobile-bottom d-none-normal visible-xs">
+            <ul style="padding-left: 0;">
+                <li class="call"><a href="tel:+919988227622">Call Now</a></li>
+                <li class="wtsapp"><a href="https://api.whatsapp.com/send?phone=919988227622" target="_blank">Whatsapp</a></li>
+            </ul>
+        </div>
         <!-- ===================== END FOOTER ===================== -->
+        <%-- //mobile menu--%>
+        <!-- Mobile Nav Overlay -->
+        <div id="mobileNavOverlay" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+
+        <!-- Mobile Nav Drawer -->
+        <div id="mobileNavDrawer" class="mobileNavDrawerMenu fixed top-0 left-0 h-full w-[320px] bg-white  shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col">
+
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between px-4 py-4 border-b border-gray-200">
+                <!-- Tabs -->
+                <div class="flex gap-4">
+                    <span id="tabCategories" class="mobile-drawer-tab active-tab font-semibold text-sm" onclick="switchTab('categories')">CATEGORIES</span>
+                    <span id="tabMainMenu" class="mobile-drawer-tab text-sm text-black-500" onclick="switchTab('mainmenu') ">MAIN MENU</span>
+                </div>
+                <span id="closeDrawerBtn" class="p-2 hover:bg-gray-100 rounded-full">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </span>
+            </div>
+
+            <!-- Categories Tab -->
+            <div id="panelCategories" class="overflow-y-auto flex-1">
+                <%=strNavCategories %>
+                <!-- Fallback static list (remove if strNavCategories covers all) -->
+            </div>
+
+            <!-- Main Menu Tab -->
+            <div id="panelMainMenu" class="overflow-y-auto flex-1 hidden">
+                <a href="/Default.aspx" class="mobile-nav-item">Home</a>
+                <a href="/About.aspx" class="mobile-nav-item">About Us</a>
+                <a href="/Blog.aspx" class="mobile-nav-item">Blog</a>
+                <a href="/ContactUs.aspx" class="mobile-nav-item">Contact Us</a>
+            </div>
+        </div>
+
+        <style>
+            /* Mobile drawer tab styles */
+            .mobile-drawer-tab {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding-bottom: 4px;
+            }
+
+            .active-tab {
+                color: #e11d48;
+                border-bottom: 2px solid #e11d48;
+            }
+
+            .mobile-nav-item {
+                display: block;
+                padding: 14px 20px;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 15px;
+                color: #333;
+                text-decoration: none;
+            }
+
+                .mobile-nav-item:hover {
+                    background: #f9f9f9;
+                }
+
+            @media (max-width: 767px) {
+                .mobile-search-bar .search-container {
+                    width: 100%;
+                }
+
+                    .mobile-search-bar .search-container input {
+                        width: 100%;
+                    }
+
+                .mobile-cart-icon {
+                    display: flex;
+                }
+            }
+        </style>
+
+        <script>
+            // Open / Close Drawer
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const overlay = document.getElementById('mobileNavOverlay');
+            const drawer = document.getElementById('mobileNavDrawer');
+            const closeBtn = document.getElementById('closeDrawerBtn');
+
+            function openDrawer() {
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            if (menuBtn) menuBtn.addEventListener('click', openDrawer);
+            if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+            if (overlay) overlay.addEventListener('click', closeDrawer);
+
+            // Tab switching
+            function switchTab(tab) {
+                const catPanel = document.getElementById('panelCategories');
+                const menuPanel = document.getElementById('panelMainMenu');
+                const tabCat = document.getElementById('tabCategories');
+                const tabMenu = document.getElementById('tabMainMenu');
+
+                if (tab === 'categories') {
+                    catPanel.classList.remove('hidden');
+                    menuPanel.classList.add('hidden');
+                    tabCat.classList.add('active-tab');
+                    tabCat.style.color = '#e11d48';
+                    tabMenu.classList.remove('active-tab');
+                    tabMenu.style.color = '#6b7280';
+                } else {
+                    menuPanel.classList.remove('hidden');
+                    catPanel.classList.add('hidden');
+                    tabMenu.classList.add('active-tab');
+                    tabMenu.style.color = '#e11d48';
+                    tabCat.classList.remove('active-tab');
+                    tabCat.style.color = '#6b7280';
+                }
+            }
+        </script>
 
     </form>
 
