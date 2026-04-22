@@ -83,6 +83,8 @@
             .search-btn {
                 width: 30px;
                 height: 30px;
+                right: 22px;
+    top: 38%;
             }
         }
 
@@ -136,6 +138,67 @@
                 align-items: center;
                 justify-content: center;
             }
+            .search-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+    max-height: 360px;
+    overflow-y: auto;
+}
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid #f3f4f6;
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: #f9fafb; }
+.suggestion-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f3f4f6;
+    flex-shrink: 0;
+}
+.suggestion-info { display: flex; flex-direction: column; }
+.suggestion-name { font-size: 13px; font-weight: 600; color: #111827; line-height: 1.3; }
+.suggestion-cat { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.suggestion-no-result { padding: 14px 16px; font-size: 13px; color: #9ca3af; }
+.search-suggestions::-webkit-scrollbar {
+    width: 4px;   /* 👈 thin */
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+}
+
+/* On hover → slightly visible */
+.search-suggestions:hover::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Firefox */
+.search-suggestions {
+    scrollbar-width: thin;
+    scrollbar-color: #bbb transparent;
+}
     </style>
 
     <!-- Page-level head content -->
@@ -156,15 +219,17 @@
                     </a>
 
                     <!-- Search -->
-                    <div class="search-container hidden md:block">
-                        <input type="text" placeholder="Search for products, brands and more..." />
-                        <button class="search-btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8" />
-                                <path d="m21 21-4.35-4.35" />
-                            </svg>
-                        </button>
-                    </div>
+          <!-- Desktop Search -->
+<div class="search-container hidden md:block" style="position:relative;">
+    <input type="text" id="desktopSearchInput" placeholder="Search for products, brands and more..." autocomplete="off" />
+    <button class="search-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+        </svg>
+    </button>
+    <div class="search-suggestions" id="desktopSuggestions"></div>
+</div>
 
                     <!-- Phone Numbers & Cart -->
                     <div class="phone-numbers flex items-center gap-4">
@@ -233,17 +298,15 @@
                     </div>
                 </div>
                 <!-- Mobile Search Bar (max-width: 767px) -->
-                <div class="mobile-search-bar md:hidden px-4 pb-3 mt-2">
-                    <div class="search-container w-full">
-                        <input type="text" placeholder="Search for products, brands and more..." />
-                        <button class="search-btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Mobile Search -->
+<div class="search-container w-full mobile-search-bar md:hidden px-4 pb-3 mt-2" style="position:relative;">
+    <input type="text" id="mobileSearchInput" placeholder="Search for products, brands and more..." autocomplete="off" />
+    <button class="search-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.35-4.35" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+                            </svg></button>
+    <div class="search-suggestions" id="mobileSuggestions"></div>
+</div>
 
                 <!-- Desktop Nav -->
                 <nav class="desktop-nav mt-4 pt-4 border-t border-gray-100 bg-linear-gradient">
@@ -487,6 +550,65 @@
                 <a href="/ContactUs.aspx" class="mobile-nav-item">Contact Us</a>
             </div>
         </div>
+        <script>
+            const dummyProducts = [
+                { name: "Glutax 5GS Micro Advance", category: "Glutathione Injections", img: "/assests/Images/products/p1.png" },
+                { name: "Aqua Skin Veniscy 86", category: "Glutathione Injections", img: "/assests/Images/products/p2.png" },
+                { name: "Active White L-Glutathione", category: "Skin Whitening Pills", img: "/assests/Images/products/p3.png" },
+                { name: "Dr James Advance Whitening Cream", category: "Skin Whitening Cream", img: "/assests/Images/products/p4.png" },
+                { name: "Gluta C Intense Whitening Soap", category: "Skin Whitening Soap", img: "/assests/Images/products/p5.png" },
+                { name: "Health Tone Weight Gain Capsules", category: "Weight Gain Products", img: "/assests/Images/products/p6.png" },
+                { name: "Collagen Booster Injection", category: "Other Injections", img: "/assests/Images/products/p7.png" },
+                { name: "Glutax 2GS Recombined White", category: "Glutathione Injections", img: "/assests/Images/products/p8.png" }
+            ];
+
+            const fallbackImg = "/assests/Images/favicon.png";
+
+            function buildSuggestions(query, containerId) {
+                const box = document.getElementById(containerId);
+                if (!box) return;
+                const q = query.trim().toLowerCase();
+                if (!q) { box.style.display = 'none'; return; }
+
+                const matches = dummyProducts.filter(p =>
+                    p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+                );
+
+                if (matches.length === 0) {
+                    box.innerHTML = `<div class="suggestion-no-result">No results found for "<strong>${query}</strong>"</div>`;
+                } else {
+                    box.innerHTML = matches.map(p => `
+            <div class="suggestion-item" onclick="window.location='Product.aspx'">
+                <img class="suggestion-img" src="${p.img}" onerror="this.src='${fallbackImg}'" alt="${p.name}" />
+                <div class="suggestion-info">
+                    <span class="suggestion-name">${p.name}</span>
+                    <span class="suggestion-cat">${p.category}</span>
+                </div>
+            </div>
+        `).join('');
+                }
+                box.style.display = 'block';
+            }
+
+            function initSearch(inputId, suggestionsId) {
+                const input = document.getElementById(inputId);
+                if (!input) return;
+                input.addEventListener('input', () => buildSuggestions(input.value, suggestionsId));
+                input.addEventListener('focus', () => { if (input.value.trim()) buildSuggestions(input.value, suggestionsId); });
+            }
+
+            initSearch('desktopSearchInput', 'desktopSuggestions');
+            initSearch('mobileSearchInput', 'mobileSuggestions');
+
+            document.addEventListener('click', function (e) {
+                ['desktopSuggestions', 'mobileSuggestions'].forEach(id => {
+                    const box = document.getElementById(id);
+                    if (box && !box.contains(e.target) && e.target.id !== 'desktopSearchInput' && e.target.id !== 'mobileSearchInput') {
+                        box.style.display = 'none';
+                    }
+                });
+            });
+        </script>
 
         <style>
             /* Mobile drawer tab styles */

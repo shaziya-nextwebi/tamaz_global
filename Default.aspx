@@ -42,7 +42,51 @@
             .swiper-slide .max-w-7xl {
                 position: relative;
                 z-index: 1;
+                width:100%;
             }
+      
+
+
+            .MobileHeroSlider {
+    width: 100%;
+    height: auto; /* adjust */
+    background: #000; /* optional: fills empty space */
+    display:none;
+}
+
+.MobileHeroSlider .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 👇 Important */
+.MobileHeroSlider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* ✅ FULL image visible */
+}
+
+/* Pagination */
+.mobile-hero-pagination {
+    bottom: 8px !important;
+}
+      @media(max-width:576px)
+      {
+          .desktop-hero-banner
+          {
+              display:none;
+          }
+          .MobileHeroSlider{
+              display:block;
+          }
+
+      }
+
+
+
+
+
     </style>
 </asp:Content>
 
@@ -143,7 +187,7 @@
             <div class="swiper-button-prev"></div>
         </div>
     </section>--%>
-    <section class="hero-banner" id="hero">
+    <section class="hero-banner desktop-hero-banner" id="hero">
         <div class="swiper myHeroSlider">
             <div class="swiper-wrapper">
                 <%=strBannerHtml %>
@@ -152,6 +196,47 @@
             <div class="swiper-button-prev"></div>
         </div>
     </section>
+
+ <%--   //this is the banner section for Mobile--%>
+<section class="hero-banner mobile-hero-banner swiper-container MobileHeroSlider">
+
+    <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/1.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/2.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/3.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/4.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/5.png" />
+            </a>
+        </div>
+
+    </div>
+
+    <div class="swiper-pagination mobile-hero-pagination"></div>
+
+</section>
 
     <!-- ===================== FEATURES ===================== -->
     <section class="features-section">
@@ -509,6 +594,22 @@
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
+ <script>
+     var mobileHeroSlider = new Swiper('.MobileHeroSlider', {
+         loop: true,
+         //autoplay: {
+         //    delay: 3000,
+         //    disableOnInteraction: false,
+         //},
+
+         pagination: {
+             el: '.mobile-hero-pagination',
+             clickable: true,
+         },
+
+         speed: 600
+     });
+</script>
     <script>
         // Hero Slider
         new Swiper(".myHeroSlider", {
