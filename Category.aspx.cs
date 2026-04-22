@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-
+using System.Web.Services;
 public partial class CategoryPage : System.Web.UI.Page
 {
     SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
@@ -129,7 +129,7 @@ public partial class CategoryPage : System.Web.UI.Page
                         "<div class='product-info'>" +
                             "<h3 class='product-name'>" + p.ProductName + "</h3>" +
                             "<div class='product-price'>" + price + "</div>" +
-                            "<button class='add-cart-btn' onclick='event.stopPropagation();'>Add to Cart</button>" +
+                           "<button class='add-cart-btn' onclick='event.stopPropagation(); addToCart(" + p.Id + ", this)'>Add to Cart</button>"  +
                         "</div>" +
                     "</div>";
             }
@@ -181,5 +181,65 @@ public partial class CategoryPage : System.Web.UI.Page
         string nextDisabled = currentPg == totalPages ? "opacity-50 pointer-events-none" : "";
         strPagination += "<a href='" + baseUrl + (currentPg + 1) + "' class='pagination-btn pagination-next " + nextDisabled + "'>" +
                          "Next<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='9 18 15 12 9 6'/></svg></a>";
+    }
+    [WebMethod]
+    public static string AddToCart(int productId)
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(
+                ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+
+            string uid = HttpContext.Current.Request.Cookies["t_new_vi"] != null
+                         ? HttpContext.Current.Request.Cookies["t_new_vi"].Value : "";
+
+            if (uid == "")
+            {
+                // Generate a new guest guid and set cookie
+                uid = Guid.NewGuid().ToString();
+                string encUid = CommonModel.Encrypt(uid);
+                HttpCookie cookie = new HttpCookie("t_new_vi", encUid);
+                cookie.Expires = DateTime.Now.AddDays(30);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            else
+            {
+                uid = CommonModel.Decrypt(uid);
+            }
+
+            // Check if already in cart — update qty, else insert
+            List<AddtoCart> existing = AddtoCart.GetUserArpcartByUid(conT, uid, productId.ToString());
+
+            if (existing.Count > 0)
+            {
+                AddtoCart update = new AddtoCart
+                {
+                    ProductId = productId,
+                    Userguid = uid,
+                    Qty = existing[0].Qty + 1
+                };
+                AddtoCart.Updatecartdetails(conT, update);
+            }
+            else
+            {
+                AddtoCart insert = new AddtoCart
+                {
+                    ProductId = productId,
+                    Userguid = uid,
+                    Qty = 1
+                };
+                AddtoCart.Insertcartdetails(conT, insert);
+            }
+
+            // Return updated cart count
+            string count = AddtoCart.GetcartlistQunatity(conT);
+            return count == "" ? "0" : count;
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(
+                HttpContext.Current.Request.Url.PathAndQuery, "AddToCart", ex.Message);
+            return "-1";
+        }
     }
 }

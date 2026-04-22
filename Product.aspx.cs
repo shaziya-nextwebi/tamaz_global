@@ -12,7 +12,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
 
     public string strProductUrl = "";
-    public string strProductId = "";   // NEW — needed by JS to load gallery
+    public string strProductId = "";   
     public string strProductName = "";
     public string strBrand = "";
     public string strCategory = "";
@@ -31,7 +31,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
     public string strIngredientTags = "";
     public string strAvailBadge = "";
     public string strLabelBadge = "";
-    public string strProdFaqs = "";   // NEW — FAQ rows rendered server-side
+    public string strProdFaqs = "";   
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -135,7 +135,6 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         }
     }
 
-    // Build FAQ accordion HTML server-side
     private void BuildFaqHtml(string pid)
     {
         try
@@ -168,7 +167,6 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         }
     }
 
-    // ---- WebMethod: gallery images for JS thumbnail loader ----
     [System.Web.Services.WebMethod]
     public static List<ProductGallery> GetProductGallery(string id)
     {
@@ -188,8 +186,8 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         }
         return list;
     }
-
     [System.Web.Services.WebMethod]
+    [System.Web.Script.Services.ScriptMethod]
     public static string SubmitEnquiry(string name, string city, string phone,
                                        string email, string message, string product)
     {
@@ -197,25 +195,40 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         {
             SqlConnection con = new SqlConnection(
                 ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-            string query = @"INSERT INTO Enquiries
-                             (Name,City,Phone,Email,Message,Product,EnquiryType,AddedOn)
-                             VALUES (@Name,@City,@Phone,@Email,@Message,@Product,'Retail',GETDATE())";
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@City", city);
-                cmd.Parameters.AddWithValue("@Phone", phone);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Message", message);
-                cmd.Parameters.AddWithValue("@Product", product);
-                con.Open(); cmd.ExecuteNonQuery(); con.Close();
-            }
+
+            ProductEnquiry obj = new ProductEnquiry();
+            obj.ProductName = product;
+            obj.TypeofEnquiry = "Retail";
+            obj.Name = name;
+            obj.Mobile = phone;
+            obj.Email = email;
+            obj.SourcePage = "Product Page (Retail Enquiry)";
+            obj.City = city;
+            obj.Message = message;
+            obj.AddedOn = DateTime.Now;
+            obj.AddedIp = HttpContext.Current.Request.UserHostAddress;
+            obj.Status = "Active";
+
+            ProductEnquiry.InsertProductEnquiry(con, obj);
+
+            // ✅ SEND EMAIL
+            Emails.ProductWholesalepriceRequest(obj);
+
             return "Success";
         }
-        catch { return "Error"; }
-    }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(
+                HttpContext.Current.Request.Url.PathAndQuery,
+                "SubmitEnquiry",
+                ex.Message
+            );
 
+            return "Error";
+        }
+    }
     [System.Web.Services.WebMethod]
+    [System.Web.Script.Services.ScriptMethod]
     public static string SubmitWholesaleEnquiry(string name, string city, string phone,
                                                 string email, string message, string product)
     {
@@ -223,21 +236,36 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         {
             SqlConnection con = new SqlConnection(
                 ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-            string query = @"INSERT INTO Enquiries
-                             (Name,City,Phone,Email,Message,Product,EnquiryType,AddedOn)
-                             VALUES (@Name,@City,@Phone,@Email,@Message,@Product,'Wholesale',GETDATE())";
-            using (SqlCommand cmd = new SqlCommand(query, con))
-            {
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@City", city);
-                cmd.Parameters.AddWithValue("@Phone", phone);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Message", message);
-                cmd.Parameters.AddWithValue("@Product", product);
-                con.Open(); cmd.ExecuteNonQuery(); con.Close();
-            }
+
+            ProductEnquiry obj = new ProductEnquiry();
+            obj.ProductName = product;
+            obj.TypeofEnquiry = "Wholesale";
+            obj.Name = name;
+            obj.Mobile = phone;
+            obj.Email = email;
+            obj.SourcePage = "Product Page (Wholesale Enquiry)";
+            obj.City = city;
+            obj.Message = message;
+            obj.AddedOn = DateTime.Now;
+            obj.AddedIp = HttpContext.Current.Request.UserHostAddress;
+            obj.Status = "Active";
+
+            ProductEnquiry.InsertProductEnquiry(con, obj);
+
+            // ✅ SEND EMAIL
+            Emails.ProductWholeENQRequest(obj);
+
             return "Success";
         }
-        catch { return "Error"; }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(
+                HttpContext.Current.Request.Url.PathAndQuery,
+                "SubmitWholesaleEnquiry",
+                ex.Message
+            );
+
+            return "Error";
+        }
     }
 }
