@@ -45,7 +45,7 @@
                     object-fit: cover;
                     display: block;
                 }
-               
+
 
         /* Wholesale modal */
         #wholesaleModal {
@@ -73,39 +73,34 @@
                 transform: scale(1);
                 opacity: 1;
             }
-         
-                  .thumb-grid {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-    overflow-x: auto;
-    flex-direction: row;
-    padding-bottom: 10px;
 
-    /* Smooth scrolling */
-    scroll-behavior: smooth;
-
-    /* Firefox thin scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-}
-
-/* Webkit browsers (Chrome, Edge, Safari) */
-.thumb-grid::-webkit-scrollbar {
-    height: 4px;
-}
-
-
-
-/* 👇 Show scrollbar on hover or active scroll */
-.thumb-grid:hover::-webkit-scrollbar-thumb,
-.thumb-grid:active::-webkit-scrollbar-thumb {
-    background: #bbb;
-}
-        .thumb-grid > * {
-            flex: 0 0 100px; 
+        .thumb-grid {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            overflow-x: auto;
+            flex-direction: row;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
         }
-            
+
+
+            .thumb-grid::-webkit-scrollbar {
+                height: 4px;
+            }
+
+
+
+            .thumb-grid:hover::-webkit-scrollbar-thumb,
+            .thumb-grid:active::-webkit-scrollbar-thumb {
+                background: #bbb;
+            }
+
+            .thumb-grid > * {
+                flex: 0 0 100px;
+            }
     </style>
 </asp:Content>
 
@@ -147,7 +142,7 @@
                     <!-- Thumbnails — loaded from gallery via AJAX + thumb image as first item -->
                     <div class="thumb-grid" id="thumbGrid">
                         <%-- First thumb is always the main product image --%>
-                        <button class="active-thumb thumb-btn" onclick="switchMainImage('/<%=strSmallImage %>',this)">
+                        <button type="button" class="active-thumb thumb-btn" onclick="switchMainImage('/<%=strSmallImage %>',this)">
                             <img src="/<%=strSmallImage %>" alt="Main" />
                         </button>
                     </div>
@@ -247,8 +242,8 @@
                                 { %>
             Rs. <%=strRetailPrice %>
                             <% }
-                            else
-                            { %>
+                                else
+                                { %>
                             <a href="/ContactUs.aspx" class="text-[#B91C1C] underline font-semibold">Contact Us
                             </a>
                             <% } %>
@@ -258,18 +253,19 @@
                     <!-- Actions -->
                     <div class="flex flex-col sm:flex-row gap-4 mb-6">
                         <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="decreaseQty()">&#8722;</button>
+                            <button type="button" class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="decreaseQty()">&#8722;</button>
                             <input type="number" id="productQty" value="1" min="1" class="w-10 text-center border-0 focus:ring-0 text-lg font-semibold" />
-                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="increaseQty()">+</button>
+                            <button type="button" class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="increaseQty()">+</button>
                         </div>
-                        <button class="flex-1 flex items-center justify-center gap-2 bg-[#B91C1C] text-white py-4 px-2 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg">
+                        <button type="button" id="btnAddToCart"
+                            onclick="addToCartProduct(this)"
+                            class="flex-1 flex items-center justify-center gap-2 bg-[#B91C1C] text-white py-4 px-2 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="9" cy="21" r="1" />
                                 <circle cx="20" cy="21" r="1" />
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                             </svg>
-                            Add to Cart
-                       
+                            <span id="btnAddToCartText">Add to Cart</span>
                         </button>
                         <%-- FIX: onclick calls openWholesaleModal() defined below --%>
                         <button type="button" onclick="openWholesaleModal()" class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors shadow-lg">
@@ -430,10 +426,7 @@
         </div>
     </section>
 
-    <!-- ===== WHOLESALE MODAL =====
-         FIX: Removed Tailwind's 'hidden' class approach which conflicts with
-         the master page's Tailwind CDN purging. Using plain CSS display:none
-         toggled by adding/removing class 'open' instead. -->
+
     <div id="wholesaleModal">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 relative" id="modalContent">
             <button onclick="closeWholesaleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -446,54 +439,54 @@
                 <h2 class="text-2xl section-title font-bold text-[#0F172A]">Get Wholesale Enquiry</h2>
                 <p class="text-sm text-gray-500 mt-2">Fill in the details below and we will get back to you shortly.</p>
             </div>
-<div class="p-8 pt-6 space-y-4">
+            <div class="p-8 pt-6 space-y-4">
 
-    <div>
-        <input type="text" id="txtWsName" placeholder="Your Name" 
-               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-        <span class="text-red-500 text-xs block mt-1" id="errWsName"></span>
-    </div>
+                <div>
+                    <input type="text" id="txtWsName" placeholder="Your Name"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                    <span class="text-red-500 text-xs block mt-1" id="errWsName"></span>
+                </div>
 
-    <div>
-        <input type="text" id="txtWsCity" placeholder="City" 
-               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-        <span class="text-red-500 text-xs block mt-1" id="errWsCity"></span>
-    </div>
+                <div>
+                    <input type="text" id="txtWsCity" placeholder="City"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                    <span class="text-red-500 text-xs block mt-1" id="errWsCity"></span>
+                </div>
 
-    <div>
-        <input type="tel" id="txtWsPhone" placeholder="Phone" 
-               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-        <span class="text-red-500 text-xs block mt-1" id="errWsPhone"></span>
-    </div>
+                <div>
+                    <input type="tel" id="txtWsPhone" placeholder="Phone"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                    <span class="text-red-500 text-xs block mt-1" id="errWsPhone"></span>
+                </div>
 
-    <div>
-        <input type="email" id="txtWsEmail" placeholder="Your Email" 
-               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-        <span class="text-red-500 text-xs block mt-1" id="errWsEmail"></span>
-    </div>
+                <div>
+                    <input type="email" id="txtWsEmail" placeholder="Your Email"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                    <span class="text-red-500 text-xs block mt-1" id="errWsEmail"></span>
+                </div>
 
-    <div>
-        <textarea id="txtWsMessage" placeholder="Your Message" rows="3" 
-                  class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm resize-none"></textarea>
-        <span class="text-red-500 text-xs block mt-1" id="errWsMessage"></span>
-    </div>
+                <div>
+                    <textarea id="txtWsMessage" placeholder="Your Message" rows="3"
+                        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm resize-none"></textarea>
+                    <span class="text-red-500 text-xs block mt-1" id="errWsMessage"></span>
+                </div>
 
-    <button type="button" onclick="submitWholesale()" 
-            class="w-full bg-[#0F172A] text-white font-semibold py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">
-        Send Now
-    </button>
+                <button type="button" onclick="submitWholesale()"
+                    class="w-full bg-[#0F172A] text-white font-semibold py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">
+                    Send Now
+                </button>
 
-    <div id="wsMsg" class="text-sm mt-2"></div>
-</div>
+                <div id="wsMsg" class="text-sm mt-2"></div>
+            </div>
         </div>
     </div>
-<div id="snackbar"
-     class="fixed top-6 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-[99999]">
-    Thank you! Your enquiry has been submitted.
-</div>
+    <div id="snackbar"
+        class="fixed top-6 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-[99999]">
+        Thank you! Your enquiry has been submitted.
+    </div>
     <!-- Image Zoom Modal -->
     <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
-        <button onclick="closeImageModal()" style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer;">&times;</button>
+        <button type="button" onclick="closeImageModal()" style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer;">&times;</button>
         <img id="modalImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
     </div>
 
@@ -506,7 +499,7 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script>
 
-        var galleryImages = ['/<%=strSmallImage %>'];  
+        var galleryImages = ['/<%=strSmallImage %>'];
         function showSnackbar(message) {
             var bar = document.getElementById("snackbar");
             bar.innerText = message;
@@ -533,7 +526,7 @@
                                 var src = '/' + img.Images;
                                 galleryImages.push(src);
                                 var idx = galleryImages.length - 1;
-                                var btn = $('<button class="thumb-btn"></button>');
+                                var btn = $('<button type="button" class="thumb-btn"></button>');
                                 btn.attr('onclick', "switchMainImage('" + src + "', this)");
                                 btn.append('<img src="' + src + '" alt="Gallery ' + (i + 1) + '" />');
                                 $('#thumbGrid').append(btn);
@@ -625,23 +618,64 @@
                 if (icon) icon.classList.toggle('rotate-180');
             }
         });
-
-        // -------------------------------------------------------
-        // QTY
-        // -------------------------------------------------------
         function increaseQty() {
             var qty = document.getElementById('productQty');
             qty.value = parseInt(qty.value) + 1;
+            resetCartBtn();
         }
+
         function decreaseQty() {
             var qty = document.getElementById('productQty');
             if (parseInt(qty.value) > 1) qty.value = parseInt(qty.value) - 1;
+            resetCartBtn();
         }
 
-        // -------------------------------------------------------
-        // CAPTCHA
-        // -------------------------------------------------------
+        function resetCartBtn() {
+            var btn = document.getElementById('btnAddToCart');
+            var txt = document.getElementById('btnAddToCartText');
+            if (btn && btn.classList.contains('view-cart-btn-product')) {
+                btn.classList.remove('view-cart-btn-product', 'bg-[#162e7d]');
+                btn.classList.add('bg-[#B91C1C]', 'hover:bg-red-700');
+                txt.innerText = 'Add to Cart';
+                btn.disabled = false;
+            }
+        }
+        function addToCartProduct(btn) {
+            // If already showing View Cart, navigate directly
+            if (btn.classList.contains('view-cart-btn-product')) {
+                window.location.href = '/Cart.aspx';
+                return;
+            }
 
+            var productId = document.getElementById('hdnProductId').value;
+            if (!productId) return;
+
+            btn.disabled = true;
+            document.getElementById('btnAddToCartText').innerText = 'Adding...';
+
+            fetch('/Default.aspx/AddToCart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: productId.toString() })
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    var result = data.d || data;
+                    if (result.success) {
+                        btn.disabled = false;
+                        btn.classList.remove('bg-[#B91C1C]', 'hover:bg-red-700');
+                        btn.classList.add('view-cart-btn-product', 'bg-[#162e7d]');
+                        document.getElementById('btnAddToCartText').innerText = 'View Cart';
+                    } else {
+                        btn.disabled = false;
+                        document.getElementById('btnAddToCartText').innerText = 'Add to Cart';
+                    }
+                })
+                .catch(function () {
+                    btn.disabled = false;
+                    document.getElementById('btnAddToCartText').innerText = 'Add to Cart';
+                });
+        }
         document.addEventListener("DOMContentLoaded", function () {
             var c1 = Math.floor(Math.random() * 9) + 1;
             var c2 = Math.floor(Math.random() * 9) + 1;
@@ -653,9 +687,7 @@
             }
         });
 
-        // -------------------------------------------------------
-        // ENQUIRY SUBMIT
-        // -------------------------------------------------------
+
         function showErr(id, msg) {
             document.getElementById(id).innerText = msg;
         }
@@ -689,7 +721,7 @@
                 isValid = false;
             }
 
-            if (!isValid) return; 
+            if (!isValid) return;
 
             $.ajax({
                 type: 'POST',
@@ -710,7 +742,6 @@
 
                         showSnackbar("Thank you! We will contact you soon.");
 
-                        // reset form
                         document.getElementById('txtEnqName').value = "";
                         document.getElementById('txtEnqCity').value = "";
                         document.getElementById('txtEnqPhone').value = "";
@@ -731,9 +762,6 @@
             });
         }
 
-        // -------------------------------------------------------
-        // WHOLESALE SUBMIT
-        // -------------------------------------------------------
         function showError(id, msg) {
             document.getElementById(id).innerText = msg;
         }
@@ -767,7 +795,7 @@
                 isValid = false;
             }
 
-            if (!isValid) return; // STOP here, DO NOT CLOSE MODAL
+            if (!isValid) return;
 
             $.ajax({
                 type: 'POST',

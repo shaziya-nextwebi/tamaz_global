@@ -28,7 +28,7 @@
         routes.MapPageRoute("Product", "Product/{producturl}", "~/Product.aspx");
 
         routes.MapPageRoute("SubCategory", "SubCategory/{SubCategoryName}", "~/SubCategory.aspx");
-        routes.MapPageRoute("Brands", "TopBrands/{BrandName}", "~/product-brand-listing.aspx");
+        routes.MapPageRoute("BrandRoute", "Brand/{brandurl}", "~/Brand.aspx");
     }
 
     void Application_End(object sender, EventArgs e)
