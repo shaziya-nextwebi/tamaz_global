@@ -37,8 +37,6 @@ public partial class Admin_view_productenq : System.Web.UI.Page
         }
     }
 
-    // ===================== BUILD TABLE =====================
-
     private List<ProductEnquiry> GetFilteredList()
     {
         List<ProductEnquiry> list = ProductEnquiry.GetAllContact(conT)
@@ -116,23 +114,24 @@ public partial class Admin_view_productenq : System.Web.UI.Page
                     <td>" + HttpUtility.HtmlEncode(enq.Email ?? "") + @"</td>
                     <td>" + HttpUtility.HtmlEncode(enq.Mobile ?? "") + @"</td>
                     <td>" + HttpUtility.HtmlEncode(enq.City ?? "") + @"</td>
-                    <td>
-                        <span class='message-preview'>"
-                            + HttpUtility.HtmlEncode(preview) + @"</span>
-                        <a href='javascript:void(0);' class='viewMsg ms-1 link-info'
-                           data-name='" + HttpUtility.HtmlAttributeEncode(enq.Name ?? "") + @"'
-                           data-email='" + HttpUtility.HtmlAttributeEncode(enq.Email ?? "") + @"'
-                           data-mobile='" + HttpUtility.HtmlAttributeEncode(enq.Mobile ?? "") + @"'
-                           data-city='" + HttpUtility.HtmlAttributeEncode(enq.City ?? "") + @"'
-                           data-product='" + HttpUtility.HtmlAttributeEncode(enq.ProductName ?? "") + @"'
-                           data-type='" + HttpUtility.HtmlAttributeEncode(enq.TypeofEnquiry ?? "") + @"'
-                           data-source='" + HttpUtility.HtmlAttributeEncode(enq.SourcePage ?? "") + @"'
-                           data-date='" + enq.AddedOn.ToString("dd/MMM/yyyy hh:mm tt") + @"'
-                           data-message='" + attrMsg + @"'
-                           title='View Message'>
-                            <i class='mdi mdi-eye-outline fs-18'></i>
-                        </a>
-                    </td>
+<td>
+  <div class='msg-cell'>
+    <span class='message-preview'>" + HttpUtility.HtmlEncode(preview) + @"</span>
+    <a href='javascript:void(0);' class='viewMsg ms-1 link-info'
+       data-name='" + HttpUtility.HtmlAttributeEncode(enq.Name ?? "") + @"'
+       data-email='" + HttpUtility.HtmlAttributeEncode(enq.Email ?? "") + @"'
+       data-mobile='" + HttpUtility.HtmlAttributeEncode(enq.Mobile ?? "") + @"'
+       data-city='" + HttpUtility.HtmlAttributeEncode(enq.City ?? "") + @"'
+       data-product='" + HttpUtility.HtmlAttributeEncode(enq.ProductName ?? "") + @"'
+       data-type='" + HttpUtility.HtmlAttributeEncode(enq.TypeofEnquiry ?? "") + @"'
+       data-source='" + HttpUtility.HtmlAttributeEncode(enq.SourcePage ?? "") + @"'
+       data-date='" + enq.AddedOn.ToString("dd/MMM/yyyy hh:mm tt") + @"'
+       data-message='" + attrMsg + @"'
+       title='View Message'>
+      <i class='mdi mdi-eye-outline fs-18'></i>
+    </a>
+  </div>
+</td>
                     <td>
                         <a href='" + HttpUtility.HtmlAttributeEncode(enq.SourcePage ?? "#") + @"' target='_blank'>
                             " + HttpUtility.HtmlEncode(enq.SourcePage ?? "") + @"
@@ -154,39 +153,49 @@ public partial class Admin_view_productenq : System.Web.UI.Page
                 "BuildEnquiryTable", ex.Message);
         }
     }
-
-    // ===================== PAGINATION =====================
-
     private void BuildPagination(int currentPage)
     {
         strPagination = "";
         if (intTotalPages <= 1) return;
 
-        // Prev
+        Func<int, string, string, string> item = (page, label, extraClass) =>
+            "<li class='page-item" + extraClass + "'>" +
+            "<a class='page-link pageNav' data-page='" + page +
+            "' href='javascript:void(0);'>" + label + "</a></li>";
+
         if (currentPage > 1)
-            strPagination += "<li class='page-item'><a class='page-link pageNav' data-page='"
-                + (currentPage - 1) + "' href='javascript:void(0);'>«</a></li>";
+            strPagination += item(currentPage - 1, "«", "");
+
+        int delta = 2; 
+        var pages = new List<int>();
 
         for (int p = 1; p <= intTotalPages; p++)
         {
+            if (p == 1 || p == intTotalPages ||
+                (p >= currentPage - delta && p <= currentPage + delta))
+                pages.Add(p);
+        }
+
+        int prev = 0;
+        foreach (int p in pages)
+        {
+            if (prev > 0 && p - prev > 1)
+                strPagination += "<li class='page-item disabled'>" +
+                                 "<span class='page-link'>…</span></li>";
+
             string active = p == currentPage ? " active" : "";
-            strPagination += "<li class='page-item" + active + "'><a class='page-link pageNav' data-page='"
-                + p + "' href='javascript:void(0);'>" + p + "</a></li>";
+            strPagination += item(p, p.ToString(), active);
+            prev = p;
         }
 
         // Next
         if (currentPage < intTotalPages)
-            strPagination += "<li class='page-item'><a class='page-link pageNav' data-page='"
-                + (currentPage + 1) + "' href='javascript:void(0);'>»</a></li>";
+            strPagination += item(currentPage + 1, "»", "");
     }
-
-    // ===================== SEARCH / RESET =====================
-
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         BuildEnquiryTable(1);
     }
-
     protected void btnReset_Click(object sender, EventArgs e)
     {
         txtSearch.Text = "";
@@ -194,9 +203,6 @@ public partial class Admin_view_productenq : System.Web.UI.Page
         txtTo.Text = "";
         BuildEnquiryTable(1);
     }
-
-    // ===================== BULK DELETE =====================
-
     private void DoBulkDelete()
     {
         try
@@ -228,8 +234,6 @@ public partial class Admin_view_productenq : System.Web.UI.Page
                 "DoBulkDelete", ex.Message);
         }
     }
-
-    // ===================== EXPORT TO EXCEL =====================
 
     protected void btnExport_Click(object sender, EventArgs e)
     {

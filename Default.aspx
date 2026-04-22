@@ -2,6 +2,22 @@
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <style>
+        .view-cart-btn {
+            background: #162e7d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+            .view-cart-btn:hover {
+                background: #0f1f57;
+            }
         /* Desktop: show desktop image, hide mobile */
         .banner-desktop-img {
             display: block;
@@ -354,7 +370,7 @@
             </div>
         </div>
     </section>
-    <%--    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
+    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
                 <div class="text-start md:text-center">
@@ -365,7 +381,8 @@
             <div class="md:hidden">
                 <div class="swiper spotlightSwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <%=strSpotlightMobile %>
+                        <%--                        <div class="swiper-slide">
                             <div class="relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card">
                                 <img src="assests/Images/spotlight-images/sp-1.png" class="absolute inset-0 w-full h-full object-cover" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
@@ -397,12 +414,12 @@
                                     <a href="Category.aspx" class="bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn">Shop Now</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>
         </div>
-    </section>--%>
+    </section>
 
     <!-- ===================== CLIENT SLIDER ===================== -->
     <section class="clients-section">
@@ -548,10 +565,54 @@
             document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
         }
 
-        document.addEventListener("DOMContentLoaded", ()=> {
-           // renderProducts();
+        document.addEventListener("DOMContentLoaded", () => {
+            // renderProducts();
             initSlider();
             initAnimations();
         });
+        function addToCart(btn, productId, e) {
+            if (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+
+            // If already in cart, go to cart page
+            if (btn.classList.contains('view-cart-btn')) {
+                window.location.href = '/Cart.aspx';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Adding...';
+
+            fetch('/Default.aspx/AddToCart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: productId.toString() })
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    var result = data.d || data;
+                    if (result.success) {
+                        // Replace button with a direct link
+                        var a = document.createElement('a');
+                        a.href = '/Cart.aspx';
+                        a.className = 'view-cart-btn';
+                        a.innerText = 'View Cart';
+                        a.style.display = 'block';
+                        a.style.textAlign = 'center';
+                        a.style.textDecoration = 'none';
+                        a.setAttribute('onclick', 'event.stopPropagation();');
+                        btn.parentNode.replaceChild(a, btn);
+                    } else {
+                        btn.disabled = false;
+                        btn.innerText = 'Add to Cart';
+                    }
+                })
+                .catch(function () {
+                    btn.disabled = false;
+                    btn.innerText = 'Add to Cart';
+                });
+        }
     </script>
 </asp:Content>

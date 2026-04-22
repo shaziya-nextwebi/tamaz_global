@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Net.Mail;
 using System.Web.UI;
 
 public partial class ProductDetails_Page : System.Web.UI.Page
@@ -210,7 +211,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Status = "Active";
 
             ProductEnquiry.InsertProductEnquiry(con, obj);
-
+            HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             // ✅ SEND EMAIL
             Emails.ProductWholesalepriceRequest(obj);
 
@@ -251,7 +252,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Status = "Active";
 
             ProductEnquiry.InsertProductEnquiry(con, obj);
-
+            HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             // ✅ SEND EMAIL
             Emails.ProductWholeENQRequest(obj);
 

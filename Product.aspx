@@ -475,12 +475,7 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script>
 
-        // -------------------------------------------------------
-        // GALLERY THUMBNAILS
-        // Load gallery images for this product via WebMethod,
-        // then append them to the thumb grid after the main image.
-        // -------------------------------------------------------
-        var galleryImages = ['/<%=strSmallImage %>'];  // start with main image
+        var galleryImages = ['/<%=strSmallImage %>'];  
         function showSnackbar(message) {
             var bar = document.getElementById("snackbar");
             bar.innerText = message;
@@ -518,7 +513,7 @@
             }
         });
 
-        // Switch main image when thumbnail clicked
+
         function switchMainImage(src, btn) {
             document.getElementById('mainProductImage').src = src;
             document.querySelectorAll('.thumb-btn').forEach(function (b) {
@@ -527,9 +522,6 @@
             btn.classList.add('active-thumb');
         }
 
-        // -------------------------------------------------------
-        // IMAGE ZOOM MODAL
-        // -------------------------------------------------------
         function openImageModal(index) {
             var src = document.getElementById('mainProductImage').src;
             document.getElementById('modalImage').src = src;
@@ -540,12 +532,7 @@
             document.getElementById('imageModal').style.display = 'none';
         }
 
-        // -------------------------------------------------------
-        // WHOLESALE MODAL
-        // FIX: The original used Tailwind hidden/flex classes which
-        // conflict with how Tailwind CDN works at runtime. Now uses
-        // a plain CSS class 'open' that is defined in the <style> block.
-        // -------------------------------------------------------
+
         function openWholesaleModal() {
             var modal = document.querySelector('[id$="wholesaleModal"]');
 
@@ -571,7 +558,7 @@
                 document.body.style.overflow = 'auto';
             }, 300);
         }
-        // Close on backdrop click
+
         document.addEventListener("DOMContentLoaded", function () {
             var modal = document.getElementById('wholesaleModal');
             if (modal) {
@@ -580,9 +567,7 @@
                 });
             }
         });
-        // -------------------------------------------------------
-        // TABS — smooth scroll to section
-        // -------------------------------------------------------
+
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('.tab-btn').forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -599,9 +584,7 @@
             });
         });
 
-        // -------------------------------------------------------
-        // FAQ ACCORDION
-        // -------------------------------------------------------
+
         document.addEventListener('click', function (e) {
             var btn = e.target.closest('.faq-question');
             if (btn) {
@@ -675,7 +658,7 @@
                 isValid = false;
             }
 
-            if (!isValid) return; // ❌ DO NOT proceed
+            if (!isValid) return; 
 
             $.ajax({
                 type: 'POST',

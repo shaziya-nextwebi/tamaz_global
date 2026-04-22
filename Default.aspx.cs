@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    public string strBannerHtml = "", strBrandSlider="", strSpotlight="", strHomeProducts = "";
+    public string strBannerHtml = "", strBrandSlider = "", strSpotlight = "", strHomeProducts = "", strSpotlightMobile = "";
     public string strTopCategories = "";
     SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
@@ -124,6 +124,18 @@ public partial class _Default : System.Web.UI.Page
                     </a>
                 </div>
             </div>";
+                strSpotlightMobile += @"
+<div class='swiper-slide'>
+    <div class='relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card'>
+        <img src='" + image + @"' class='absolute inset-0 w-full h-full object-cover' />
+        <div class='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient'></div>
+        <div class='relative z-10 h-full p-6 flex flex-col justify-end'>
+            <span class='spotlight-bridge text-sm font-bold mb-2' style='color:" + color + @";'>" + label + @"</span>
+            <h3 class='text-white text-2xl font-bold mb-3'>" + p.Category + @"</h3>
+            <a href='" + categoryLink + @"' class='bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn'>Shop Now</a>
+        </div>
+    </div>
+</div>";
                 i++;
             }
 
@@ -140,10 +152,18 @@ public partial class _Default : System.Web.UI.Page
     }
     public void BindHomeProducts()
     {
+
         try
         {
             SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
             List<ProductDetails> products = ProductDetails.GetAllProductstop8(conT);
+
+            // Get current cart product IDs to check which are already in cart
+            List<AddtoCart> cartItems = AddtoCart.GetAllcartproducts(conT);
+            List<int> cartProductIds = new List<int>();
+
+            foreach (var c in cartItems) cartProductIds.Add(c.ProductId);
+
             strHomeProducts = "";
 
             foreach (ProductDetails p in products)
@@ -172,6 +192,21 @@ public partial class _Default : System.Web.UI.Page
                     ? "<span class='product-badge'>" + label + "</span>"
                     : "";
 
+                bool inCart = cartProductIds.Contains(p.Id);
+
+                string btnHtml;
+                if (inCart)
+                {
+                    btnHtml = "<a href='/Cart.aspx' class='view-cart-btn' " +
+                              "onclick='event.stopPropagation();' " +
+                              "style='display:block; text-align:center; text-decoration:none;'>View Cart</a>";
+                }
+                else
+                {
+                    btnHtml = "<button class='add-cart-btn' " +
+                              "onclick=\"event.stopPropagation(); event.preventDefault(); addToCart(this, " + p.Id + ", event);\">" +
+                              "Add to Cart</button>";
+                }
                 strHomeProducts +=
                     "<div class='product-card fade-in' style='cursor:pointer;' " +
                         "onclick=\"window.location='" + url + "'\">" +
@@ -182,10 +217,7 @@ public partial class _Default : System.Web.UI.Page
                         "<div class='product-info'>" +
                             "<h3 class='product-name'>" + p.ProductName + "</h3>" +
                             "<div class='product-price'>" + price + "</div>" +
-                            "<button class='add-cart-btn' " +
-                                "onclick='event.stopPropagation();'>" +
-                                "Add to Cart" +
-                            "</button>" +
+                        btnHtml +
                         "</div>" +
                     "</div>";
             }
@@ -228,6 +260,57 @@ public partial class _Default : System.Web.UI.Page
         catch (Exception ex)
         {
             ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindTopCategories", ex.Message);
+        }
+    }
+
+    [WebMethod]
+    public static object AddToCart(string productId)
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+
+            string uid = HttpContext.Current.Request.Cookies["t_new_vi"] != null
+                ? CommonModel.Decrypt(HttpContext.Current.Request.Cookies["t_new_vi"].Value)
+                : "";
+
+            // If no cookie, create a new guest guid and set cookie
+            if (uid == "")
+            {
+                uid = Guid.NewGuid().ToString();
+                HttpCookie cookie = new HttpCookie("t_new_vi", CommonModel.Encrypt(uid));
+                cookie.Expires = DateTime.Now.AddDays(30);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+
+            int pid = Convert.ToInt32(productId);
+
+            var existing = AddtoCart.GetUserArpcartByUid(conT, uid, productId).FirstOrDefault();
+
+            if (existing != null)
+            {
+                // Already in cart — just return inCart true
+                return new { success = true, inCart = true };
+            }
+
+            AddtoCart cart = new AddtoCart
+            {
+                ProductId = pid,
+                Qty = 1,
+                Userguid = uid
+            };
+
+            int result = AddtoCart.Insertcartdetails(conT, cart);
+
+            // Get updated cart count
+            string count = AddtoCart.GetcartlistQunatity(conT);
+
+            return new { success = result > 0, inCart = true, cartCount = count };
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException("Default.aspx", "AddToCart", ex.Message);
+            return new { success = false, inCart = false };
         }
     }
 }

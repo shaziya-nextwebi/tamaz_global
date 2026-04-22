@@ -23,8 +23,12 @@
         routes.MapPageRoute("SolutionsCategory", "solutions/{category}", "~/Listing.aspx");
 
         routes.MapPageRoute("404", "404", "~/404.aspx");
+
         routes.MapPageRoute("Category", "Category/{categoryurl}", "~/Category.aspx");
         routes.MapPageRoute("Product", "Product/{producturl}", "~/Product.aspx");
+
+        routes.MapPageRoute("SubCategory", "SubCategory/{SubCategoryName}", "~/SubCategory.aspx");
+        routes.MapPageRoute("Brands", "TopBrands/{BrandName}", "~/product-brand-listing.aspx");
     }
 
     void Application_End(object sender, EventArgs e)
