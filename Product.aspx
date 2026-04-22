@@ -208,7 +208,17 @@
 
                     <!-- Price -->
                     <div class="flex items-center gap-3 mb-6">
-                        <span class="text-3xl font-bold text-[#000]">Rs. <%=strRetailPrice %></span>
+                        <span class="text-3xl font-bold text-[#000]">
+                            <% if (!string.IsNullOrEmpty(strRetailPrice))
+                                { %>
+            Rs. <%=strRetailPrice %>
+                            <% }
+                            else
+                            { %>
+                            <a href="/ContactUs.aspx" class="text-[#B91C1C] underline font-semibold">Contact Us
+                            </a>
+                            <% } %>
+                        </span>
                     </div>
 
                     <!-- Actions -->
@@ -228,7 +238,7 @@
                        
                         </button>
                         <%-- FIX: onclick calls openWholesaleModal() defined below --%>
-                        <button onclick="openWholesaleModal()" class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors shadow-lg">
+                        <button type="button" onclick="openWholesaleModal()" class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors shadow-lg">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                             </svg>
@@ -302,31 +312,37 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
                                         <input type="text" id="txtEnqName" placeholder="Your Name" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
+                                        <span class="text-red-500 text-xs" id="errEnqName"></span>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
                                         <input type="text" id="txtEnqCity" placeholder="Your City" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
+                                        <span class="text-red-500 text-xs" id="errEnqCity"></span>
                                     </div>
                                 </div>
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
                                         <input type="tel" id="txtEnqPhone" placeholder="+91 XXXXX XXXXX" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
+                                        <span class="text-red-500 text-xs" id="errEnqPhone"></span>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                                         <input type="email" id="txtEnqEmail" placeholder="email@example.com" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
+                                        <span class="text-red-500 text-xs" id="errEnqEmail"></span>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
                                     <textarea id="txtEnqMessage" rows="4" placeholder="Write your message..." class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none resize-none"></textarea>
+                                    <span class="text-red-500 text-xs" id="errEnqMessage"></span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <span class="text-gray-600 font-medium" id="captchaLabel"></span>
                                     <input type="text" id="txtCaptcha" class="w-24 border border-gray-200 rounded-lg px-4 py-2 outline-none" placeholder="?" />
+                                    <span class="text-red-500 text-xs" id="errCaptcha"></span>
                                 </div>
-                                <button onclick="submitEnquiry()" class="w-full sm:w-auto bg-[#0F172A] text-white font-semibold px-10 py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">Send Now</button>
+                                <button type="button" onclick="submitEnquiry()" class="w-full sm:w-auto bg-[#0F172A] text-white font-semibold px-10 py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">Send Now</button>
                                 <div id="enqMsg" class="text-sm mt-2"></div>
                             </div>
                         </div>
@@ -383,7 +399,7 @@
     <!-- ===== WHOLESALE MODAL =====
          FIX: Removed Tailwind's 'hidden' class approach which conflicts with
          the master page's Tailwind CDN purging. Using plain CSS display:none
-         toggled by adding/removing class 'open' instead. --%>
+         toggled by adding/removing class 'open' instead. -->
     <div id="wholesaleModal">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 relative" id="modalContent">
             <button onclick="closeWholesaleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -396,18 +412,51 @@
                 <h2 class="text-2xl section-title font-bold text-[#0F172A]">Get Wholesale Enquiry</h2>
                 <p class="text-sm text-gray-500 mt-2">Fill in the details below and we will get back to you shortly.</p>
             </div>
-            <div class="p-8 pt-6 space-y-4">
-                <input type="text"  id="txtWsName"    placeholder="Your Name"   class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-                <input type="text"  id="txtWsCity"    placeholder="City"         class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-                <input type="tel"   id="txtWsPhone"   placeholder="Phone"        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-                <input type="email" id="txtWsEmail"   placeholder="Your Email"   class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
-                <textarea           id="txtWsMessage" placeholder="Your Message" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm resize-none"></textarea>
-                <button onclick="submitWholesale()" class="w-full bg-[#0F172A] text-white font-semibold py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">Send Now</button>
-                <div id="wsMsg" class="text-sm mt-2"></div>
-            </div>
-        </div>
+<div class="p-8 pt-6 space-y-4">
+
+    <div>
+        <input type="text" id="txtWsName" placeholder="Your Name" 
+               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+        <span class="text-red-500 text-xs block mt-1" id="errWsName"></span>
     </div>
 
+    <div>
+        <input type="text" id="txtWsCity" placeholder="City" 
+               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+        <span class="text-red-500 text-xs block mt-1" id="errWsCity"></span>
+    </div>
+
+    <div>
+        <input type="tel" id="txtWsPhone" placeholder="Phone" 
+               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+        <span class="text-red-500 text-xs block mt-1" id="errWsPhone"></span>
+    </div>
+
+    <div>
+        <input type="email" id="txtWsEmail" placeholder="Your Email" 
+               class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+        <span class="text-red-500 text-xs block mt-1" id="errWsEmail"></span>
+    </div>
+
+    <div>
+        <textarea id="txtWsMessage" placeholder="Your Message" rows="3" 
+                  class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm resize-none"></textarea>
+        <span class="text-red-500 text-xs block mt-1" id="errWsMessage"></span>
+    </div>
+
+    <button type="button" onclick="submitWholesale()" 
+            class="w-full bg-[#0F172A] text-white font-semibold py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">
+        Send Now
+    </button>
+
+    <div id="wsMsg" class="text-sm mt-2"></div>
+</div>
+        </div>
+    </div>
+<div id="snackbar"
+     class="fixed top-6 left-1/2 -translate-x-1/2 bg-black text-white px-6 py-3 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-[99999]">
+    Thank you! Your enquiry has been submitted.
+</div>
     <!-- Image Zoom Modal -->
     <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
         <button onclick="closeImageModal()" style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer;">&times;</button>
@@ -432,7 +481,17 @@
         // then append them to the thumb grid after the main image.
         // -------------------------------------------------------
         var galleryImages = ['/<%=strSmallImage %>'];  // start with main image
+        function showSnackbar(message) {
+            var bar = document.getElementById("snackbar");
+            bar.innerText = message;
+            bar.style.opacity = "1";
+            bar.style.transform = "translateY(0)";
 
+            setTimeout(function () {
+                bar.style.opacity = "0";
+                bar.style.transform = "translateY(20px)";
+            }, 2500);
+        }
         $(document).ready(function () {
             var pid = $('#hdnProductId').val();
             if (pid && pid !== '') {
@@ -488,21 +547,27 @@
         // a plain CSS class 'open' that is defined in the <style> block.
         // -------------------------------------------------------
         function openWholesaleModal() {
-            var modal = document.getElementById('wholesaleModal');
+            var modal = document.querySelector('[id$="wholesaleModal"]');
+
+            if (!modal) {
+                console.error("Modal not found");
+                return;
+            }
+
             modal.classList.add('open');
             document.body.style.overflow = 'hidden';
-            // Trigger animation on next frame
-            setTimeout(function () {
-                document.getElementById('modalContent').style.transform = 'scale(1)';
-                document.getElementById('modalContent').style.opacity = '1';
-            }, 10);
         }
         function closeWholesaleModal() {
+            var modal = document.querySelector('[id$="wholesaleModal"]');
             var content = document.getElementById('modalContent');
+
+            if (!modal) return;
+
             content.style.transform = 'scale(0.95)';
             content.style.opacity = '0';
+
             setTimeout(function () {
-                document.getElementById('wholesaleModal').classList.remove('open');
+                modal.classList.remove('open');
                 document.body.style.overflow = 'auto';
             }, 300);
         }
@@ -518,17 +583,19 @@
         // -------------------------------------------------------
         // TABS — smooth scroll to section
         // -------------------------------------------------------
-        document.querySelectorAll('.tab-btn').forEach(function (button) {
-            button.addEventListener('click', function () {
-                var targetId = this.getAttribute('data-tab');
-                var target = document.getElementById(targetId);
-                if (target) {
-                    var headerOffset = 190;
-                    var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-                    window.scrollTo({ top: top, behavior: 'smooth' });
-                }
-                document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
-                this.classList.add('active');
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.tab-btn').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var targetId = this.getAttribute('data-tab');
+                    var target = document.getElementById(targetId);
+                    if (target) {
+                        var headerOffset = 190;
+                        var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
+                    document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                });
             });
         });
 
@@ -560,36 +627,92 @@
         // -------------------------------------------------------
         // CAPTCHA
         // -------------------------------------------------------
-        var c1 = Math.floor(Math.random() * 9) + 1;
-        var c2 = Math.floor(Math.random() * 9) + 1;
-        var captchaAnswer = c1 + c2;
-        document.getElementById('captchaLabel').innerText = c1 + ' + ' + c2 + ' = ?';
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var c1 = Math.floor(Math.random() * 9) + 1;
+            var c2 = Math.floor(Math.random() * 9) + 1;
+            captchaAnswer = c1 + c2;
+
+            var label = document.getElementById('captchaLabel');
+            if (label) {
+                label.innerText = c1 + ' + ' + c2 + ' = ?';
+            }
+        });
 
         // -------------------------------------------------------
         // ENQUIRY SUBMIT
         // -------------------------------------------------------
-        function submitEnquiry() {
+        function showErr(id, msg) {
+            document.getElementById(id).innerText = msg;
+        }
+
+        function clearEnqErrors() {
+            document.querySelectorAll("[id^='errEnq'], #errCaptcha").forEach(e => e.innerText = "");
+        }
+
+
+        function submitEnquiry(e) {
+            if (e) e.preventDefault();
+            clearEnqErrors();
+
             var name = document.getElementById('txtEnqName').value.trim();
+            var city = document.getElementById('txtEnqCity').value.trim();
             var phone = document.getElementById('txtEnqPhone').value.trim();
+            var email = document.getElementById('txtEnqEmail').value.trim();
+            var message = document.getElementById('txtEnqMessage').value.trim();
             var captcha = document.getElementById('txtCaptcha').value.trim();
-            var msg = document.getElementById('enqMsg');
-            if (!name || !phone) { msg.innerHTML = "<span class='text-red-500'>Name and Phone are required.</span>"; return; }
-            if (parseInt(captcha) !== captchaAnswer) { msg.innerHTML = "<span class='text-red-500'>Incorrect captcha.</span>"; return; }
+
+            var isValid = true;
+
+            if (!name) { showErr("errEnqName", "Name is required"); isValid = false; }
+            if (!phone) { showErr("errEnqPhone", "Phone is required"); isValid = false; }
+            if (!email) { showErr("errEnqEmail", "Email is required"); isValid = false; }
+
+            if (!captcha) { showErr("errCaptcha", "Captcha required"); isValid = false; }
+
+            if (parseInt(captcha) !== captchaAnswer) {
+                showErr("errCaptcha", "Incorrect captcha");
+                isValid = false;
+            }
+
+            if (!isValid) return; // ❌ DO NOT proceed
+
             $.ajax({
-                type: 'POST', url: 'Product.aspx/SubmitEnquiry',
+                type: 'POST',
+                url: '/Product.aspx/SubmitEnquiry',
                 data: JSON.stringify({
                     name: name,
-                    city: document.getElementById('txtEnqCity').value,
+                    city: city,
                     phone: phone,
-                    email: document.getElementById('txtEnqEmail').value,
-                    message: document.getElementById('txtEnqMessage').value,
+                    email: email,
+                    message: message,
                     product: document.getElementById('hdnProductName').value
                 }),
-                contentType: 'application/json; charset=utf-8', dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 success: function (res) {
-                    msg.innerHTML = res.d === 'Success'
-                        ? "<span class='text-green-600'>Enquiry sent successfully!</span>"
-                        : "<span class='text-red-500'>Something went wrong.</span>";
+
+                    if (res.d === 'Success') {
+
+                        showSnackbar("Thank you! We will contact you soon.");
+
+                        // reset form
+                        document.getElementById('txtEnqName').value = "";
+                        document.getElementById('txtEnqCity').value = "";
+                        document.getElementById('txtEnqPhone').value = "";
+                        document.getElementById('txtEnqEmail').value = "";
+                        document.getElementById('txtEnqMessage').value = "";
+                        document.getElementById('txtCaptcha').value = "";
+
+                        // regenerate captcha
+                        c1 = Math.floor(Math.random() * 9) + 1;
+                        c2 = Math.floor(Math.random() * 9) + 1;
+                        captchaAnswer = c1 + c2;
+                        document.getElementById('captchaLabel').innerText = c1 + ' + ' + c2 + ' = ?';
+
+                    } else {
+                        showSnackbar("Something went wrong. Try again.");
+                    }
                 }
             });
         }
@@ -597,27 +720,74 @@
         // -------------------------------------------------------
         // WHOLESALE SUBMIT
         // -------------------------------------------------------
-        function submitWholesale() {
+        function showError(id, msg) {
+            document.getElementById(id).innerText = msg;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll("[id^='errWs']").forEach(e => e.innerText = "");
+        }
+
+        function submitWholesale(e) {
+            if (e) e.preventDefault();
+            clearErrors();
+
             var name = document.getElementById('txtWsName').value.trim();
+            var city = document.getElementById('txtWsCity').value.trim();
             var phone = document.getElementById('txtWsPhone').value.trim();
-            var msg = document.getElementById('wsMsg');
-            if (!name || !phone) { msg.innerHTML = "<span class='text-red-500'>Name and Phone are required.</span>"; return; }
+            var email = document.getElementById('txtWsEmail').value.trim();
+            var message = document.getElementById('txtWsMessage').value.trim();
+
+            var isValid = true;
+
+            if (!name) {
+                showError("errWsName", "Name is required");
+                isValid = false;
+            }
+            if (!phone) {
+                showError("errWsPhone", "Phone is required");
+                isValid = false;
+            }
+            if (!email) {
+                showError("errWsEmail", "Email is required");
+                isValid = false;
+            }
+
+            if (!isValid) return; // STOP here, DO NOT CLOSE MODAL
+
             $.ajax({
-                type: 'POST', url: 'Product.aspx/SubmitWholesaleEnquiry',
+                type: 'POST',
+                url: '/Product.aspx/SubmitWholesaleEnquiry',
                 data: JSON.stringify({
                     name: name,
-                    city: document.getElementById('txtWsCity').value,
+                    city: city,
                     phone: phone,
-                    email: document.getElementById('txtWsEmail').value,
-                    message: document.getElementById('txtWsMessage').value,
+                    email: email,
+                    message: message,
                     product: document.getElementById('hdnProductName').value
                 }),
-                contentType: 'application/json; charset=utf-8', dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 success: function (res) {
-                    msg.innerHTML = res.d === 'Success'
-                        ? "<span class='text-green-600'>Enquiry sent!</span>"
-                        : "<span class='text-red-500'>Something went wrong.</span>";
-                    if (res.d === 'Success') setTimeout(closeWholesaleModal, 1500);
+
+                    if (res.d === 'Success') {
+
+                        showSnackbar("Thank you! We will contact you soon.");
+
+                        setTimeout(function () {
+                            closeWholesaleModal();
+                        }, 2000);
+
+                        // reset form
+                        document.getElementById('txtWsName').value = "";
+                        document.getElementById('txtWsCity').value = "";
+                        document.getElementById('txtWsPhone').value = "";
+                        document.getElementById('txtWsEmail').value = "";
+                        document.getElementById('txtWsMessage').value = "";
+
+                    } else {
+                        showSnackbar("Something went wrong. Try again.");
+                    }
                 }
             });
         }

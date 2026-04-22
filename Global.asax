@@ -12,9 +12,12 @@
     {
         routes.Clear();
         routes.Ignore("{resource}.axd/{*pathInfo}");
+        routes.Ignore("Product.aspx/{*pathInfo}");
+        routes.Ignore("product.aspx/{*pathInfo}");
+
         routes.MapPageRoute("NewsDetails", "news/{url}", "~/news-detail.aspx");
         routes.MapPageRoute("Products", "products-categories/{caturl}", "~/products.aspx");
-        routes.MapPageRoute("BlogList","blog","~/Blog.aspx");
+        routes.MapPageRoute("BlogList", "blog", "~/Blog.aspx");
         routes.MapPageRoute("BlogDetail", "blog/{BUrl}", "~/BlogDetail.aspx");
         routes.MapPageRoute("solutions", "solutions", "~/Listing.aspx");
         routes.MapPageRoute("SolutionsCategory", "solutions/{category}", "~/Listing.aspx");

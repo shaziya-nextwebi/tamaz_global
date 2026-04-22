@@ -10,9 +10,15 @@ using System.Web.UI.WebControls;
 public partial class MasterPage : System.Web.UI.MasterPage
 {
     public string strNavCategories = "";
+    public string strCartCount = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        SqlConnection conT = new SqlConnection(
+        ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+        strCartCount = AddtoCart.GetcartlistQunatity(conT);
+
         BindNavCategories();
+
     }
     public void BindNavCategories()
     {

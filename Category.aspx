@@ -52,4 +52,43 @@
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
+<script>
+function addToCart(productId, btn) {
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+
+    fetch('<%= ResolveUrl("~/Category.aspx/AddToCart") %>', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: productId })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const count = data.d;
+        if (count === '-1') {
+            btn.textContent = 'Error';
+            return;
+        }
+        btn.textContent = '✓ Added';
+        btn.style.background = '#16a34a';
+
+        // Update cart badge in header if you have one
+        const badge = document.getElementById('cartCount');
+        if (badge && count !== '0') {
+            badge.textContent = count;
+            badge.style.display = 'inline';
+        }
+
+        setTimeout(() => {
+            btn.textContent = 'Add to Cart';
+            btn.style.background = '';
+            btn.disabled = false;
+        }, 2000);
+    })
+    .catch(() => {
+        btn.textContent = 'Error';
+        btn.disabled = false;
+    });
+}
+</script>
 </asp:Content>
