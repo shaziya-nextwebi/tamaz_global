@@ -299,7 +299,7 @@ WHERE v.Status = 'Active' AND s.Userguid = @Userguid";
                                 Category = Convert.ToString(dr["Category"]),
                                 ProductId = Convert.ToInt32(dr["ProductId"]),
                                 Qty = Convert.ToInt32(dr["Qty"]),
-                                RetailPrice = Convert.ToDecimal(dr["RetailPrice"]),
+                                RetailPrice = GetDecimal(dr["RetailPrice"])
                                 //FinalPrice = Convert.ToDecimal(dr["final_price"]),
                                 //SubTotal = Convert.ToDecimal(dr["final_price"]) * Convert.ToInt32(dr["Qty"])
                             }).ToList();
@@ -311,6 +311,12 @@ WHERE v.Status = 'Active' AND s.Userguid = @Userguid";
         }
         return products;
     }
-
+    private static decimal GetDecimal(object val)
+    {
+        if (val == null || val == DBNull.Value) return 0m;
+        decimal result = 0m;
+        decimal.TryParse(val.ToString().Trim(), out result);
+        return result;
+    }
     #endregion
 }

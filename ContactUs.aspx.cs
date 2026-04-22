@@ -99,7 +99,7 @@ public partial class ContactUs : System.Web.UI.Page
                 Session["captchanum"] = CreateRandomCode(5);
                 FillCaptcha();
 
-                //Response.Redirect("thank-you.aspx", false);
+                Response.Redirect("/thank-you.aspx", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
             else
