@@ -148,12 +148,12 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             {
                 strProdFaqs += @"
                 <div class='faq-item border border-gray-200 rounded-xl overflow-hidden'>
-                    <button class='faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors'>
+                    <span class='faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors'>
                         <span>" + faq.Question + @"</span>
                         <svg class='faq-icon w-5 h-5 transform transition-transform flex-shrink-0' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                             <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/>
                         </svg>
-                    </button>
+                    </span>
                     <div class='faq-answer hidden px-5 pb-5 text-[#64748B]'>" + faq.Answer + @"</div>
                 </div>";
             }

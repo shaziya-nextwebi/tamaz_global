@@ -45,6 +45,7 @@
                     object-fit: cover;
                     display: block;
                 }
+               
 
         /* Wholesale modal */
         #wholesaleModal {
@@ -72,6 +73,39 @@
                 transform: scale(1);
                 opacity: 1;
             }
+         
+                  .thumb-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    overflow-x: auto;
+    flex-direction: row;
+    padding-bottom: 10px;
+
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+
+    /* Firefox thin scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+/* Webkit browsers (Chrome, Edge, Safari) */
+.thumb-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+
+
+/* 👇 Show scrollbar on hover or active scroll */
+.thumb-grid:hover::-webkit-scrollbar-thumb,
+.thumb-grid:active::-webkit-scrollbar-thumb {
+    background: #bbb;
+}
+        .thumb-grid > * {
+            flex: 0 0 100px; 
+        }
+            
     </style>
 </asp:Content>
 
@@ -130,7 +164,7 @@
                     <p class="text-sm md:text-base text-[#64748B] mb-6 leading-relaxed"><%=strShortDesc %></p>
 
                     <!-- Key Highlights -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 extra-point-grid-detail ">
                         <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-100">
                             <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -172,7 +206,7 @@
 
                     <!-- Meta -->
                     <div class="mb-6">
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 extra-point-grid-detail">
                             <div class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-50/30 transition-colors group">
                                 <div class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -348,7 +382,7 @@
                         </div>
 
                         <!-- Contact Sidebar -->
-                        <div class="rounded-2xl p-8 border border-gray-100 flex flex-col contact-info-block">
+                        <div class="rounded-2xl p-8 border border-gray-100 flex flex-col contact-info-block why-points-card">
                             <h3 class="text-xl font-bold text-[#0F172A] mb-6">Contact Information</h3>
                             <div class="space-y-6">
                                 <div class="flex items-start gap-4">
@@ -463,10 +497,7 @@
         <img id="modalImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
     </div>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50">
-        <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
-    </a>
+
 
 </asp:Content>
 
