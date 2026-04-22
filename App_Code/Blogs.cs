@@ -18,7 +18,6 @@ public class Blogs
     }
 
     public int Id { get; set; }
-
     public string BlogName { get; set; }
     public string BlogUrl { get; set; }
     public DateTime PostedOn { get; set; }

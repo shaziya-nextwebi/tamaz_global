@@ -125,7 +125,7 @@ public partial class Admin_my_profile : System.Web.UI.Page
                     }
                     CreateUser comp = new CreateUser();
                     comp.UserGuid = Request.Cookies["t_aid"].Value;
-                    comp.AddedBy = Request.Cookies["t_aid"].Value;
+                    //comp.AddedBy = Request.Cookies["t_aid"].Value;
                     comp.ContactNo = txtContactNo.Text.Trim();
                     comp.EmailId = txtEmail.Text.Trim();
                     comp.UserName = txtName.Text.Trim();

@@ -1,13 +1,84 @@
-﻿<%@ Page Title="Product Detail - TAMAZ Global" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="Product" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="ProductDetails_Page" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <style>
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Thumbnail active state */
+        .thumb-btn.active-thumb {
+            border-color: #B91C1C !important;
+        }
+
+        /* Gallery thumbnail grid */
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+            .thumb-grid button {
+                border-radius: 10px;
+                overflow: hidden;
+                border: 2px solid transparent;
+                transition: border-color 0.2s;
+                cursor: pointer;
+                background: none;
+                padding: 0;
+            }
+
+                .thumb-grid button:hover,
+                .thumb-grid button.active-thumb {
+                    border-color: #B91C1C;
+                }
+
+                .thumb-grid button img {
+                    width: 100%;
+                    height: 80px;
+                    object-fit: cover;
+                    display: block;
+                }
+
+        /* Wholesale modal */
+        #wholesaleModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+
+            #wholesaleModal.open {
+                display: flex;
+            }
+
+            #wholesaleModal #modalContent {
+                transform: scale(0.95);
+                opacity: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+            #wholesaleModal.open #modalContent {
+                transform: scale(1);
+                opacity: 1;
+            }
     </style>
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <input type="hidden" id="hdnProductName" value="<%=strProductName %>" />
+    <input type="hidden" id="hdnProductId" value="<%=strProductId %>" />
 
     <!-- Breadcrumb -->
     <section class="bg-[#f8fafc] py-3 border-b border-gray-200">
@@ -15,9 +86,9 @@
             <nav class="text-sm text-[#64748B] breadcrumb">
                 <a href="Default.aspx" class="hover:text-[#B91C1C]">Home</a>
                 <span class="mx-2">/</span>
-                <a href="Category.aspx" class="hover:text-[#B91C1C]">Injections</a>
+                <a href="Category/<%=strCategoryUrl %>" class="hover:text-[#B91C1C]"><%=strCategory %></a>
                 <span class="mx-2">/</span>
-                <span class="text-[#0F172A] font-medium">Vesco Pharma Gluta C 1000</span>
+                <span class="text-[#0F172A] font-medium"><%=strProductName %></span>
             </nav>
         </div>
     </section>
@@ -25,50 +96,38 @@
     <!-- Product Top Section -->
     <section class="py-8 md:py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-                <!-- Left: Product Images -->
+                <!-- Left: Main Image + Thumbnails -->
                 <div class="flex flex-col gap-3">
-                    <div class="relative w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 group main-product-image-wrap">
-                        <img id="mainProductImage" src="assests/Images/old-product/p-5.jpg" alt="Product Main"
-                            onclick="openModal(currentIndex)"
-                            class="object-contain transition-transform duration-500 group-hover:scale-105 mainProductImage cursor-pointer" />
-                        <span class="absolute top-4 left-4 bg-[#B91C1C] text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</span>
+                    <!-- Main Image -->
+                    <div class="relative w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 group">
+                        <img id="mainProductImage"
+                            src="/<%=strSmallImage %>"
+                            alt="<%=strProductName %>"
+                            onclick="openImageModal(0)"
+                            class="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105 cursor-pointer" />
+                        <%=strLabelBadge %>
                     </div>
-                    <div class="grid grid-cols-4 gap-3">
-                        <button onclick="changeImage(0)" class="thumb-btn active rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all">
-                            <img src="assests/Images/old-product/p-1.jpg" class="w-full h-20 object-cover" />
-                        </button>
-                        <button onclick="changeImage(1)" class="thumb-btn rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all">
-                            <img src="assests/Images/old-product/p-2.jpg" class="w-full h-20 object-cover" />
-                        </button>
-                        <button onclick="changeImage(2)" class="thumb-btn rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all">
-                            <img src="assests/Images/old-product/p-3.jpg" class="w-full h-20 object-cover" />
-                        </button>
-                        <button onclick="changeImage(3)" class="thumb-btn rounded-xl overflow-hidden border-2 border-transparent hover:border-[#B91C1C] transition-all">
-                            <img src="assests/Images/old-product/p-4.jpg" class="w-full h-20 object-cover" />
+
+                    <!-- Thumbnails — loaded from gallery via AJAX + thumb image as first item -->
+                    <div class="thumb-grid" id="thumbGrid">
+                        <%-- First thumb is always the main product image --%>
+                        <button class="active-thumb thumb-btn" onclick="switchMainImage('/<%=strSmallImage %>',this)">
+                            <img src="/<%=strSmallImage %>" alt="Main" />
                         </button>
                     </div>
                 </div>
 
-                <!-- Right: Product Info -->
+                <!-- Right: Info -->
                 <div class="flex flex-col">
                     <div class="flex items-center mb-4 flex-wrap gap-3">
-                        <span class="text-xs font-bold text-[#1E3A8A] uppercase tracking-wider">Vesco Pharma</span>
-                        <span class="inline-flex items-center gap-2 bg-[#2E7D32] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">
-                            <svg width="14" height="14" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0">
-                                <path d="M19.0312 4.03125H16.0312V0H2.01562C0.9375 0 0 0.9375 0 2.01562V13.0312H2.01562C2.01562 14.6719 3.375 16.0312 5.01562 16.0312C6.65625 16.0312 8.01562 14.6719 8.01562 13.0312H14.0156C14.0156 14.6719 15.375 16.0312 17.0156 16.0312C18.6562 16.0312 20.0156 14.6719 20.0156 13.0312H22.0312V8.01562L19.0312 4.03125ZM18.5156 5.53125L20.4844 8.01562H16.0312V5.53125H18.5156ZM5.01562 14.0156C4.45312 14.0156 4.03125 13.5469 4.03125 13.0312C4.03125 12.4688 4.45312 12 5.01562 12C5.57812 12 6 12.4688 6 13.0312C6 13.5469 5.57812 14.0156 5.01562 14.0156ZM7.21875 11.0156C6.70312 10.4062 5.90625 10.0312 5.01562 10.0312C4.125 10.0312 3.32812 10.4062 2.8125 11.0156H2.01562V2.01562H14.0156V11.0156H7.21875ZM17.0156 14.0156C16.4531 14.0156 16.0312 13.5469 16.0312 13.0312C16.0312 12.4688 16.4531 12 17.0156 12C17.5781 12 18 12.4688 18 13.0312C18 13.5469 17.5781 14.0156 17.0156 14.0156Z" fill="currentColor" />
-                            </svg>
-                            Available
-                        </span>
+                        <span class="text-xs font-bold text-[#1E3A8A] uppercase tracking-wider"><%=strBrand %></span>
+                        <%=strAvailBadge %>
                     </div>
 
-                    <h1 class="text-2xl section-title md:text-3xl font-bold text-[#0F172A] mb-3">
-                        Vesco Pharma Gluta C 1000 Glutathione Skin Whitening Injection
-                    </h1>
-                    <p class="text-sm md:text-base text-[#64748B] mb-6 leading-relaxed">
-                        High concentration Glutathione formula for effective skin whitening and anti-aging benefits. Contains Vitamin C for enhanced absorption and radiance.
-                    </p>
+                    <h1 class="text-2xl section-title md:text-3xl font-bold text-[#0F172A] mb-3"><%=strProductName %></h1>
+                    <p class="text-sm md:text-base text-[#64748B] mb-6 leading-relaxed"><%=strShortDesc %></p>
 
                     <!-- Key Highlights -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -111,10 +170,10 @@
                         </div>
                     </div>
 
-                    <!-- Meta Data -->
+                    <!-- Meta -->
                     <div class="mb-6">
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-                            <div class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-50/30 transition-colors cursor-pointer group">
+                            <div class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-50/30 transition-colors group">
                                 <div class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -122,10 +181,10 @@
                                 </div>
                                 <div>
                                     <span class="block text-[10px] text-gray-400 uppercase tracking-wider">Category</span>
-                                    <span class="block text-xs font-semibold text-gray-700">Glutathione Injections</span>
+                                    <span class="block text-xs font-semibold text-gray-700"><%=strCategory %></span>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-50/30 transition-colors cursor-pointer group">
+                            <div class="flex items-center gap-2 p-3 rounded-lg hover:bg-red-50/30 transition-colors group">
                                 <div class="w-8 h-8 rounded-md bg-gray-100 flex items-center justify-center text-gray-500 group-hover:text-[#B91C1C] group-hover:bg-red-100 transition-colors">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <circle cx="12" cy="12" r="10"></circle>
@@ -134,8 +193,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <span class="block text-[10px] text-gray-400 uppercase tracking-wider">Place of Origin:</span>
-                                    <span class="block text-xs font-semibold text-gray-700">Thailand</span>
+                                    <span class="block text-[10px] text-gray-400 uppercase tracking-wider">Place of Origin</span>
+                                    <span class="block text-xs font-semibold text-gray-700"><%=strPlaceOfOrigin %></span>
                                 </div>
                             </div>
                         </div>
@@ -144,23 +203,20 @@
                     <!-- Key Ingredients -->
                     <div class="mb-6">
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Key Ingredients</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1.5 bg-[#dbeafe] text-sky-800 text-xs font-semibold rounded-lg border border-sky-200">Liquid Nano Glutathione</span>
-                            <span class="px-3 py-1.5 bg-green-100 text-green-800 text-xs font-semibold rounded-lg border border-green-200">Vitamin C</span>
-                        </div>
+                        <div class="flex flex-wrap gap-2"><%=strIngredientTags %></div>
                     </div>
 
                     <!-- Price -->
-                    <div class="flex items-end gap-3 mb-6 items-center">
-                        <span class="text-3xl font-bold text-[#000]">Rs. 4,400</span>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-3xl font-bold text-[#000]">Rs. <%=strRetailPrice %></span>
                     </div>
 
-                    <!-- Add to Cart & Wholesale Enquiry -->
+                    <!-- Actions -->
                     <div class="flex flex-col sm:flex-row gap-4 mb-6">
                         <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold">&#8722;</button>
-                            <input type="number" value="1" class="w-6 text-center border-0 focus:ring-0 text-lg font-semibold ps-1" />
-                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold">+</button>
+                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="decreaseQty()">&#8722;</button>
+                            <input type="number" id="productQty" value="1" min="1" class="w-10 text-center border-0 focus:ring-0 text-lg font-semibold" />
+                            <button class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="increaseQty()">+</button>
                         </div>
                         <button class="flex-1 flex items-center justify-center gap-2 bg-[#B91C1C] text-white py-4 px-2 rounded-lg font-semibold hover:bg-red-700 transition-colors shadow-lg">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -169,12 +225,15 @@
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                             </svg>
                             Add to Cart
+                       
                         </button>
-                        <button onclick="openWholesaleModal()" class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors border border-gray-800 shadow-lg">
+                        <%-- FIX: onclick calls openWholesaleModal() defined below --%>
+                        <button onclick="openWholesaleModal()" class="flex-1 flex items-center justify-center gap-2 bg-[#0F172A] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#1E293B] transition-colors shadow-lg">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                             </svg>
                             Wholesale Enquiry
+                       
                         </button>
                     </div>
                 </div>
@@ -182,146 +241,57 @@
         </div>
     </section>
 
-    <!-- Product Tabs Section -->
+    <!-- ===== TABS ===== -->
     <section class="pb-10 product-tab">
         <div class="max-w-7xl mx-auto px-4">
-            <!-- Tab Navigation -->
             <div class="sticky top-[120px] z-20 p-2 mb-8 overflow-x-auto scrollbar-hide border-b bg-white">
                 <div class="flex gap-1 min-w-max">
-                    <button class="tab-btn active" data-tab="description">Product Description</button>
-                    <button class="tab-btn" data-tab="benefits">Benefits</button>
-                    <button class="tab-btn" data-tab="ingredients">Ingredients</button>
-                    <button class="tab-btn" data-tab="usage">Usage</button>
-                    <button class="tab-btn" data-tab="faq">FAQs</button>
-                    <button class="tab-btn" data-tab="enquiry">Quick Enquiry</button>
+                    <button type="button" class="tab-btn active" data-tab="description">Product Description</button>
+                    <button type="button" class="tab-btn" data-tab="benefits">Benefits</button>
+                    <button type="button" class="tab-btn" data-tab="ingredients">Ingredients</button>
+                    <button type="button" class="tab-btn" data-tab="usage">Usage</button>
+                    <button type="button" class="tab-btn" data-tab="faq">FAQ's</button>
+                    <button type="button" class="tab-btn" data-tab="enquiry">Quick Enquiry</button>
                 </div>
             </div>
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 px-0 md:px-6 py-8 pt-0">
 
-                <!-- 1. Description -->
                 <div id="description" class="tab-pane pt-0">
-                    <div class="editor-content">
-                        <h2>Vesco Pharma Gluta C 1000 Glutathione Skin Whitening Injection</h2>
-                        <p>Vesco Pharma's Gluta C 1000 Glutathione Skin Whitening Injections are enriched with high-concentration Glutathione and Vitamin C. This powerful formula is designed to brighten skin, reduce pigmentation, and promote a youthful glow. It works by inhibiting melanin production, resulting in a lighter and more even skin tone.</p>
-                        <p>Manufactured under strict quality control standards, these injections ensure maximum efficacy and safety. Suitable for all skin types.</p>
-                        <h3>Key Highlights</h3>
-                        <ul>
-                            <li>High Quality Glutathione (1000mg)</li>
-                            <li>Enriched with Vitamin C for better absorption</li>
-                            <li>Visible results within weeks</li>
-                        </ul>
-                        <h3>What Makes Vesco Pharma Gluta C 1000 Special?</h3>
-                        <p>Vesco Pharma's Gluta C 1000 is a powerful blend of Liquid Nano Glutathione and Vitamin C, designed to improve your skin's health and appearance. This product is available in a package containing 10 ampoules, each with 1000mg of Liquid Nano Glutathione and 1000mg of Vitamin C.</p>
-                        <p>The injections can be administered intravenously (IV) or intramuscularly (IM), depending on your preference or medical advice. The combination of Glutathione and Vitamin C works synergistically to deliver impressive skin whitening results.</p>
-                    </div>
+                    <div class="editor-content"><%=strFullDesc %></div>
                 </div>
 
                 <div class="border-t border-gray-100 my-8 mb-0"></div>
 
-                <!-- 2. Benefits -->
                 <div id="benefits" class="tab-pane pt-0">
-                    <div class="editor-content">
-                        <h2>Key Benefits</h2>
-                        <ul>
-                            <li><strong>Skin Whitening:</strong> The antioxidant properties of Glutathione detoxify your body, eliminating free radicals.</li>
-                            <li><strong>Anti-Aging:</strong> Reduces fine lines and wrinkles by boosting collagen production.</li>
-                            <li><strong>Detoxification:</strong> Glutathione acts as a powerful antioxidant, detoxifying the liver and body.</li>
-                            <li><strong>UV Protection:</strong> Helps in repairing skin damage caused by sun exposure.</li>
-                            <li><strong>Even Skin Tone:</strong> Reduces dark spots, acne scars, and hyperpigmentation.</li>
-                        </ul>
-                    </div>
+                    <div class="editor-content"><%=strBenefitsDesc %></div>
                 </div>
 
                 <div class="border-t border-gray-100 my-8 mb-0"></div>
 
-                <!-- 3. Ingredients -->
                 <div id="ingredients" class="tab-pane pt-0">
-                    <div class="editor-content">
-                        <h2>Ingredients List</h2>
-                        <ol>
-                            <li>Glutathione 1000mg</li>
-                            <li>Vitamin C (Ascorbic Acid) 500mg</li>
-                            <li>Thioctic Acid</li>
-                            <li>Epidermal Growth Factor (EGF)</li>
-                            <li>Alpha Lipoic Acid</li>
-                        </ol>
-                        <p>* Please consult the packaging or your healthcare provider for the complete list of excipients.</p>
-                    </div>
+                    <div class="editor-content"><%=strIngredientsDesc %></div>
                 </div>
 
                 <div class="border-t border-gray-100 my-8 mb-0"></div>
 
-                <!-- 4. Usage -->
                 <div id="usage" class="tab-pane pt-0">
-                    <div class="editor-content">
-                        <h2>How to Use</h2>
-                        <ol>
-                            <li>Consult a dermatologist or healthcare professional before use.</li>
-                            <li>Administer via intravenous (IV) or intramuscular (IM) injection.</li>
-                            <li>Recommended frequency is once or twice a week for best results.</li>
-                            <li>Maintain a healthy diet and hydration levels during the course.</li>
-                            <li>Avoid sun exposure immediately after the session; use sunscreen.</li>
-                        </ol>
-                    </div>
+                    <div class="editor-content"><%=strUsageDesc %></div>
                 </div>
 
                 <div class="border-t border-gray-100 my-8 mb-0"></div>
 
-                <!-- 5. FAQ -->
-                <div id="faq" class="tab-pane pt-0">
+                <!-- FAQ Section — rendered server-side -->
+                <div id="faq" class="tab-pane pt-4">
                     <h2 class="text-2xl section-title font-bold text-[#0F172A] mb-6">Frequently Asked Questions</h2>
-                    <div class="space-y-4">
-                        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
-                            <button class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors">
-                                <span>Is it safe to use Glutathione injections?</span>
-                                <svg class="faq-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
-                                Yes, Glutathione is a naturally occurring antioxidant in the body. However, it is crucial to use high-quality products from reputable sellers like Tamaz Global and consult a doctor before starting any treatment.
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
-                            <button class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors">
-                                <span>How many sessions are required to see results?</span>
-                                <svg class="faq-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
-                                Results vary based on individual metabolism and skin type. Generally, visible changes are noticed after 4 to 8 sessions. Consistency and proper dosage are key.
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
-                            <button class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors">
-                                <span>Are there any side effects?</span>
-                                <svg class="faq-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
-                                When administered correctly, side effects are rare. Some individuals might experience mild digestive issues or allergic reactions. Always get tested for allergies first.
-                            </div>
-                        </div>
-                        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
-                            <button class="faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors">
-                                <span>Do Vesco Pharma Gluta C 1000 Injections affect aging?</span>
-                                <svg class="faq-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            <div class="faq-answer hidden px-5 pb-5 text-[#64748B]">
-                                As a powerful antioxidant, Glutathione helps reduce signs of aging like wrinkles and fine lines.
-                            </div>
-                        </div>
+                    <div class="space-y-4" id="faqContainer">
+                        <%=strProdFaqs %>
                     </div>
                 </div>
 
                 <div class="border-t border-gray-100 my-8 mb-0"></div>
 
-                <!-- 6. Enquiry Form -->
+                <!-- Quick Enquiry -->
                 <div id="enquiry" class="tab-pane pt-4">
                     <div class="grid lg:grid-cols-2 gap-10">
                         <div>
@@ -331,36 +301,37 @@
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
-                                        <asp:TextBox ID="txtEnqName" runat="server" placeholder="Your Name" CssClass="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all" />
+                                        <input type="text" id="txtEnqName" placeholder="Your Name" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                        <asp:TextBox ID="txtEnqCity" runat="server" placeholder="Your City" CssClass="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all" />
+                                        <input type="text" id="txtEnqCity" placeholder="Your City" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
                                     </div>
                                 </div>
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-                                        <asp:TextBox ID="txtEnqPhone" runat="server" TextMode="Phone" placeholder="+91 XXXXX XXXXX" CssClass="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all" />
+                                        <input type="tel" id="txtEnqPhone" placeholder="+91 XXXXX XXXXX" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                        <asp:TextBox ID="txtEnqEmail" runat="server" TextMode="Email" placeholder="email@example.com" CssClass="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all" />
+                                        <input type="email" id="txtEnqEmail" placeholder="email@example.com" class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none transition-all" />
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                                    <asp:TextBox ID="txtEnqMessage" runat="server" TextMode="MultiLine" Rows="4" placeholder="Write your message..." CssClass="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none transition-all resize-none" />
+                                    <textarea id="txtEnqMessage" rows="4" placeholder="Write your message..." class="w-full border border-gray-200 rounded-lg px-4 py-3 outline-none resize-none"></textarea>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <span class="text-gray-600 font-medium">6 + 1 = ?</span>
-                                    <asp:TextBox ID="txtCaptcha" runat="server" CssClass="w-24 border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] outline-none" placeholder="?" />
+                                    <span class="text-gray-600 font-medium" id="captchaLabel"></span>
+                                    <input type="text" id="txtCaptcha" class="w-24 border border-gray-200 rounded-lg px-4 py-2 outline-none" placeholder="?" />
                                 </div>
-                                <asp:Button ID="btnEnquiry" runat="server" Text="Send Now" CssClass="w-full sm:w-auto bg-[#0F172A] text-white font-semibold px-10 py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg" OnClick="btnEnquiry_Click" />
+                                <button onclick="submitEnquiry()" class="w-full sm:w-auto bg-[#0F172A] text-white font-semibold px-10 py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">Send Now</button>
+                                <div id="enqMsg" class="text-sm mt-2"></div>
                             </div>
                         </div>
 
-                        <!-- Contact Info Sidebar -->
+                        <!-- Contact Sidebar -->
                         <div class="rounded-2xl p-8 border border-gray-100 flex flex-col contact-info-block">
                             <h3 class="text-xl font-bold text-[#0F172A] mb-6">Contact Information</h3>
                             <div class="space-y-6">
@@ -404,146 +375,251 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Wholesale Enquiry Modal -->
-    <div id="wholesaleModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 relative transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
-            <button onclick="closeWholesaleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+    <!-- ===== WHOLESALE MODAL =====
+         FIX: Removed Tailwind's 'hidden' class approach which conflicts with
+         the master page's Tailwind CDN purging. Using plain CSS display:none
+         toggled by adding/removing class 'open' instead. --%>
+    <div id="wholesaleModal">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 relative" id="modalContent">
+            <button onclick="closeWholesaleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
             <div class="p-8 pb-0 text-center">
-                <h2 class="text-2xl section-title font-bold text-[#0F172A]">Get Whole Sale Enquiry</h2>
+                <h2 class="text-2xl section-title font-bold text-[#0F172A]">Get Wholesale Enquiry</h2>
                 <p class="text-sm text-gray-500 mt-2">Fill in the details below and we will get back to you shortly.</p>
             </div>
             <div class="p-8 pt-6 space-y-4">
-                <asp:TextBox ID="txtWsName" runat="server" placeholder="Your Name" CssClass="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm" />
-                <asp:TextBox ID="txtWsCity" runat="server" placeholder="City" CssClass="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm" />
-                <asp:TextBox ID="txtWsPhone" runat="server" TextMode="Phone" placeholder="Phone" CssClass="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm" />
-                <asp:TextBox ID="txtWsEmail" runat="server" TextMode="Email" placeholder="Your Email" CssClass="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm" />
-                <asp:TextBox ID="txtWsMessage" runat="server" TextMode="MultiLine" Rows="3" placeholder="Your Message" CssClass="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-[#B91C1C] transition-all text-sm resize-none" />
-                <asp:Button ID="btnWsSubmit" runat="server" Text="Send Now" CssClass="w-full btn-primary text-center hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg shadow-blue-200 justify-center" OnClick="btnWsSubmit_Click" />
+                <input type="text"  id="txtWsName"    placeholder="Your Name"   class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                <input type="text"  id="txtWsCity"    placeholder="City"         class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                <input type="tel"   id="txtWsPhone"   placeholder="Phone"        class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                <input type="email" id="txtWsEmail"   placeholder="Your Email"   class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm" />
+                <textarea           id="txtWsMessage" placeholder="Your Message" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none text-sm resize-none"></textarea>
+                <button onclick="submitWholesale()" class="w-full bg-[#0F172A] text-white font-semibold py-3 rounded-lg hover:bg-[#1E293B] transition-colors shadow-lg">Send Now</button>
+                <div id="wsMsg" class="text-sm mt-2"></div>
             </div>
         </div>
     </div>
 
-    <!-- Image Popup Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-100 image-modal-container">
-        <button onclick="closeModal()" class="absolute top-5 right-5 text-white text-3xl">&times;</button>
-        <button onclick="prevImage()" class="absolute left-5 text-white text-3xl">&#10094;</button>
-        <img id="modalImage" class="max-w-[90%] max-h-[90%] rounded-lg shadow-lg" />
-        <button onclick="nextImage()" class="absolute right-5 text-white text-3xl">&#10095;</button>
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
+        <button onclick="closeImageModal()" style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer;">&times;</button>
+        <img id="modalImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
     </div>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/92300123456" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50">
         <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
     </a>
 
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script>
-        // Image Gallery
-        const images = [
-            "assests/Images/old-product/p-1.jpg",
-            "assests/Images/old-product/p-2.jpg",
-            "assests/Images/old-product/p-3.jpg",
-            "assests/Images/old-product/p-4.jpg"
-        ];
-        let currentIndex = 0;
 
-        function changeImage(index) {
-            currentIndex = index;
-            document.getElementById("mainProductImage").src = images[index];
-            document.querySelectorAll(".thumb-btn").forEach((btn, i) => {
-                btn.classList.toggle("border-[#B91C1C]", i === index);
-                btn.classList.toggle("border-transparent", i !== index);
-            });
-        }
+        // -------------------------------------------------------
+        // GALLERY THUMBNAILS
+        // Load gallery images for this product via WebMethod,
+        // then append them to the thumb grid after the main image.
+        // -------------------------------------------------------
+        var galleryImages = ['/<%=strSmallImage %>'];  // start with main image
 
-        function openModal(index) {
-            currentIndex = index;
-            document.getElementById("imageModal").classList.remove("hidden");
-            document.getElementById("imageModal").classList.add("flex");
-            updateModalImage();
-        }
-
-        function closeModal() {
-            document.getElementById("imageModal").classList.add("hidden");
-            document.getElementById("imageModal").classList.remove("flex");
-        }
-
-        function updateModalImage() {
-            document.getElementById("modalImage").src = images[currentIndex];
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateModalImage();
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateModalImage();
-        }
-
-        // Tabs - smooth scroll
-        document.querySelectorAll(".tab-btn").forEach((button) => {
-            button.addEventListener("click", function () {
-                const targetId = this.getAttribute("data-tab");
-                const target = document.getElementById(targetId);
-                if (target) {
-                    const headerOffset = 190;
-                    const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                    window.scrollTo({ top: elementPosition - headerOffset, behavior: "smooth" });
-                }
-                document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-                this.classList.add("active");
-            });
+        $(document).ready(function () {
+            var pid = $('#hdnProductId').val();
+            if (pid && pid !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Product.aspx/GetProductGallery',
+                    data: JSON.stringify({ id: pid }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.d && data.d.length > 0) {
+                            $.each(data.d, function (i, img) {
+                                var src = '/' + img.Images;
+                                galleryImages.push(src);
+                                var idx = galleryImages.length - 1;
+                                var btn = $('<button class="thumb-btn"></button>');
+                                btn.attr('onclick', "switchMainImage('" + src + "', this)");
+                                btn.append('<img src="' + src + '" alt="Gallery ' + (i + 1) + '" />');
+                                $('#thumbGrid').append(btn);
+                            });
+                        }
+                    }
+                });
+            }
         });
 
-        // FAQ Accordion
-        document.querySelectorAll(".faq-question").forEach((button) => {
-            button.addEventListener("click", () => {
-                button.nextElementSibling.classList.toggle("hidden");
-                button.querySelector(".faq-icon").classList.toggle("rotate-180");
+        // Switch main image when thumbnail clicked
+        function switchMainImage(src, btn) {
+            document.getElementById('mainProductImage').src = src;
+            document.querySelectorAll('.thumb-btn').forEach(function (b) {
+                b.classList.remove('active-thumb');
             });
-        });
+            btn.classList.add('active-thumb');
+        }
 
-        // Wholesale Modal
-        const wholesaleModal = document.getElementById("wholesaleModal");
-        const modalContent = document.getElementById("modalContent");
+        // -------------------------------------------------------
+        // IMAGE ZOOM MODAL
+        // -------------------------------------------------------
+        function openImageModal(index) {
+            var src = document.getElementById('mainProductImage').src;
+            document.getElementById('modalImage').src = src;
+            var modal = document.getElementById('imageModal');
+            modal.style.display = 'flex';
+        }
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
 
+        // -------------------------------------------------------
+        // WHOLESALE MODAL
+        // FIX: The original used Tailwind hidden/flex classes which
+        // conflict with how Tailwind CDN works at runtime. Now uses
+        // a plain CSS class 'open' that is defined in the <style> block.
+        // -------------------------------------------------------
         function openWholesaleModal() {
-            wholesaleModal.classList.remove("hidden");
-            wholesaleModal.classList.add("flex");
-            setTimeout(() => {
-                wholesaleModal.classList.add("opacity-100");
-                modalContent.classList.remove("scale-95", "opacity-0");
-                modalContent.classList.add("scale-100", "opacity-100");
+            var modal = document.getElementById('wholesaleModal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            // Trigger animation on next frame
+            setTimeout(function () {
+                document.getElementById('modalContent').style.transform = 'scale(1)';
+                document.getElementById('modalContent').style.opacity = '1';
             }, 10);
-            document.body.style.overflow = "hidden";
         }
-
         function closeWholesaleModal() {
-            modalContent.classList.remove("scale-100", "opacity-100");
-            modalContent.classList.add("scale-95", "opacity-0");
-            setTimeout(() => {
-                wholesaleModal.classList.add("hidden");
-                wholesaleModal.classList.remove("flex", "opacity-100");
-                document.body.style.overflow = "auto";
+            var content = document.getElementById('modalContent');
+            content.style.transform = 'scale(0.95)';
+            content.style.opacity = '0';
+            setTimeout(function () {
+                document.getElementById('wholesaleModal').classList.remove('open');
+                document.body.style.overflow = 'auto';
             }, 300);
         }
-
-        wholesaleModal.addEventListener("click", (e) => {
-            if (e.target === wholesaleModal) closeWholesaleModal();
+        // Close on backdrop click
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById('wholesaleModal');
+            if (modal) {
+                modal.addEventListener('click', function (e) {
+                    if (e.target === this) closeWholesaleModal();
+                });
+            }
         });
+        // -------------------------------------------------------
+        // TABS — smooth scroll to section
+        // -------------------------------------------------------
+        document.querySelectorAll('.tab-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var targetId = this.getAttribute('data-tab');
+                var target = document.getElementById(targetId);
+                if (target) {
+                    var headerOffset = 190;
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+                document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+                this.classList.add('active');
+            });
+        });
+
+        // -------------------------------------------------------
+        // FAQ ACCORDION
+        // -------------------------------------------------------
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest('.faq-question');
+            if (btn) {
+                var answer = btn.nextElementSibling;
+                var icon = btn.querySelector('.faq-icon');
+                if (answer) answer.classList.toggle('hidden');
+                if (icon) icon.classList.toggle('rotate-180');
+            }
+        });
+
+        // -------------------------------------------------------
+        // QTY
+        // -------------------------------------------------------
+        function increaseQty() {
+            var qty = document.getElementById('productQty');
+            qty.value = parseInt(qty.value) + 1;
+        }
+        function decreaseQty() {
+            var qty = document.getElementById('productQty');
+            if (parseInt(qty.value) > 1) qty.value = parseInt(qty.value) - 1;
+        }
+
+        // -------------------------------------------------------
+        // CAPTCHA
+        // -------------------------------------------------------
+        var c1 = Math.floor(Math.random() * 9) + 1;
+        var c2 = Math.floor(Math.random() * 9) + 1;
+        var captchaAnswer = c1 + c2;
+        document.getElementById('captchaLabel').innerText = c1 + ' + ' + c2 + ' = ?';
+
+        // -------------------------------------------------------
+        // ENQUIRY SUBMIT
+        // -------------------------------------------------------
+        function submitEnquiry() {
+            var name = document.getElementById('txtEnqName').value.trim();
+            var phone = document.getElementById('txtEnqPhone').value.trim();
+            var captcha = document.getElementById('txtCaptcha').value.trim();
+            var msg = document.getElementById('enqMsg');
+            if (!name || !phone) { msg.innerHTML = "<span class='text-red-500'>Name and Phone are required.</span>"; return; }
+            if (parseInt(captcha) !== captchaAnswer) { msg.innerHTML = "<span class='text-red-500'>Incorrect captcha.</span>"; return; }
+            $.ajax({
+                type: 'POST', url: 'Product.aspx/SubmitEnquiry',
+                data: JSON.stringify({
+                    name: name,
+                    city: document.getElementById('txtEnqCity').value,
+                    phone: phone,
+                    email: document.getElementById('txtEnqEmail').value,
+                    message: document.getElementById('txtEnqMessage').value,
+                    product: document.getElementById('hdnProductName').value
+                }),
+                contentType: 'application/json; charset=utf-8', dataType: 'json',
+                success: function (res) {
+                    msg.innerHTML = res.d === 'Success'
+                        ? "<span class='text-green-600'>Enquiry sent successfully!</span>"
+                        : "<span class='text-red-500'>Something went wrong.</span>";
+                }
+            });
+        }
+
+        // -------------------------------------------------------
+        // WHOLESALE SUBMIT
+        // -------------------------------------------------------
+        function submitWholesale() {
+            var name = document.getElementById('txtWsName').value.trim();
+            var phone = document.getElementById('txtWsPhone').value.trim();
+            var msg = document.getElementById('wsMsg');
+            if (!name || !phone) { msg.innerHTML = "<span class='text-red-500'>Name and Phone are required.</span>"; return; }
+            $.ajax({
+                type: 'POST', url: 'Product.aspx/SubmitWholesaleEnquiry',
+                data: JSON.stringify({
+                    name: name,
+                    city: document.getElementById('txtWsCity').value,
+                    phone: phone,
+                    email: document.getElementById('txtWsEmail').value,
+                    message: document.getElementById('txtWsMessage').value,
+                    product: document.getElementById('hdnProductName').value
+                }),
+                contentType: 'application/json; charset=utf-8', dataType: 'json',
+                success: function (res) {
+                    msg.innerHTML = res.d === 'Success'
+                        ? "<span class='text-green-600'>Enquiry sent!</span>"
+                        : "<span class='text-red-500'>Something went wrong.</span>";
+                    if (res.d === 'Success') setTimeout(closeWholesaleModal, 1500);
+                }
+            });
+        }
     </script>
 </asp:Content>

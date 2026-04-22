@@ -2,8 +2,16 @@
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <style>
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
     </style>
 </asp:Content>
 
@@ -17,7 +25,7 @@
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
                 <a href="Blog.aspx" class="hover:text-red-700 transition-colors">Blog</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
-                <span class="text-slate-900 font-medium">Glutathione Injection Sharing</span>
+                <span class="text-slate-900 font-medium"><%= BlogTitle %></span>
             </div>
         </div>
     </div>
@@ -32,40 +40,44 @@
                     <article class="bg-white br-12 shadow-sm border border-slate-100 overflow-hidden">
                         <!-- Featured Image -->
                         <div class="relative h-64 md:h-96 w-full">
-                            <img src="assests/Images/blog-image.png" alt="Glutathione Injection" class="w-full h-full object-cover" />
+                            <img src="/<%= ImageUrl %>" alt="image" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-6">
-                                <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-semibold mb-3 inline-block">Skin Care</span>
-                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4">Glutathione Injection Sharing</h1>
+                                <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-semibold mb-3 inline-block"><%= CategoryName %></span>
+                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4"><%= BlogTitle %></h1>
                             </div>
                         </div>
 
                         <!-- Meta Info -->
                         <div class="flex flex-wrap items-center gap-4 px-6 py-4 border-b border-slate-100 bg-slate-50/50">
                             <div class="flex items-center gap-2">
-                                <img src="assests/Images/avathar.png" alt="Author" class="w-8 h-8 rounded-full object-cover" />
-                                <span class="text-sm font-medium text-slate-700">Rachana</span>
+                                <img src="/assests/Images/avathar.png" alt="Author" class="w-8 h-8 rounded-full object-cover" />
+                                <span class="text-sm font-medium text-slate-700"><%= Author %></span>
                             </div>
                             <span class="text-slate-300">|</span>
                             <div class="flex items-center gap-1 text-sm text-slate-500">
                                 <span class="iconify w-4 h-4" data-icon="lucide:calendar"></span>
-                                March 24, 2024
+                                <%= PublishDate %>
                             </div>
                         </div>
 
                         <!-- Article Body -->
                         <div class="p-6 md:p-8 blog-detail max-w-none pt-0 md:pt-0">
-                            <h2>Introduction</h2>
+                            <%= BlogContent %>
+                            <%-- <h2>Introduction</h2>
                             <p>
                                 In the pursuit of flawless, radiant skin, many individuals turn to various skincare treatments. Among these, <strong>Glutathione injections</strong> have gained immense popularity for their skin brightening and antioxidant properties. In this article, we will delve into the details of Glutathione injections, sharing personal experiences and insights to help you make an informed decision.
+                           
                             </p>
 
                             <h2>What is Glutathione Injection?</h2>
                             <p>
                                 Glutathione is a powerful antioxidant naturally produced in the body. It plays a crucial role in neutralizing free radicals, detoxifying the liver, and boosting the immune system. When administered via injection, Glutathione works by inhibiting the enzyme tyrosinase, which is responsible for the production of melanin (skin pigment). This process leads to a gradual lightening of the skin tone and a reduction in hyperpigmentation.
+                           
                             </p>
                             <p>
                                 Unlike oral supplements, injections deliver the antioxidant directly into the bloodstream, ensuring maximum absorption and faster results. This method is often preferred by those seeking significant changes in their complexion.
+                           
                             </p>
 
                             <h2>Personal Skin Condition</h2>
@@ -78,6 +90,7 @@
                             </ul>
                             <p>
                                 Despite trying various topical creams and serums, the results were often temporary or minimal. This led me to explore clinical treatments like Glutathione injections.
+                           
                             </p>
 
                             <h2>Treatment Effect &amp; Results</h2>
@@ -101,16 +114,19 @@
                             <h2>Conclusion</h2>
                             <p>
                                 Glutathione injections can be a game-changer for those struggling with skin pigmentation and texture issues. However, it is essential to consult with a certified dermatologist before starting any treatment. Authentic products and proper dosage are key to achieving safe and effective results. At <strong>Tamaz Global Trading Co.</strong>, we ensure you get genuine products for your wellness journey.
-                            </p>
+                           
+                            </p>--%>
                         </div>
 
                         <!-- Tags & Share -->
                         <div class="px-6 md:px-8 py-5 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50">
                             <div class="flex items-center gap-2 flex-wrap">
                                 <span class="text-sm font-semibold text-slate-600">Tags:</span>
-                                <a href="#" class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-slate-600 hover:bg-slate-100 transition-colors">Glutathione</a>
+                                <%= BlogTags %>
+                                <%-- <a href="#" class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-slate-600 hover:bg-slate-100 transition-colors">Glutathione</a>
                                 <a href="#" class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-slate-600 hover:bg-slate-100 transition-colors">Skin Whitening</a>
                                 <a href="#" class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs text-slate-600 hover:bg-slate-100 transition-colors">Injection</a>
+                                --%>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold text-slate-600">Share:</span>
@@ -131,7 +147,8 @@
                     <div class="mt-12 reveal">
                         <h2 class="text-2xl font-bold text-slate-900 mb-6">Related Posts</h2>
                         <div class="grid sm:grid-cols-2 gap-6">
-                            <div class="reveal blog-card group bg-white br-12 shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-500">
+                            <%= RelatedPosts %>
+                            <%--     <div class="reveal blog-card group bg-white br-12 shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-all duration-500">
                                 <a href="BlogDetail.aspx">
                                     <div class="relative overflow-hidden">
                                         <img src="https://picsum.photos/seed/glutathione/600/400" alt="Glutathione" class="w-full h-56 object-cover card-img" />
@@ -150,14 +167,14 @@
                                                 Admin
                                             </span>
                                         </div>
-                                        <h3 class="text-xl font-bold mb-3 blog-title transition-colors">
-                                            Glutathione Injection: Before and After Guide
+                                        <h3 class="text-xl font-bold mb-3 blog-title transition-colors">Glutathione Injection: Before and After Guide
                                         </h3>
                                         <p class="text-slate-500 text-sm mb-4 line-clamp-2">
                                             Discover the real results of Glutathione injections. Learn what to expect before and after the treatment for maximum skin brightening effects.
+                                       
                                         </p>
-                                        <span class="inline-flex items-center gap-2 text-red-700 font-semibold text-sm group-hover:gap-3 transition-all">
-                                            Read More
+                                        <span class="inline-flex items-center gap-2 text-red-700 font-semibold text-sm group-hover:gap-3 transition-all">Read More
+                                           
                                             <span class="iconify w-4 h-4" data-icon="lucide:arrow-right"></span>
                                         </span>
                                     </div>
@@ -181,18 +198,19 @@
                                             Dr. Sarah
                                         </span>
                                     </div>
-                                    <h3 class="text-xl font-bold mb-3 blog-title transition-colors">
-                                        Top 5 Benefits of Vitamin C IV Therapy
+                                    <h3 class="text-xl font-bold mb-3 blog-title transition-colors">Top 5 Benefits of Vitamin C IV Therapy
                                     </h3>
                                     <p class="text-slate-500 text-sm mb-4 line-clamp-2">
                                         High-dose Vitamin C IV therapy is gaining popularity. Explore the top benefits for immunity, skin health, and energy levels.
+                                   
                                     </p>
-                                    <a href="#" class="inline-flex items-center gap-2 text-red-700 font-semibold text-sm group-hover:gap-3 transition-all">
-                                        Read More
+                                    <a href="#" class="inline-flex items-center gap-2 text-red-700 font-semibold text-sm group-hover:gap-3 transition-all">Read More
+                                       
                                         <span class="iconify w-4 h-4" data-icon="lucide:arrow-right"></span>
                                     </a>
                                 </div>
                             </div>
+                            --%>
                         </div>
                     </div>
                 </div>
@@ -205,7 +223,8 @@
                         <div class="bg-white p-6 br-12 shadow-sm border border-slate-100 reveal">
                             <h3 class="text-lg font-bold text-slate-900 mb-4">Categories</h3>
                             <ul class="space-y-3">
-                                <li>
+                                  <%= Categories %>
+                               <%-- <li>
                                     <a href="#" class="flex justify-between items-center text-slate-600 hover:text-red-700 transition-colors text-sm">
                                         <span>Skin Care</span>
                                         <span class="bg-slate-100 px-2 py-0.5 rounded text-xs text-slate-500">12</span>
@@ -228,7 +247,7 @@
                                         <span>Weight Loss</span>
                                         <span class="bg-slate-100 px-2 py-0.5 rounded text-xs text-slate-500">04</span>
                                     </a>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
 
@@ -236,7 +255,8 @@
                         <div class="bg-white p-6 br-12 shadow-sm border border-slate-100 reveal">
                             <h3 class="text-lg font-bold text-slate-900 mb-4">Recent Posts</h3>
                             <div class="space-y-4">
-                                <a href="#" class="flex gap-3 group">
+                                 <%= RecentPosts %>
+                               <%-- <a href="#" class="flex gap-3 group">
                                     <img src="https://picsum.photos/seed/recent1/100/100" alt="Recent Post" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold text-slate-900 group-hover:text-red-700 transition-colors leading-tight">Top 5 Benefits of NAD+ Therapy</h4>
@@ -249,7 +269,7 @@
                                         <h4 class="text-sm font-semibold text-slate-900 group-hover:text-red-700 transition-colors leading-tight">Choosing the Right Supplements</h4>
                                         <p class="text-xs text-slate-500 mt-1">March 19, 2024</p>
                                     </div>
-                                </a>
+                                </a>--%>
                             </div>
                         </div>
 
@@ -257,7 +277,7 @@
                         <div class="bg-gradient-to-br from-slate-900 to-blue-900 p-6 br-12 shadow-lg text-white reveal">
                             <h3 class="text-lg font-bold mb-2">Want Better Skin?</h3>
                             <p class="text-sm text-slate-300 mb-4">Discover personalized skincare tips and expert recommendations today.</p>
-                            <a href="Category.aspx" class="inline-flex items-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-800 transition-colors w-full justify-center">
+                            <a href="/Category/glutathione-injections" class="inline-flex items-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-800 transition-colors w-full justify-center">
                                 <span class="iconify w-4 h-4" data-icon="lucide:shopping-cart"></span>
                                 Shop Now
                             </a>

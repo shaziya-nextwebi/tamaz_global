@@ -263,12 +263,19 @@ WHERE tbl.RowNo >  ((TRY_Convert(int,@Pno) - 1) * 20)";
         return Detail;
     }
 
-    public static List<ProductDetails> GetAllProductstop5(SqlConnection conT)
+    public static List<ProductDetails> GetAllProductstop8(SqlConnection conT)
     {
         List<ProductDetails> productDetails = new List<ProductDetails>();
         try
         {
-            string query = "Select Top 5 * from ProductDetails where Status!='Deleted' and DisplayHome='Yes' Order by Id desc";
+            string query = @"SELECT TOP 8 pd.*,
+            (SELECT TOP 1 ProductLabel FROM ProductLabelMaster 
+             WHERE Id = TRY_CONVERT(INT, pd.ProductLabel)) AS ProductLabelName
+            FROM ProductDetails pd
+            WHERE pd.Status = 'Active' 
+            AND pd.DisplayHome = 'Yes' 
+            ORDER BY pd.Id DESC";
+
             using (SqlCommand cmd = new SqlCommand(query, conT))
             {
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -278,38 +285,14 @@ WHERE tbl.RowNo >  ((TRY_Convert(int,@Pno) - 1) * 20)";
                                   select new ProductDetails()
                                   {
                                       Id = Convert.ToInt32(Convert.ToString(dr["Id"])),
-                                      ProductId = Convert.ToString(dr["ProductId"]),
-                                      ProductGuid = Convert.ToString(dr["ProductGuid"]),
-                                      Category = Convert.ToString(dr["Category"]),
-                                      Brand = Convert.ToString(dr["Brand"]),
-                                      DeliveredBy = Convert.ToString(dr["DeliveredBy"]),
-                                      RetailPrice = Convert.ToString(dr["RetailPrice"]),
-                                      ProductAvailability = Convert.ToString(dr["ProductAvailability"]),
-                                      ProductLabel = Convert.ToString(dr["ProductLabel"]),
                                       ProductName = Convert.ToString(dr["ProductName"]),
-                                      BenefitsDesc = Convert.ToString(dr["BenefitsDesc"]),
-                                      IngredientsDesc = Convert.ToString(dr["IngredientsDesc"]),
-                                      UsageDesc = Convert.ToString(dr["UsageDesc"]),
                                       ProductUrl = Convert.ToString(dr["ProductUrl"]),
-                                      PlaceOfOrigin = Convert.ToString(dr["PlaceOfOrigin"]),
-                                      KeyIngredient = Convert.ToString(dr["KeyIngredient"]),
-                                      ProductShortDesc = Convert.ToString(dr["ProductShortDesc"]),
-                                      InStock = Convert.ToString(dr["InStock"]),
-                                      DisplayHome = Convert.ToString(dr["DisplayHome"]),
-                                      AlternativeProduct = Convert.ToString(dr["AlternativeProduct"]),
-                                      BrandOrder = Convert.ToString(dr["BrandOrder"]),
-                                      CategoryOrder = Convert.ToString(dr["CategoryOrder"]) == "" ? "1000" : Convert.ToString(dr["CategoryOrder"]),
-                                      BrandId = Convert.ToString(dr["BrandId"]),
-                                      CategoryId = Convert.ToString(dr["CategoryId"]),
-                                      FullDesc = Convert.ToString(dr["FullDesc"]),
                                       SmallImage = Convert.ToString(dr["SmallImage"]),
-                                      //AddedBy = Convert.ToString(dr["AddedBy1"]),
-                                      AddedOn = Convert.ToDateTime(Convert.ToString(dr["AddedOn"])),
-                                      AddedIp = Convert.ToString(dr["AddedIp"]),
-                                      Status = Convert.ToString(dr["Status"]),
-                                      PageTitle = Convert.ToString(dr["PageTitle"]),
-                                      MetaKeys = Convert.ToString(dr["MetaKeys"]),
-                                      MetaDesc = Convert.ToString(dr["MetaDesc"])
+                                      RetailPrice = Convert.ToString(dr["RetailPrice"]),
+                                      ProductLabel = Convert.ToString(dr["ProductLabel"]),
+                                      ProductLabelName = Convert.ToString(dr["ProductLabelName"]),
+                                      DisplayHome = Convert.ToString(dr["DisplayHome"]),
+                                      Status = Convert.ToString(dr["Status"])
                                   }).ToList();
             }
         }
@@ -319,7 +302,7 @@ WHERE tbl.RowNo >  ((TRY_Convert(int,@Pno) - 1) * 20)";
         }
         finally
         {
-            conT.Close();
+            if (conT.State == ConnectionState.Open) conT.Close();
         }
         return productDetails;
     }
@@ -389,7 +372,68 @@ FROM ProductDetails as pd inner join Brand as c on c.BrandName = pd.Brand where 
         return Detail;
     }
 
+    public static List<ProductDetails> GetSpotlightProducts(SqlConnection conT)
+    {
+        List<ProductDetails> products = new List<ProductDetails>();
+        try
+        {
+            string query = @"
+            SELECT pd.*, c.CategoryUrl,
+                (SELECT TOP 1 ProductLabel FROM ProductLabelMaster WHERE Id = TRY_CONVERT(INT, pd.ProductLabel)) AS ProductLabelName
+            FROM ProductDetails pd
+            INNER JOIN Category c ON c.CategoryName = pd.Category
+            WHERE pd.Status = 'Active' AND c.Status = 'Active'
+            AND pd.Id IN (
+                SELECT MAX(Id) FROM ProductDetails 
+                WHERE Status = 'Active' AND Category = 'Glutathione Injections'
+                
+                UNION ALL
+                
+                SELECT MAX(Id) FROM ProductDetails 
+                WHERE Status = 'Active' AND Category = 'Skin Whitening Pills'
+                
+                UNION ALL
+                
+                SELECT MAX(Id) FROM ProductDetails 
+                WHERE Status = 'Active' AND Category = 'Other Injections'
+            )
+            ORDER BY 
+                CASE pd.Category
+                    WHEN 'Glutathione Injections' THEN 1
+                    WHEN 'Skin Whitening Pills'   THEN 2
+                    WHEN 'Other Injections'    THEN 3
+                END";
 
+            using (SqlCommand cmd = new SqlCommand(query, conT))
+            {
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                products = (from DataRow dr in dt.Rows
+                            select new ProductDetails()
+                            {
+                                Id = Convert.ToInt32(Convert.ToString(dr["Id"])),
+                                ProductName = Convert.ToString(dr["ProductName"]),
+                                Category = Convert.ToString(dr["Category"]),
+                                CategoryUrl = Convert.ToString(dr["CategoryUrl"]),
+                                SmallImage = Convert.ToString(dr["SmallImage"]),
+                                ProductLabelName = Convert.ToString(dr["ProductLabelName"]),
+                                ProductUrl = Convert.ToString(dr["ProductUrl"]),
+                                RetailPrice = Convert.ToString(dr["RetailPrice"]),
+                                Status = Convert.ToString(dr["Status"])
+                            }).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "GetSpotlightProducts", ex.Message);
+        }
+        finally
+        {
+            if (conT.State == ConnectionState.Open) conT.Close();
+        }
+        return products;
+    }
     public static int PublishOrUnPublishProduct(SqlConnection conT, ProductDetails course)
     {
         int result = 0;
@@ -727,7 +771,63 @@ FROM ProductDetails as pd inner join Brand as c on c.BrandName = pd.Brand where 
         }
         return result;
     }
+    public static ProductDetails GetProductDetailsByUrl(SqlConnection conT, string productUrl)
+    {
+        ProductDetails pd = null;
+        try
+        {
+            string query = @"SELECT pd.*, c.CategoryUrl,
+                        (SELECT TOP 1 ProductLabel FROM ProductLabelMaster 
+                         WHERE Id = TRY_CONVERT(INT, pd.ProductLabel)) AS ProductLabelName
+                        FROM ProductDetails pd
+                        LEFT JOIN Category c ON c.CategoryName = pd.Category
+                        WHERE pd.ProductUrl = @ProductUrl AND pd.Status = 'Active'";
 
+            using (SqlCommand cmd = new SqlCommand(query, conT))
+            {
+                cmd.Parameters.AddWithValue("@ProductUrl", productUrl);
+                conT.Open();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        pd = new ProductDetails()
+                        {
+                            Id = Convert.ToInt32(dr["Id"]),
+                            ProductName = Convert.ToString(dr["ProductName"]),
+                            Brand = Convert.ToString(dr["Brand"]),
+                            Category = Convert.ToString(dr["Category"]),
+                            CategoryUrl = Convert.ToString(dr["CategoryUrl"]),
+                            PlaceOfOrigin = Convert.ToString(dr["PlaceOfOrigin"]),
+                            KeyIngredient = Convert.ToString(dr["KeyIngredient"]),
+                            ProductShortDesc = Convert.ToString(dr["ProductShortDesc"]),
+                            FullDesc = Convert.ToString(dr["FullDesc"]),
+                            BenefitsDesc = Convert.ToString(dr["BenefitsDesc"]),
+                            IngredientsDesc = Convert.ToString(dr["IngredientsDesc"]),
+                            UsageDesc = Convert.ToString(dr["UsageDesc"]),
+                            RetailPrice = Convert.ToString(dr["RetailPrice"]),
+                            SmallImage = Convert.ToString(dr["SmallImage"]),
+                            InStock = Convert.ToString(dr["InStock"]),
+                            ProductAvailability = Convert.ToString(dr["ProductAvailability"]),
+                            ProductLabelName = Convert.ToString(dr["ProductLabelName"]),
+                            ProductUrl = Convert.ToString(dr["ProductUrl"]),
+                            PageTitle = Convert.ToString(dr["PageTitle"]),
+                            MetaKeys = Convert.ToString(dr["MetaKeys"]),
+                            MetaDesc = Convert.ToString(dr["MetaDesc"]),
+                            Status = Convert.ToString(dr["Status"])
+                        };
+                    }
+                }
+                conT.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "GetProductDetailsByUrl", ex.Message);
+        }
+        return pd;
+    }
     public static int UpdateBrandOrder(SqlConnection conT, ProductDetails pro)
     {
         int result = 0;

@@ -10,19 +10,26 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    public string strBannerHtml = "";
+    public string strBannerHtml = "", strBrandSlider="", strSpotlight="", strHomeProducts = "";
+    public string strTopCategories = "";
     SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindBannerSlides();
+        if (!IsPostBack)
+        {
+            BindBannerSlides();
+            BindBrandSlider();
+            BindSpotlight();
+            BindHomeProducts();
+            BindTopCategories();
+        }
     }
-
     private void BindBannerSlides()
     {
         try
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-            var banners = BannerImages.GetBannerImage(con);
+            var banners = AddBannerImages.GetBannerImage(con);
 
             foreach (var item in banners)
             {
@@ -47,7 +54,7 @@ public partial class _Default : System.Web.UI.Page
                     </div>
                 </div>
 
-                <img src='" + item.DesktopImage + @"' alt='" + item.BannerTitle + @"' class='banner-desktop-img' />
+                <img src='" + item.DeskImage + @"' alt='" + item.BannerTitle + @"' class='banner-desktop-img' />
 
                 <img src='" + item.MobImage + @"' alt='" + item.BannerTitle + @"' class='banner-mob-img' />
             </div>";
@@ -56,6 +63,171 @@ public partial class _Default : System.Web.UI.Page
         catch (Exception ex)
         {
             // handle silently
+        }
+    }
+    public void BindBrandSlider()
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+            List<Brand> brands = Brand.GetAllBrand(conT);
+            strBrandSlider = "";
+            foreach (Brand b in brands)
+            {
+                string img = b.BannerImage != "" ? "/" + b.BannerImage : "/assests/Images/clients/placeholder.png";
+                strBrandSlider += @"
+            <div class='client-card'>
+                <span class='client-logo'>
+                    <img src='" + img + @"' alt='" + b.BrandName + @"' title='" + b.BrandName + @"' />
+                </span>
+            </div>";
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindBrandSlider", ex.Message);
+        }
+    }
+    public void BindSpotlight()
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+            List<ProductDetails> products = ProductDetails.GetSpotlightProducts(conT);
+            strSpotlight = "";
+
+            // label badge colors — cycle through these
+            string[] badgeColors = new string[] { "#FEE2E2", "#E0F2FE", "#DCFCE7" };
+            int i = 0;
+
+            foreach (ProductDetails p in products)
+            {
+                string image = p.SmallImage != "" ? "/" + p.SmallImage : "/assests/Images/placeholder.png";
+                string label = p.ProductLabelName != "" ? p.ProductLabelName : "New Arrival";
+                string categoryLink = "/Category/" + p.CategoryUrl;
+                string color = badgeColors[i % badgeColors.Length];
+
+                strSpotlight += @"
+            <div class='group relative h-[450px] br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card'>
+                <img src='" + image + @"' alt='" + p.Category + @"' 
+                     class='absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' />
+                <div class='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient'></div>
+                <div class='relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end'>
+                    <span class='text-sm font-bold uppercase tracking-wider mb-2' style='color:" + color + @";'>" + label + @"</span>
+                    <h3 class='text-white text-3xl font-bold mb-3 leading-tight'>" + p.Category.Replace(" ", "<br />") + @"</h3>
+                    <a href='" + categoryLink + @"' class='inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button'>
+                        Shop Now
+                        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+                            <line x1='5' y1='12' x2='19' y2='12' />
+                            <polyline points='12 5 19 12 12 19' />
+                        </svg>
+                    </a>
+                </div>
+            </div>";
+                i++;
+            }
+
+            // fallback if no products found
+            if (strSpotlight == "")
+            {
+                strSpotlight = "<p class='text-gray-400 col-span-3 text-center'>No spotlight products found.</p>";
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindSpotlight", ex.Message);
+        }
+    }
+    public void BindHomeProducts()
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+            List<ProductDetails> products = ProductDetails.GetAllProductstop8(conT);
+            strHomeProducts = "";
+
+            foreach (ProductDetails p in products)
+            {
+                string image = p.SmallImage != "" ? "/" + p.SmallImage : "/assests/Images/placeholder.png";
+                string label = p.ProductLabelName != "" ? p.ProductLabelName : "";
+                string url = p.ProductUrl != "" ? "/Product/" + p.ProductUrl : "#";
+                string name = p.ProductName.Replace("'", "&#39;").Replace("\"", "&quot;");
+                string retailPrice = p.RetailPrice != null ? p.RetailPrice.Trim() : "";
+
+                string price;
+                if (retailPrice == "" || retailPrice == "0" || retailPrice == "0.00")
+                {
+                    price = "<a href='/ContactUs.aspx' class='contact-us-link' " +
+                            "style='color:#162e7d; font-weight:600; font-size:15px; text-decoration:none;' " +
+                            "onclick='event.stopPropagation();'>Contact Us</a>";
+                }
+                else
+                {
+                    price = "<span class='current-price'>" +
+                            "<i class='fa-solid fa-indian-rupee-sign pe-1 fs-16'></i>" +
+                            retailPrice + "</span>";
+                }
+
+                string badge = label != ""
+                    ? "<span class='product-badge'>" + label + "</span>"
+                    : "";
+
+                strHomeProducts +=
+                    "<div class='product-card fade-in' style='cursor:pointer;' " +
+                        "onclick=\"window.location='" + url + "'\">" +
+                        "<div class='product-image'>" +
+                            badge +
+                            "<img src='" + image + "' alt='" + name + "' loading='lazy' />" +
+                        "</div>" +
+                        "<div class='product-info'>" +
+                            "<h3 class='product-name'>" + p.ProductName + "</h3>" +
+                            "<div class='product-price'>" + price + "</div>" +
+                            "<button class='add-cart-btn' " +
+                                "onclick='event.stopPropagation();'>" +
+                                "Add to Cart" +
+                            "</button>" +
+                        "</div>" +
+                    "</div>";
+            }
+
+            if (strHomeProducts == "")
+            {
+                strHomeProducts = "<p class='text-gray-400 col-span-4 text-center py-10'>No products found.</p>";
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindHomeProducts", ex.Message);
+        }
+    }
+    public void BindTopCategories()
+    {
+        try
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+            List<global::Category> cats = global::Category.GetAllCategory(con);
+
+            strTopCategories = "";
+
+            foreach (var c in cats)
+            {
+                string img = !string.IsNullOrEmpty(c.BannerImage)
+                    ? "/" + c.BannerImage
+                    : "/assests/Images/category-img/placeholder.png";
+
+                strTopCategories += @"
+            <a href='/Category/" + c.CategoryUrl + @"' class='flex-shrink-0 w-[140px] md:w-[160px] group block category-box'>
+                <div class='relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl'>
+                    <img src='" + img + @"' alt='" + c.CategoryName + @"' 
+                        class='w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img' />
+                </div>
+                <h3 class='text-sm font-semibold text-[#0F172A] text-center'>" + c.CategoryName + @"</h3>
+            </a>";
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindTopCategories", ex.Message);
         }
     }
 }

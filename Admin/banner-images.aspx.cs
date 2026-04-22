@@ -28,14 +28,11 @@ public partial class Admin_banner_images : System.Web.UI.Page
             }
         }
     }
-
-    // ===================== LOAD BANNER FOR EDIT =====================
-
     private void GetBanner()
     {
         try
         {
-            var banner = BannerImages.GetBannerImage(conT)
+            var banner = AddBannerImages.GetBannerImage(conT)
                 .Where(s => s.Id == Convert.ToInt32(Request.QueryString["id"]))
                 .SingleOrDefault();
 
@@ -46,11 +43,11 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 txtlink.Text = banner.Link;
                 txtOrder.Text = banner.DisplayOrder;
 
-                if (!string.IsNullOrEmpty(banner.DesktopImage))
+                if (!string.IsNullOrEmpty(banner.DeskImage))
                 {
-                    strThumbImage = "<img src='/" + banner.DesktopImage +
+                    strThumbImage = "<img src='/" + banner.DeskImage +
                                     "' style='max-height:60px;border-radius:4px;' />";
-                    lblThumb.Text = banner.DesktopImage;
+                    lblThumb.Text = banner.DeskImage;
                     reqUpload.Enabled = false;
                 }
 
@@ -70,14 +67,12 @@ public partial class Admin_banner_images : System.Web.UI.Page
         }
     }
 
-    // ===================== GET ALL BANNERS =====================
-
     private void GetAllBannerImages()
     {
         try
         {
             strImages = "";
-            var list = BannerImages.GetBannerImage(conT)
+            var list = AddBannerImages.GetBannerImage(conT)
                 .OrderBy(s => Convert.ToInt32(s.DisplayOrder)).ToList();
             int i = 0;
             foreach (var img in list)
@@ -86,8 +81,8 @@ public partial class Admin_banner_images : System.Web.UI.Page
                     <td>" + (i + 1) + @"</td>
                     <td>" + img.BannerTitle + @"</td>
                     <td>
-                        <a href='/" + img.DesktopImage + @"' target='_blank'>
-                            <img src='/" + img.DesktopImage + @"'
+                        <a href='/" + img.DeskImage + @"' target='_blank'>
+                            <img src='/" + img.DeskImage + @"'
                                  style='max-height:50px;border-radius:4px;' />
                         </a>
                     </td>
@@ -135,7 +130,6 @@ public partial class Admin_banner_images : System.Web.UI.Page
         }
     }
 
-    // ===================== SAVE / UPDATE =====================
 
     protected void btnUpload_Click(object sender, EventArgs e)
     {
@@ -169,11 +163,11 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 return;
             }
 
-            BannerImages banner = new BannerImages();
+            AddBannerImages banner = new AddBannerImages();
             banner.BannerTitle = txtTitle.Text.Trim();
             banner.Link = txtlink.Text.Trim();
             banner.DisplayOrder = string.IsNullOrEmpty(txtOrder.Text) ? "1000" : txtOrder.Text.Trim();
-            banner.DesktopImage = desktopResult;
+            banner.DeskImage = desktopResult;
             banner.MobImage = mobileResult;
 
             if (btnUpload.Text == "Update")
@@ -182,7 +176,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 banner.UpdatedOn = CommonModel.UTCTime();
                 banner.UpdatedIp = CommonModel.IPAddress();
 
-                int result = BannerImages.UpdateBannerImage(conT, banner);
+                int result = AddBannerImages.UpdateBannerImage(conT, banner);
                 if (result > 0)
                 {
                     GetBanner();
@@ -196,7 +190,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 banner.AddedOn = CommonModel.UTCTime();
                 banner.AddedIp = CommonModel.IPAddress();
 
-                int result = BannerImages.InsertBannerImage(conT, banner);
+                int result = AddBannerImages.InsertBannerImage(conT, banner);
                 if (result > 0)
                 {
                     txtTitle.Text = txtlink.Text = txtOrder.Text = "";
@@ -230,7 +224,6 @@ public partial class Admin_banner_images : System.Web.UI.Page
         reqUploadMob.Enabled = true;
     }
 
-    // ===================== UPLOAD DESKTOP IMAGE =====================
 
     private string CheckAndUploadDesktop()
     {
@@ -280,7 +273,6 @@ public partial class Admin_banner_images : System.Web.UI.Page
         return imagePath;
     }
 
-    // ===================== UPLOAD MOBILE IMAGE =====================
 
     private string CheckAndUploadMobile()
     {
@@ -330,7 +322,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
         return imagePath;
     }
 
-    // ===================== DELETE =====================
+
 
     [WebMethod(EnableSession = true)]
     public static string Delete(string id)
@@ -340,7 +332,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
             SqlConnection conT = new SqlConnection(
                 ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
 
-            BannerImages bis = new BannerImages
+            AddBannerImages bis = new AddBannerImages
             {
                 Id = Convert.ToInt32(id),
                 UpdatedOn = CommonModel.UTCTime(),
@@ -348,7 +340,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 Status = "Deleted"
             };
 
-            int result = BannerImages.DeleteBannerImage(conT, bis);
+            int result = AddBannerImages.DeleteBannerImage(conT, bis);
             return result > 0 ? "Success" : "W";
         }
         catch (Exception ex)
@@ -359,7 +351,6 @@ public partial class Admin_banner_images : System.Web.UI.Page
         }
     }
 
-    // ===================== HELPERS =====================
 
     private void ShowSuccess(string msg)
     {

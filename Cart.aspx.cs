@@ -11,4 +11,12 @@ public partial class Cart : System.Web.UI.Page
     {
 
     }
+    protected void btnCheckout_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("/checkout");
+    }
+    protected void btnEnquiry_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("/products");
+    }
 }

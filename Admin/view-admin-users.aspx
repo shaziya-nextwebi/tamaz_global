@@ -41,7 +41,7 @@
                                         <th>Email</th>
                                         <th>Status</th>
                                         <th>Block ?</th>
-                                        <th>Added On</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>

@@ -4,12 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-public class BannerImages
+public class AddBannerImages
 {
     public int Id { get; set; }
     public string BannerTitle { get; set; }
     public string Link { get; set; }
-    public string DesktopImage { get; set; }
+    public string DeskImage { get; set; }
     public string MobImage { get; set; }
     public string DisplayOrder { get; set; }
     public string Status { get; set; }
@@ -20,12 +20,12 @@ public class BannerImages
 
     #region Get All Banner Images
 
-    public static List<BannerImages> GetBannerImage(SqlConnection con)
+    public static List<AddBannerImages> GetBannerImage(SqlConnection con)
     {
-        List<BannerImages> lst = new List<BannerImages>();
+        List<AddBannerImages> lst = new List<AddBannerImages>();
         try
         {
-            string query = "SELECT * FROM BannerImages WHERE Status != 'Deleted' ORDER BY CAST(DisplayOrder AS INT) ASC";
+            string query = "SELECT * FROM AddBannerImages WHERE Status != 'Deleted' ORDER BY CAST(DisplayOrder AS INT) ASC";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
@@ -34,12 +34,12 @@ public class BannerImages
                 {
                     while (dr.Read())
                     {
-                        BannerImages bi = new BannerImages();
+                        AddBannerImages bi = new AddBannerImages();
 
                         bi.Id = Convert.ToInt32(dr["Id"]);
                         bi.BannerTitle = dr["BannerTitle"].ToString();
                         bi.Link = dr["Link"].ToString();
-                        bi.DesktopImage = dr["DesktopImage"].ToString();
+                        bi.DeskImage = dr["DeskImage"].ToString();
                         bi.MobImage = dr["MobImage"].ToString();
                         bi.DisplayOrder = dr["DisplayOrder"].ToString();
                         bi.Status = dr["Status"].ToString();
@@ -66,23 +66,23 @@ public class BannerImages
 
     #region Insert Banner Image
 
-    public static int InsertBannerImage(SqlConnection con, BannerImages banner)
+    public static int InsertBannerImage(SqlConnection con, AddBannerImages banner)
     {
         int result = 0;
         try
         {
-            string query = @"INSERT INTO BannerImages
-                                (BannerTitle, Link, DesktopImage, MobImage,
+            string query = @"INSERT INTO AddBannerImages
+                                (BannerTitle, Link, DeskImage, MobImage,
                                  DisplayOrder, Status, AddedIp, AddedOn, UpdatedIp, UpdatedOn)
                              VALUES
-                                (@BannerTitle, @Link, @DesktopImage, @MobImage,
+                                (@BannerTitle, @Link, @DeskImage, @MobImage,
                                  @DisplayOrder, 'Active', @AddedIp, @AddedOn, @AddedIp, @AddedOn)";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
                 cmd.Parameters.AddWithValue("@BannerTitle", SqlDbType.NVarChar).Value = banner.BannerTitle ?? "";
                 cmd.Parameters.AddWithValue("@Link", SqlDbType.NVarChar).Value = banner.Link ?? "";
-                cmd.Parameters.AddWithValue("@DesktopImage", SqlDbType.NVarChar).Value = banner.DesktopImage ?? "";
+                cmd.Parameters.AddWithValue("@DeskImage", SqlDbType.NVarChar).Value = banner.DeskImage ?? "";
                 cmd.Parameters.AddWithValue("@MobImage", SqlDbType.NVarChar).Value = banner.MobImage ?? "";
                 cmd.Parameters.AddWithValue("@DisplayOrder", SqlDbType.NVarChar).Value = banner.DisplayOrder ?? "1000";
                 cmd.Parameters.AddWithValue("@AddedIp", SqlDbType.NVarChar).Value = banner.AddedIp ?? "";
@@ -105,15 +105,15 @@ public class BannerImages
 
     #region Update Banner Image
 
-    public static int UpdateBannerImage(SqlConnection con, BannerImages banner)
+    public static int UpdateBannerImage(SqlConnection con, AddBannerImages banner)
     {
         int result = 0;
         try
         {
-            string query = @"UPDATE BannerImages
+            string query = @"UPDATE AddBannerImages
                              SET BannerTitle  = @BannerTitle,
                                  Link         = @Link,
-                                 DesktopImage = @DesktopImage,
+                                 DeskImage = @DeskImage,
                                  MobImage     = @MobImage,
                                  DisplayOrder = @DisplayOrder,
                                  UpdatedOn    = @UpdatedOn,
@@ -125,7 +125,7 @@ public class BannerImages
                 cmd.Parameters.AddWithValue("@Id", SqlDbType.Int).Value = banner.Id;
                 cmd.Parameters.AddWithValue("@BannerTitle", SqlDbType.NVarChar).Value = banner.BannerTitle ?? "";
                 cmd.Parameters.AddWithValue("@Link", SqlDbType.NVarChar).Value = banner.Link ?? "";
-                cmd.Parameters.AddWithValue("@DesktopImage", SqlDbType.NVarChar).Value = banner.DesktopImage ?? "";
+                cmd.Parameters.AddWithValue("@DeskImage", SqlDbType.NVarChar).Value = banner.DeskImage ?? "";
                 cmd.Parameters.AddWithValue("@MobImage", SqlDbType.NVarChar).Value = banner.MobImage ?? "";
                 cmd.Parameters.AddWithValue("@DisplayOrder", SqlDbType.NVarChar).Value = banner.DisplayOrder ?? "1000";
                 cmd.Parameters.AddWithValue("@UpdatedOn", SqlDbType.DateTime).Value = banner.UpdatedOn;
@@ -148,12 +148,12 @@ public class BannerImages
 
     #region Delete Banner Image (Soft Delete)
 
-    public static int DeleteBannerImage(SqlConnection con, BannerImages banner)
+    public static int DeleteBannerImage(SqlConnection con, AddBannerImages banner)
     {
         int result = 0;
         try
         {
-            string query = @"UPDATE BannerImages
+            string query = @"UPDATE AddBannerImages
                              SET Status    = 'Deleted',
                                  UpdatedOn = @UpdatedOn,
                                  UpdatedIp = @UpdatedIp

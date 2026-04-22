@@ -220,7 +220,8 @@
                 </div>
             </div>
             <div class="flex justify-center gap-5 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 category-scroll-container">
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
+                <%=strTopCategories %>
+                <%--<a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
                     <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
                         <img src="assests/Images/category-img/1.png" alt="Glutathione Injections" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
                     </div>
@@ -267,7 +268,7 @@
                         <img src="assests/Images/category-img/8.png" alt="Weight Gain/Loss" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
                     </div>
                     <h3 class="text-sm font-semibold text-[#0F172A] text-center">Weight Gain/Loss</h3>
-                </a>
+                </a>--%>
             </div>
         </div>
     </section>
@@ -340,7 +341,6 @@
         </div>
     </section>
 
-    <!-- ===================== SPOTLIGHT - DESKTOP ===================== -->
     <section class="py-16 bg-white overflow-hidden spotlight-section show-in-desktop">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
@@ -350,60 +350,11 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="group relative h-[450px] br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card">
-                    <img src="assests/Images/spotlight-images/sp-1.png" alt="Spotlight 1" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                    <div class="relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end">
-                        <span class="text-[#FEE2E2] text-sm font-bold uppercase tracking-wider mb-2">30% Off</span>
-                        <h3 class="text-white text-3xl font-bold mb-3 leading-tight">Premium
-                            <br />
-                            Skin Care</h3>
-                        <a href="Category.aspx" class="inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button">Shop Now
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="group relative h-[450px] br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card">
-                    <img src="assests/Images/spotlight-images/sp-2.png" alt="Spotlight 2" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                    <div class="relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end">
-                        <span class="text-[#FEE2E2] text-sm font-bold uppercase tracking-wider mb-2">New Arrival</span>
-                        <h3 class="text-white text-3xl font-bold mb-3 leading-tight">Whitening
-                            <br />
-                            Injections</h3>
-                        <a href="Category.aspx" class="inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button">Shop Now
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="group relative h-[450px] br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card">
-                    <img src="assests/Images/spotlight-images/sp-3.png" alt="Spotlight 3" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                    <div class="relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end">
-                        <span class="text-[#FEE2E2] text-sm font-bold uppercase tracking-wider mb-2">Best Seller</span>
-                        <h3 class="text-white text-3xl font-bold mb-3 leading-tight">Health
-                            <br />
-                            Supplements</h3>
-                        <a href="Category.aspx" class="inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button">Shop Now
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                <%=strSpotlight %>
             </div>
         </div>
     </section>
-
-    <!-- ===================== SPOTLIGHT - MOBILE ===================== -->
-    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
+    <%--    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
                 <div class="text-start md:text-center">
@@ -451,7 +402,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--%>
 
     <!-- ===================== CLIENT SLIDER ===================== -->
     <section class="clients-section">
@@ -463,7 +414,8 @@
         </div>
         <div class="slider-container">
             <div class="slider-track" id="clientSlider">
-                <div class="client-card">
+                <%=strBrandSlider %>
+                <%--                <div class="client-card">
                     <span class="client-logo">
                         <img src="assests/Images/clients/1.png" alt="clients" /></span>
                 </div>
@@ -526,7 +478,7 @@
                 <div class="client-card">
                     <span class="client-logo">
                         <img src="assests/Images/clients/17.png" alt="clients" /></span>
-                </div>
+                </div>--%>
             </div>
         </div>
     </section>
@@ -539,7 +491,7 @@
                     <h2 class="section-title">Tamaz Global Top Products</h2>
                     <p class="section-subtitle section-description mt-1">Top-rated products loved by customers</p>
                 </div>
-                <a href="Category.aspx" class="hidden sm:inline-flex btn-primary text-sm py-3 px-6 gap-2">View All
+                <a href="Category/glutathione-injections" class="hidden sm:inline-flex btn-primary text-sm py-3 px-6 gap-2">View All
                    
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="5" y1="12" x2="19" y2="12" />
@@ -548,6 +500,7 @@
                 </a>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 products-grid" id="productsGrid">
+                <%=strHomeProducts %>
                 <%-- Products rendered by JS below --%>
             </div>
         </div>
@@ -574,42 +527,6 @@
             spaceBetween: 16,
         });
 
-        // Product Data
-        const products = [
-            { id: 1, name: "Miracle NAD-XEL NAD+ Injection Advanced NAD Plus Cellular Enhancement Therapy", price: 5000, oldPrice: 6120, badge: "Best Seller", image: "assests/Images/old-product/1.jpg" },
-            { id: 2, name: "Miracle White Royal Gold 120000mg Glutathione Softgels", price: 5565, oldPrice: 6085, badge: "Popular", image: "assests/Images/old-product/2.jpg" },
-            { id: 3, name: "Miracle Dermal Genesis NAD Plus Renewal Complex Glutathione Injection", price: 4500, oldPrice: null, badge: null, image: "assests/Images/old-product/3.png" },
-            { id: 4, name: "Neocell Super Collagen 3000mg Tablets with Vitamin C & Biotin", price: 5500, oldPrice: 7500, badge: "New", image: "assests/Images/old-product/4.jpg" },
-            { id: 5, name: "Bio Rae Nano Complexion 18 Skin Whitening Glutathione Injection", price: 7800, oldPrice: 9500, badge: null, image: "assests/Images/old-product/5.jpg" },
-            { id: 6, name: "Authentic Relumins 3500mg Glutathione Injections", price: 1500, oldPrice: 1800, badge: "Premium", image: "assests/Images/old-product/6.jpg" },
-            { id: 7, name: "Miracle White 80,000mg Glutathione Injection White Box", price: 5900, oldPrice: 6500, badge: null, image: "assests/Images/old-product/7.png" },
-            { id: 8, name: "Miracle White 60000mg Glutathione Injection With SLC24A5", price: 1999, oldPrice: 2500, badge: "Value Pack", image: "assests/Images/old-product/8.jpg" },
-        ];
-
-        function renderProducts() {
-            const grid = document.getElementById("productsGrid");
-            if (!grid) return;
-            grid.innerHTML = products.map(product => `
-                <a href="Product.aspx">
-                    <div class="product-card fade-in">
-                        <div class="product-image">
-                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ""}
-                            <img src="${product.image}" alt="${product.name}" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-price">
-                                ${product.oldPrice
-                    ? `<span class="current-price"><i class="fa-solid fa-indian-rupee-sign pe-1 fs-16"></i>${product.oldPrice}.00</span>`
-                    : `<span class="current-price">Contact Us</span>`}
-                            </div>
-                            <button class="add-cart-btn">Add to Cart</button>
-                        </div>
-                    </div>
-                </a>
-            `).join("");
-        }
-
         function initSlider() {
             const slider = document.getElementById("clientSlider");
             if (!slider) return;
@@ -631,8 +548,8 @@
             document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            renderProducts();
+        document.addEventListener("DOMContentLoaded", ()=> {
+           // renderProducts();
             initSlider();
             initAnimations();
         });

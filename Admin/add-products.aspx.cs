@@ -39,9 +39,6 @@ public partial class Admin_add_products : System.Web.UI.Page
                 GetEditedFAQs();
         }
     }
-
-    // ===================== BIND DROPDOWNS =====================
-
     private void BindCategories()
     {
         try
@@ -75,8 +72,6 @@ public partial class Admin_add_products : System.Web.UI.Page
                 "BindProductLabels", ex.Message);
         }
     }
-
-    // ===================== LOAD FOR EDIT =====================
 
     private void GetProductDetails()
     {
@@ -127,8 +122,6 @@ public partial class Admin_add_products : System.Web.UI.Page
                 "GetProductDetails", ex.Message);
         }
     }
-
-    // ===================== SAVE / UPDATE =====================
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -218,8 +211,6 @@ public partial class Admin_add_products : System.Web.UI.Page
         return x;
     }
 
-    // ===================== UPLOAD THUMB IMAGE =====================
-
     private string UploadThumbImage()
     {
         string thumbImage = "";
@@ -267,8 +258,6 @@ public partial class Admin_add_products : System.Web.UI.Page
         }
         return thumbImage;
     }
-
-    // ===================== SEO =====================
 
     private void GetEditedSeo()
     {
@@ -319,7 +308,6 @@ public partial class Admin_add_products : System.Web.UI.Page
         }
     }
 
-    // ===================== FAQs =====================
 
     private void GetAllProductsFaqs()
     {
@@ -387,6 +375,7 @@ public partial class Admin_add_products : System.Web.UI.Page
                 "GetEditedFAQs", ex.Message);
         }
     }
+    // Replace your existing btnFAQ_Click with this in add-products.aspx.cs
 
     protected void btnFAQ_Click(object sender, EventArgs e)
     {
@@ -418,12 +407,13 @@ public partial class Admin_add_products : System.Web.UI.Page
 
             if (result > 0)
             {
-                GetAllProductsFaqs();
-                txtQues.Text = txtAnswer.Text = lblFaqId.Text = "";
-                btnFAQ.Text = "Save FAQ";
-                ShowSuccess("FAQ saved successfully.");
+                // FIX: redirect back to the FAQ tab so the updated table is visible
+                Response.Redirect("add-products.aspx?id=" + Request.QueryString["id"] + "&tab=faqs");
             }
-            else ShowError("Something went wrong.");
+            else
+            {
+                ShowError("Something went wrong.");
+            }
         }
         catch (Exception ex)
         {
@@ -437,8 +427,6 @@ public partial class Admin_add_products : System.Web.UI.Page
         txtQues.Text = txtAnswer.Text = lblFaqId.Text = "";
         btnFAQ.Text = "Save FAQ";
     }
-
-    // ===================== WEB METHODS =====================
 
     [WebMethod(EnableSession = true)]
     public static string DeleteProductFaqs(string id)
@@ -556,8 +544,6 @@ public partial class Admin_add_products : System.Web.UI.Page
         }
         return cd;
     }
-
-    // ===================== HELPERS =====================
 
     private void ShowSuccess(string msg)
     {

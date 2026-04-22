@@ -159,7 +159,7 @@ public partial class Admin_my_profile : System.Web.UI.Page
                         ca.AddedIP = CommonModel.IPAddress();
                         ca.AddedOn = TimeStamps.UTCTime();
                         ca.Status = "Active";
-                        ca.AddedBy = Request.Cookies["t_aid"].Value;
+                       // ca.AddedBy = Request.Cookies["t_aid"].Value;
                         int result = CreateUser.UpdateUser(conT, ca);
                         if (result > 0)
                         {
@@ -198,7 +198,7 @@ public partial class Admin_my_profile : System.Web.UI.Page
                         ca.AddedIP = CommonModel.IPAddress();
                         ca.AddedOn = TimeStamps.UTCTime();
                         ca.Status = "Active";
-                        ca.AddedBy = Request.Cookies["t_aid"].Value;
+                        //ca.AddedBy = Request.Cookies["t_aid"].Value;
                         int result = CreateUser.InsertUser(conT, ca);
                         if (result > 0)
                         {

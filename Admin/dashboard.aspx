@@ -15,10 +15,10 @@
             background: #ffffff;
         }
 
-        .card-animate:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(13, 29, 80, 0.15) !important;
-        }
+            .card-animate:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(13, 29, 80, 0.15) !important;
+            }
 
         .avatar-title {
             width: 48px;
@@ -40,17 +40,37 @@
             text-decoration: none !important;
         }
 
-        .view-link:hover {
-            color: var(--secondary-dark);
+            .view-link:hover {
+                color: var(--secondary-dark);
+            }
+
+        .card-products:hover {
+            border-bottom: 4px solid var(--primary-dark);
         }
 
-        .card-products:hover    { border-bottom: 4px solid var(--primary-dark); }
-        .card-categories:hover  { border-bottom: 4px solid var(--secondary-dark); }
-        .card-brands:hover      { border-bottom: 4px solid var(--primary-dark); }
-        .card-blogs:hover       { border-bottom: 4px solid var(--secondary-dark); }
-        .card-cartenq:hover     { border-bottom: 4px solid var(--primary-dark); }
-        .card-contact:hover     { border-bottom: 4px solid var(--secondary-dark); }
-        .card-productenq:hover  { border-bottom: 4px solid var(--primary-dark); }
+        .card-categories:hover {
+            border-bottom: 4px solid var(--secondary-dark);
+        }
+
+        .card-brands:hover {
+            border-bottom: 4px solid var(--primary-dark);
+        }
+
+        .card-blogs:hover {
+            border-bottom: 4px solid var(--secondary-dark);
+        }
+
+        .card-cartenq:hover {
+            border-bottom: 4px solid var(--primary-dark);
+        }
+
+        .card-contact:hover {
+            border-bottom: 4px solid var(--secondary-dark);
+        }
+
+        .card-productenq:hover {
+            border-bottom: 4px solid var(--primary-dark);
+        }
 
         .counter-value {
             font-size: 28px;
@@ -96,10 +116,11 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-package"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Products</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Products</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strTotalProduct %></span></h2>
+                            <!-- AFTER -->
+                            <h2 class="mb-2 fw-bold"><span class="counter-value" data-target="<%=strTotalProduct %>"><%=strTotalProduct %></span></h2>
                             <a href="/Admin/view-products.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -114,10 +135,13 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-category"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Categories</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Categories</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strTotalOrder %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strTotalOrder %>"><%=strTotalOrder %></span>
+                            </h2>
+
                             <a href="/Admin/category.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -132,10 +156,12 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-badge"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Brands</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Brands</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strBrand %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strBrand %>"><%=strBrand %></span>
+                            </h2>
                             <a href="/Admin/Brand.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -150,10 +176,12 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-book-content"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Blogs</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Blogs</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strBlogs %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strBlogs %>"><%=strBlogs %></span>
+                            </h2>
                             <a href="/Admin/view-blogs.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -168,10 +196,12 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-cart"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Cart Enquiry</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Cart Enquiry</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strTotalCustomer %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strTotalCustomer %>"><%=strTotalCustomer %></span>
+                            </h2>
                             <a href="/Admin/cart-enquiry.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -186,10 +216,12 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-envelope"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Contact Request</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Contact Request</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strContact %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strContact %>"><%=strContact %></span>
+                            </h2>
                             <a href="/Admin/contact-request.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>
@@ -204,10 +236,12 @@
                                     <span class="avatar-title fs-2"><i class="bx bx-message-square-detail"></i></span>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Product Enquiry</p>
+                                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size: 11px;">Product Enquiry</p>
                                 </div>
                             </div>
-                            <h2 class="mb-2 fw-bold"><span class="counter-value"><%=strToday %></span></h2>
+                            <h2 class="mb-2 fw-bold">
+                                <span class="counter-value" data-target="<%=strToday %>"><%=strToday %></span>
+                            </h2>
                             <a href="/Admin/view-productenq.aspx" class="view-link">View Details <i class="ri-arrow-right-s-line align-middle"></i></a>
                         </div>
                     </div>

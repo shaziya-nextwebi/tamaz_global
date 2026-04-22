@@ -42,7 +42,7 @@ public class CreateUser
         List<CreateUser> companies = new List<CreateUser>();
         try
         {
-            string query = "Select * from CreateUser where Status !='Deleted'";
+            string query = "SELECT C.*, R.RoleName FROM CreateUser C  INNER JOIN UserRoles R ON R.Id = C.UserRole WHERE C.Status != 'Deleted'";
             using (SqlCommand cmd = new SqlCommand(query, conT))
             {
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -54,7 +54,7 @@ public class CreateUser
                                  Id = Convert.ToInt32(Convert.ToString(dr["Id"])),
                                  EmailId = Convert.ToString(dr["EmailId"]),
                                  UserName = Convert.ToString(dr["UserName"]),
-                                 UserRole = Convert.ToString(dr["UserRole"]),
+                                 UserRole = Convert.ToString(dr["RoleName"]),
                                  ContactNo = Convert.ToString(dr["ContactNo"]),
                                  AddedOn = Convert.ToDateTime(Convert.ToString(dr["AddedOn"])),
                                  AddedIP = Convert.ToString(dr["AddedIP"]),
@@ -64,7 +64,8 @@ public class CreateUser
                                  PassKey = Convert.ToString(dr["pass_key"]),
                                  log_time = Convert.ToString(dr["log_time"]) == "" ? (DateTime?)null : Convert.ToDateTime(Convert.ToString(dr["log_time"])),
                                  log_ip = Convert.ToString(dr["log_ip"]),
-                                 Status = Convert.ToString(dr["Status"])
+                                 Status = Convert.ToString(dr["Status"]),
+                                 ProfileImage = Convert.ToString(dr["ProfileImage"])
                              }).ToList();
 
             }
@@ -82,13 +83,14 @@ public class CreateUser
 
         try
         {
-            string query = "Insert Into CreateUser (AddedIP,AddedOn,ContactNo,EmailId,Pwd,Status,UserGuid,UserId,UserName,UserRole) values(@AddedIP,@AddedOn,@ContactNo,@EmailId,@Pwd,@Status,@UserGuid,@UserId, @UserName,@UserRole)";
+            string query = "Insert Into CreateUser (AddedIP,AddedOn,ContactNo,EmailId,ProfileImage,Pwd,Status,UserGuid,UserId,UserName,UserRole) values(@AddedIP,@AddedOn,@ContactNo,@EmailId,@ProfileImage,@Pwd,@Status,@UserGuid,@UserId, @UserName,@UserRole)";
             using (SqlCommand cmd = new SqlCommand(query, conT))
             {
                 cmd.Parameters.AddWithValue("@AddedIP", SqlDbType.NVarChar).Value = comp.AddedIP;
                 cmd.Parameters.AddWithValue("@AddedOn", SqlDbType.NVarChar).Value = comp.AddedOn;
                 cmd.Parameters.AddWithValue("@ContactNo", SqlDbType.NVarChar).Value = comp.ContactNo;
                 cmd.Parameters.AddWithValue("@EmailId", SqlDbType.NVarChar).Value = comp.EmailId;
+                cmd.Parameters.AddWithValue("@ProfileImage", SqlDbType.NVarChar).Value = comp.ProfileImage;
                 cmd.Parameters.AddWithValue("@Pwd", SqlDbType.NVarChar).Value = comp.Password;
                 cmd.Parameters.AddWithValue("@Status", SqlDbType.NVarChar).Value = comp.Status;
                 cmd.Parameters.AddWithValue("@UserGuid", SqlDbType.NVarChar).Value = comp.UserGuid;
@@ -112,7 +114,7 @@ public class CreateUser
         int result = 0;
         try
         {
-            string query = "Update CreateUser Set AddedIP=@AddedIP,AddedOn=@AddedOn,ContactNo=@ContactNo,EmailId=@EmailId,Pwd=@Pwd,Status=@Status,UserId=@UserId, UserName=@UserName,UserRole=@UserRole Where Id=@Id ";
+            string query = "Update CreateUser Set AddedIP=@AddedIP,AddedOn=@AddedOn,ContactNo=@ContactNo,EmailId=@EmailId,ProfileImage=@ProfileImage,Pwd=@Pwd,Status=@Status,UserId=@UserId, UserName=@UserName,UserRole=@UserRole Where Id=@Id ";
             using (SqlCommand cmd = new SqlCommand(query, conT))
             {
                 cmd.Parameters.AddWithValue("@Id", SqlDbType.NVarChar).Value = comp.Id;
@@ -120,6 +122,7 @@ public class CreateUser
                 cmd.Parameters.AddWithValue("@AddedOn", SqlDbType.NVarChar).Value = comp.AddedOn;
                 cmd.Parameters.AddWithValue("@ContactNo", SqlDbType.NVarChar).Value = comp.ContactNo;
                 cmd.Parameters.AddWithValue("@EmailId", SqlDbType.NVarChar).Value = comp.EmailId;
+                cmd.Parameters.AddWithValue("@ProfileImage", SqlDbType.NVarChar).Value = comp.ProfileImage;
                 cmd.Parameters.AddWithValue("@Pwd", SqlDbType.NVarChar).Value = comp.Password;
                 cmd.Parameters.AddWithValue("@Status", SqlDbType.NVarChar).Value = comp.Status;
                 cmd.Parameters.AddWithValue("@UserId", SqlDbType.NVarChar).Value = comp.UserId;
@@ -674,7 +677,7 @@ public class CreateUser
                         UserName = Convert.ToString(dt.Rows[0]["UserName"]),
                         UserRole = Convert.ToString(dt.Rows[0]["UserRole"]),
                         PassKey = Convert.ToString(dt.Rows[0]["pass_key"]),
-                        ProfileImage = ""
+                        ProfileImage = Convert.ToString(dt.Rows[0]["ProfileImage"])
                     };
                 }
             }

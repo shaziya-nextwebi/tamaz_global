@@ -48,7 +48,7 @@ public partial class Admin_view_admin_users : System.Web.UI.Page
                                                 <td>" + cat.EmailId + @"</td> 
   <td>" + sts + @"</td> 
   <td>" + chk + @"</td> 
-                                                 <td><span class='bs-tooltip' data-bs-toggle='tooltip' data-placement='top' title='Added By : " + cat.AddedBy + @"' >" + cat.AddedOn.ToString("dd-MMM-yyyy") + @"</span></td>   
+  
                                                                                                 <td class=''>
                                                     <a href='create-admin-user.aspx?id=" + cat.Id + @"' class='bs-tooltip fs-18' data-id='" + cat.Id + @"' data-bs-toggle='tooltip' data-placement='top' title='Edit'>
                                                         <i class='mdi mdi-pencil'></i></a>
@@ -80,7 +80,7 @@ public partial class Admin_view_admin_users : System.Web.UI.Page
                 cat.Status = "Deleted";
                 cat.AddedOn = TimeStamps.UTCTime();
                 cat.AddedIP = CommonModel.IPAddress();
-                cat.AddedBy = HttpContext.Current.Request.Cookies["t_aid"].Value;
+                //cat.AddedBy = HttpContext.Current.Request.Cookies["t_aid"].Value;
                 int exec = CreateUser.DeleteUser(conT, cat);
                 if (exec > 0)
                 {
@@ -118,12 +118,12 @@ public partial class Admin_view_admin_users : System.Web.UI.Page
                 CreateUser pro = new CreateUser();
                 if (ftr == "Yes")
                 {
-                    exec = CreateUser.BlockUser(conT, id, HttpContext.Current.Request.Cookies["t_aid"].Value);
+                   // exec = CreateUser.BlockUser(conT, id, HttpContext.Current.Request.Cookies["t_aid"].Value);
                     vali = "Blocked";
                 }
                 else
                 {
-                    exec = CreateUser.UnBlockUser(conT, id, HttpContext.Current.Request.Cookies["t_aid"].Value);
+                   // exec = CreateUser.UnBlockUser(conT, id, HttpContext.Current.Request.Cookies["t_aid"].Value);
                     vali = "UnBlocked";
                 }
 

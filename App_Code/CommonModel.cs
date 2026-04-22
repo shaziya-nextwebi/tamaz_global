@@ -113,7 +113,7 @@ public class CommonModel
     public static string Encrypt(string clearText)
     {
         //string EncryptionKey = "SPORTICORESORT220919981510$%^&*ENCODE";
-        string EncryptionKey = "SPORTICORESORT220919981510$%^&*ENCODE";
+        string EncryptionKey = "GV1001234567890$%^&*MYQ";
         byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
         using (Aes encryptor = Aes.Create())
         {
@@ -134,7 +134,7 @@ public class CommonModel
     }
     public static string Decrypt(string cipherText)
     {
-        string EncryptionKey = "SPORTICORESORT220919981510$%^&*ENCODE";
+        string EncryptionKey = "GV1001234567890$%^&*MYQ";
         byte[] cipherBytes = Convert.FromBase64String(cipherText);
         using (Aes encryptor = Aes.Create())
         {

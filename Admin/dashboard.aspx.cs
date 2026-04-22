@@ -6,8 +6,6 @@ using System.Web.Services;
 
 public partial class Admin_dashboard : System.Web.UI.Page
 {
-    SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-
     public string Strusername = "",
                   strTotalProduct = "",
                   strTotalOrder = "",
@@ -17,6 +15,12 @@ public partial class Admin_dashboard : System.Web.UI.Page
                   strContact = "",
                   strToday = "";
 
+    // Helper — always returns a fresh connection
+    private SqlConnection NewCon()
+    {
+        return new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Request.Cookies["t_aid"] == null)
@@ -24,17 +28,16 @@ public partial class Admin_dashboard : System.Web.UI.Page
             Response.Redirect("Default.aspx", false);
             return;
         }
-
         try
         {
             BindUserName();
-            strTotalProduct = DashBoard.GetProductCount(conT).ToString();
-            strTotalOrder = DashBoard.GetCategoryCount(conT).ToString();
-            strBrand = DashBoard.GetBrnadCount(conT).ToString();
-            strBlogs = DashBoard.NoOfBlogs(conT).ToString();
-            strTotalCustomer = DashBoard.GetStudentCount(conT).ToString();
-            strContact = DashBoard.ContactUs(conT).ToString();
-            strToday = DashBoard.ProductEnquiry(conT).ToString();
+            strTotalProduct = DashBoard.GetProductCount(NewCon()).ToString();
+            strTotalOrder = DashBoard.GetCategoryCount(NewCon()).ToString();
+            strBrand = DashBoard.GetBrnadCount(NewCon()).ToString();
+            strBlogs = DashBoard.NoOfBlogs(NewCon()).ToString();
+            strTotalCustomer = DashBoard.GetStudentCount(NewCon()).ToString();
+            strContact = DashBoard.ContactUs(NewCon()).ToString();
+            strToday = DashBoard.ProductEnquiry(NewCon()).ToString();
         }
         catch (Exception ex)
         {
@@ -46,7 +49,7 @@ public partial class Admin_dashboard : System.Web.UI.Page
     {
         try
         {
-            Strusername = CreateUser.GetLoggedUserName(conT, Request.Cookies["t_aid"].Value);
+            Strusername = CreateUser.GetLoggedUserName(NewCon(), Request.Cookies["t_aid"].Value);
         }
         catch (Exception ex)
         {
