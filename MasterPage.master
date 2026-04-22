@@ -214,7 +214,7 @@
                 <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-4">
 
                     <!-- Logo -->
-                    <a href="Default.aspx" class="flex items-center gap-3 logo-image-wrap">
+                    <a href="/Default.aspx" class="flex items-center gap-3 logo-image-wrap">
                         <img src="/assests/Images/TAMAZ-logo.png" class="logo-image" alt="TAMAZ Global" />
                     </a>
 
@@ -443,12 +443,12 @@
                     <div>
                         <h4 class="footer-title">Popular Brands</h4>
                         <ul class="footer-links">
-                            <li><a href="#">Active White Products</a></li>
-                            <li><a href="#">Aqua Skin</a></li>
-                            <li><a href="#">Dr James Products</a></li>
-                            <li><a href="#">Gluta C Products</a></li>
-                            <li><a href="#">Glutax Series</a></li>
-                            <li><a href="#">Health Tone Products</a></li>
+                            <li><a href="/Brand/active-white-products">Active White Products</a></li>
+                            <li><a href="/Brand/aqua-skin">Aqua Skin</a></li>
+                            <li><a href="/Brand/dr-james-products">Dr James Products</a></li>
+                            <li><a href="/Brand/gluta-c-products">Gluta C Products</a></li>
+                            <li><a href="/Brand/glutax-series">Glutax Series</a></li>
+                            <li><a href="/Brand/health-tone-products">Health Tone Products</a></li>
                         </ul>
                     </div>
 

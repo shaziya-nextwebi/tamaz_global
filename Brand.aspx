@@ -44,38 +44,45 @@
 </asp:Content>
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
 <script>
-function addToCart(productId, btn) {
+    function addToCart(productId, btn) {
+
+        if (btn.innerText.trim() === 'View Cart') {
+            window.location.href = '<%= ResolveUrl("~/Cart.aspx") %>';
+        return;
+    }
+
     btn.disabled = true;
-    btn.textContent = 'Adding...';
-    fetch('<%= ResolveUrl("~/Brand.aspx/AddToCart") %>', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId: productId })
-    })
-    .then(res => res.json())
-    .then(data => {
-        const count = data.d;
-        if (count === '-1') {
-            btn.textContent = 'Error';
-            return;
-        }
-        btn.textContent = '✓ Added';
-        btn.style.background = '#16a34a';
-        const badge = document.getElementById('cartCount');
-        if (badge && count !== '0') {
-            badge.textContent = count;
-            badge.style.display = 'inline';
-        }
-        setTimeout(() => {
-            btn.textContent = 'Add to Cart';
-            btn.style.background = '';
-            btn.disabled = false;
-        }, 2000);
-    })
-    .catch(() => {
-        btn.textContent = 'Error';
-        btn.disabled = false;
-    });
-}
+    btn.innerText = 'Adding...';
+
+        fetch('<%= ResolveUrl("~/Brand.aspx/AddToCart") %>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: productId })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const count = data.d;
+
+                if (count == -1) {
+                    btn.innerText = 'Error';
+                    btn.disabled = false;
+                    return;
+                }
+
+                const badge = document.getElementById('cartCount');
+                if (badge && count != '0') {
+                    badge.innerText = count;
+                    badge.style.display = 'inline';
+                }
+
+                btn.innerText = 'View Cart';
+                btn.style.background = '#162e7d';
+                btn.disabled = false;
+            })
+            .catch(() => {
+                btn.innerText = 'Error';
+                btn.disabled = false;
+            });
+    }
 </script>
 </asp:Content>

@@ -129,7 +129,7 @@ public partial class CategoryPage : System.Web.UI.Page
                         "<div class='product-info'>" +
                             "<h3 class='product-name'>" + p.ProductName + "</h3>" +
                             "<div class='product-price'>" + price + "</div>" +
-                           "<button class='add-cart-btn' onclick='event.stopPropagation(); addToCart(" + p.Id + ", this)'>Add to Cart</button>"  +
+                           "<button class='add-cart-btn' onclick='event.stopPropagation(); event.preventDefault(); addToCart(" + p.Id + ", this); return false;'>Add to Cart</button>" +
                         "</div>" +
                     "</div>";
             }

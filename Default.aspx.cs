@@ -76,11 +76,11 @@ public partial class _Default : System.Web.UI.Page
             {
                 string img = b.BannerImage != "" ? "/" + b.BannerImage : "/assests/Images/clients/placeholder.png";
                 strBrandSlider += @"
-            <div class='client-card'>
-                <span class='client-logo'>
-                    <img src='" + img + @"' alt='" + b.BrandName + @"' title='" + b.BrandName + @"' />
-                </span>
-            </div>";
+<div class='client-card'>
+    <a href='/Brand/" + b.BrandUrl + @"' class='client-logo'>
+        <img src='" + img + @"' alt='" + b.BrandName + @"' title='" + b.BrandName + @"' />
+    </a>
+</div>";
             }
         }
         catch (Exception ex)
