@@ -60,66 +60,65 @@
 
                             <!-- Table Header -->
                             <div class="hidden md:grid grid-cols-12 gap-4 p-5 bg-slate-50 border-b border-slate-100 text-sm font-semibold text-slate-600">
-                                <div class="col-span-6">Product</div>
-                                <div class="col-span-2 text-center">Qty</div>
-                                <div class="col-span-4 text-right">Action</div>
+                                <div class="col-span-5">Product</div>
+                                <div class="col-span-2 text-center">Price</div>
+                                <div class="col-span-3 text-center">Quantity</div>
+                                <div class="col-span-2 text-right">Subtotal</div>
                             </div>
 
-                            <!-- Repeater -->
                             <asp:Repeater ID="rptCart" runat="server" OnItemCommand="rptCart_ItemCommand">
                                 <ItemTemplate>
                                     <div class="p-5 border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
                                         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
 
-                                            <!-- Product Info -->
-                                            <div class="md:col-span-6 flex items-center gap-4">
-
-                                                <!-- Image Click -->
+                                            <!-- Product Info (col 5) -->
+                                            <div class="md:col-span-5 flex items-center gap-4">
                                                 <a href='<%# ResolveUrl("~/Product/") + Eval("ProductUrl") %>'>
                                                     <img src='<%# ResolveUrl(Eval("SmallImage").ToString()) %>'
-                                                        onerror="this.onerror=null; this.src='<%= ResolveUrl("~/assets/Images/no-image.jpg") %>';"
+                                                        onerror="this.onerror=null; this.src='/assets/Images/no-image.jpg';"
                                                         alt='<%# Eval("ProductName") %>'
-                                                        class="w-24 h-24 object-cover rounded-lg border border-slate-100" />
+                                                        class="w-24 h-24 object-cover rounded-lg border border-slate-100 flex-shrink-0" />
                                                 </a>
-
                                                 <div>
-                                                    <!-- Name Click -->
                                                     <a href='<%# ResolveUrl("~/Product/") + Eval("ProductUrl") %>'
-                                                        class="font-semibold text-slate-900 mb-1 leading-tight hover:text-blue-600 transition">
+                                                        class="font-semibold text-slate-900 mb-1 leading-tight hover:text-blue-600 transition block">
                                                         <%# Eval("ProductName") %>
                                                     </a>
-
-                                                    <p class="text-sm text-slate-500 mb-1"><%# Eval("Category") %></p>
+                                                    <p class="text-sm text-slate-500 mb-2"><%# Eval("Category") %></p>
+                                                    <asp:LinkButton runat="server"
+                                                        CommandName="RemoveItem"
+                                                        CommandArgument='<%# Eval("ProductId") %>'
+                                                        CausesValidation="false"
+                                                        CssClass="text-red-700 hover:text-red-800 text-sm font-medium inline-flex items-center gap-1 transition-colors">
+                            <span class="iconify w-4 h-4" data-icon="lucide:trash-2"></span> Remove
+                                                    </asp:LinkButton>
                                                 </div>
-
                                             </div>
 
-                                            <!-- Qty -->
-                                            <div class="flex items-center justify-center gap-2">
+                                            <!-- Price (col 2) -->
+                                            <div class="md:col-span-2 text-center">
+                                                <p class="text-xs text-slate-400 mb-1 md:hidden">Price</p>
+                                                <p class="text-sm mt-1"><%# FormatCartPrice(Eval("RetailPrice")) %></p>
+                                            </div>
 
+                                            <!-- Qty (col 3) -->
+                                            <div class="md:col-span-3 flex items-center justify-center gap-2">
+                                                <p class="text-xs text-slate-400 mb-1 md:hidden">Quantity</p>
                                                 <asp:LinkButton runat="server"
                                                     CommandName="DecQty"
                                                     CommandArgument='<%# Eval("ProductId") %>'
-                                                   CssClass="px-2 py-1 bg-gray-200 rounded cursor-pointer">-</asp:LinkButton>
-
-                                                <span class="font-semibold"><%# Eval("Qty") %></span>
-
+                                                    CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">−</asp:LinkButton>
+                                                <span class="font-semibold w-6 text-center"><%# Eval("Qty") %></span>
                                                 <asp:LinkButton runat="server"
                                                     CommandName="IncQty"
                                                     CommandArgument='<%# Eval("ProductId") %>'
-                                            CssClass="px-2 py-1 bg-gray-200 rounded cursor-pointer">+</asp:LinkButton>
-
+                                                    CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">+</asp:LinkButton>
                                             </div>
 
-                                            <!-- Remove -->
-                                            <div class="md:col-span-4 text-right">
-                                                <asp:LinkButton runat="server"
-                                                    CommandName="RemoveItem"
-                                                    CommandArgument='<%# Eval("ProductId") %>'
-                                                    CausesValidation="false"
-                                                    CssClass="text-red-700 hover:text-red-800 text-sm font-medium inline-flex items-center gap-1 transition-colors">
-                                                    <span class="iconify w-4 h-4" data-icon="lucide:trash-2"></span> Remove
-                                                </asp:LinkButton>
+                                            <!-- Subtotal (col 2) -->
+                                            <div class="md:col-span-2 text-right">
+                                                <p class="text-xs text-slate-400 mb-1 md:hidden">Subtotal</p>
+                                                <span class="font-semibold text-slate-900"><%# FormatSubtotal(Eval("RetailPrice"), Eval("Qty")) %></span>
                                             </div>
 
                                         </div>
@@ -130,7 +129,7 @@
                         </div>
 
                         <div class="mt-6">
-                            <a href="Category.aspx" class="inline-flex items-center gap-2 text-blue-primary hover:text-red-700 font-medium transition-colors">
+                            <a href="/Category/glutathione-injections" class="inline-flex items-center gap-2 text-blue-primary hover:text-red-700 font-medium transition-colors">
                                 <span class="iconify w-5 h-5" data-icon="lucide:arrow-left"></span>
                                 Continue Shopping
                             </a>

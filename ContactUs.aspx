@@ -37,7 +37,7 @@
                     <span class="text-primary font-medium">Contact Us</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">Contact Us</h1>
-                <p class="text-lg text-text-muted max-w-2xl mx-auto">
+                <p class="text-lg text-text-muted max-w-2xl mx-auto banner-aub-text">
                     We are here to help. Reach out to us for inquiries, support, or partnership opportunities.
                
                 </p>
@@ -117,7 +117,7 @@
 
                 <!-- Right Side: Form -->
                 <div class="reveal">
-                    <div class="bg-white rounded-xl shadow-lg border border-slate-100 p-8 relative overflow-hidden">
+                    <div class="bg-white rounded-xl shadow-lg border border-slate-100 contact-form-wrap p-8  relative overflow-hidden">
                         <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] mb-4">Send Us a Message</h2>
 
                         <!-- Status Label -->
@@ -199,7 +199,7 @@
                             <!-- Captcha / Verification -->
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Verification Code <span class="text-red-500">*</span></label>
-                                <div class="flex gap-3 items-center flex-wrap">
+                                <div class="flex gap-3 items-center ">
                                     <asp:TextBox ID="txtCaptcha" runat="server" placeholder="Enter code"
                                         CssClass="w-32 px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:border-red-500 bg-slate-50 text-sm" />
                                     <div class="bg-slate-200 px-4 py-2 rounded font-mono tracking-widest text-slate-600 select-none text-sm">
@@ -233,11 +233,7 @@
         </div>
     </section>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/919988227622" target="_blank"
-        class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 hover:scale-110 transition-transform z-50">
-        <span class="iconify w-7 h-7 text-white" data-icon="logos:whatsapp-icon"></span>
-    </a>
+
 
 </asp:Content>
 

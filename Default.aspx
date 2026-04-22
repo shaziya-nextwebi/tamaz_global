@@ -2,6 +2,22 @@
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <style>
+        .view-cart-btn {
+            background: #162e7d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+            .view-cart-btn:hover {
+                background: #0f1f57;
+            }
         /* Desktop: show desktop image, hide mobile */
         .banner-desktop-img {
             display: block;
@@ -42,7 +58,51 @@
             .swiper-slide .max-w-7xl {
                 position: relative;
                 z-index: 1;
+                width:100%;
             }
+      
+
+
+            .MobileHeroSlider {
+    width: 100%;
+    height: auto; /* adjust */
+    background: #000; /* optional: fills empty space */
+    display:none;
+}
+
+.MobileHeroSlider .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 👇 Important */
+.MobileHeroSlider img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* ✅ FULL image visible */
+}
+
+/* Pagination */
+.mobile-hero-pagination {
+    bottom: 8px !important;
+}
+      @media(max-width:576px)
+      {
+          .desktop-hero-banner
+          {
+              display:none;
+          }
+          .MobileHeroSlider{
+              display:block;
+          }
+
+      }
+
+
+
+
+
     </style>
 </asp:Content>
 
@@ -143,7 +203,7 @@
             <div class="swiper-button-prev"></div>
         </div>
     </section>--%>
-    <section class="hero-banner" id="hero">
+    <section class="hero-banner desktop-hero-banner" id="hero">
         <div class="swiper myHeroSlider">
             <div class="swiper-wrapper">
                 <%=strBannerHtml %>
@@ -152,6 +212,47 @@
             <div class="swiper-button-prev"></div>
         </div>
     </section>
+
+ <%--   //this is the banner section for Mobile--%>
+<section class="hero-banner mobile-hero-banner swiper-container MobileHeroSlider">
+
+    <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/1.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/2.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/3.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/4.png" />
+            </a>
+        </div>
+
+        <div class="swiper-slide">
+            <a href="Product.aspx">
+                <img src="assests/Images/mobile-banner-images/5.png" />
+            </a>
+        </div>
+
+    </div>
+
+    <div class="swiper-pagination mobile-hero-pagination"></div>
+
+</section>
 
     <!-- ===================== FEATURES ===================== -->
     <section class="features-section">
@@ -354,7 +455,7 @@
             </div>
         </div>
     </section>
-    <%--    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
+    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
                 <div class="text-start md:text-center">
@@ -365,7 +466,8 @@
             <div class="md:hidden">
                 <div class="swiper spotlightSwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <%=strSpotlightMobile %>
+                        <%--                        <div class="swiper-slide">
                             <div class="relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card">
                                 <img src="assests/Images/spotlight-images/sp-1.png" class="absolute inset-0 w-full h-full object-cover" />
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
@@ -397,12 +499,12 @@
                                     <a href="Category.aspx" class="bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn">Shop Now</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>
         </div>
-    </section>--%>
+    </section>
 
     <!-- ===================== CLIENT SLIDER ===================== -->
     <section class="clients-section">
@@ -509,6 +611,22 @@
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
+ <script>
+     var mobileHeroSlider = new Swiper('.MobileHeroSlider', {
+         loop: true,
+         //autoplay: {
+         //    delay: 3000,
+         //    disableOnInteraction: false,
+         //},
+
+         pagination: {
+             el: '.mobile-hero-pagination',
+             clickable: true,
+         },
+
+         speed: 600
+     });
+</script>
     <script>
         // Hero Slider
         new Swiper(".myHeroSlider", {
@@ -548,10 +666,54 @@
             document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
         }
 
-        document.addEventListener("DOMContentLoaded", ()=> {
-           // renderProducts();
+        document.addEventListener("DOMContentLoaded", () => {
+            // renderProducts();
             initSlider();
             initAnimations();
         });
+        function addToCart(btn, productId, e) {
+            if (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+
+            // If already in cart, go to cart page
+            if (btn.classList.contains('view-cart-btn')) {
+                window.location.href = '/Cart.aspx';
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Adding...';
+
+            fetch('/Default.aspx/AddToCart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: productId.toString() })
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    var result = data.d || data;
+                    if (result.success) {
+                        // Replace button with a direct link
+                        var a = document.createElement('a');
+                        a.href = '/Cart.aspx';
+                        a.className = 'view-cart-btn';
+                        a.innerText = 'View Cart';
+                        a.style.display = 'block';
+                        a.style.textAlign = 'center';
+                        a.style.textDecoration = 'none';
+                        a.setAttribute('onclick', 'event.stopPropagation();');
+                        btn.parentNode.replaceChild(a, btn);
+                    } else {
+                        btn.disabled = false;
+                        btn.innerText = 'Add to Cart';
+                    }
+                })
+                .catch(function () {
+                    btn.disabled = false;
+                    btn.innerText = 'Add to Cart';
+                });
+        }
     </script>
 </asp:Content>

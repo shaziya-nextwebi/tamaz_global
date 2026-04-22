@@ -26,11 +26,11 @@ public partial class Cart : System.Web.UI.Page
 
         rptCart.DataSource = products;
         rptCart.DataBind();
-
         decimal total = 0;
         foreach (var item in products)
         {
-            total += item.RetailPrice * item.Qty;
+            if (item.RetailPrice > 0)
+                total += item.RetailPrice * item.Qty;
         }
 
         ViewState["Total"] = total;
@@ -195,7 +195,28 @@ public partial class Cart : System.Web.UI.Page
     //        BindCart();
     //    }
     //}
+    protected string FormatCartPrice(object retailPriceObj)
+    {
+        decimal price = 0;
+        string val = retailPriceObj != null ? retailPriceObj.ToString() : "";
+        decimal.TryParse(val, out price);
+        if (price <= 0)
+            return "<a href='/ContactUs.aspx' style='color:#162e7d; font-weight:600; font-size:14px; text-decoration:none;' onclick='event.stopPropagation();'>Contact Us for Price</a>";
+        return "<span style='font-weight:600; color:#0F172A;'>&#8377; " + price.ToString("0.00") + "</span>";
+    }
+    protected string FormatSubtotal(object retailPriceObj, object qtyObj)
+    {
+        decimal price = 0;
+        int qty = 0;
+        string val = retailPriceObj != null ? retailPriceObj.ToString() : "";
+        decimal.TryParse(val, out price);
+        int.TryParse(qtyObj != null ? qtyObj.ToString() : "0", out qty);
 
+        if (price <= 0)
+            return "<a href='/ContactUs.aspx' style='color:#162e7d; font-weight:600; font-size:14px; text-decoration:none;'>Contact Us</a>";
+
+        return "&#8377; " + (price * qty).ToString("0.00");
+    }
     SmtpClient BuildSmtp()
     {
         return new SmtpClient

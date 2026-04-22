@@ -1184,15 +1184,15 @@ body.sticky-active {
   font-weight: 700;
   color: #0f172a;
   /* margin-top: 2.5rem; */
-  margin-bottom: 1rem;
+/*  margin-bottom: 1rem;*/
 }
 
 .editor-content h3 {
   font-size: 1.375rem;
   font-weight: 600;
   color: #1e293b;
-  margin-top: 1rem;
-  margin-bottom: 0.75rem;
+  margin-top: 10px;
+  margin-bottom: 0rem;
 }
 
 .editor-content h4 {
@@ -1204,7 +1204,7 @@ body.sticky-active {
 }
 
 .editor-content p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .editor-content a {
@@ -1335,7 +1335,7 @@ body.sticky-active {
   font-size: 1.75rem;
   font-weight: 700;
   color: #0f172a;
-  margin-bottom: 1rem;
+  margin-bottom:0px ;
   margin-top: 1rem;
 }
 
@@ -1343,12 +1343,12 @@ body.sticky-active {
   font-size: 1.375rem;
   font-weight: 600;
   color: #1e293b;
-  margin-bottom: 0.75rem;
-  margin-top: 1rem;
+  margin-bottom: 0;
+  margin-top: 10px;
 }
 
 .editor-content p {
-  margin-bottom: 1.25rem;
+  margin-bottom: 10px;
 }
 
 .editor-content ul,
@@ -1408,7 +1408,7 @@ body.sticky-active {
 
   /* Tab scrollable on mobile */
   .tab-btn {
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px 16px;
   }
 }
@@ -1588,6 +1588,10 @@ body.sticky-active {
   .products-grid {
     grid-template-columns: repeat(3, 1fr) !important;
   }
+    .extra-point-grid-detail
+    {
+        grid-template-columns:repeat(2, 1fr) !important;
+    }
 }
 
 @media (max-width: 991px) {
@@ -1704,6 +1708,9 @@ body.sticky-active {
     }
     .dropdown-menu {
         min-width: 90vw;
+    }
+    .extra-point-grid-detail {
+        grid-template-columns: repeat(3, 1fr) !important;
     }
     }
 
@@ -1997,6 +2004,27 @@ body.sticky-active {
     .blog-Detailcard-overlay {
         background: rgb(0 0 0 / 43%) !important;
     }
+    .editor-content h2,
+    .editor-content h3 {
+        margin-bottom: 10px;
+    }
+    .faq-question{
+        font-size:14px !important;
+        padding:10px 16px !important;
+
+    }
+    .faq-answer
+    {
+        font-size:13px !important;
+    }
+    .footer-bottom
+    {
+        margin-bottom:10px;
+    }
+    .extra-point-grid-detail {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+
 }
 
 

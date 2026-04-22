@@ -6,13 +6,19 @@
             color: red !important;
         }
 
+        .msg-cell {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 160px;
+        }
+
         .message-preview {
-            max-width: 150px;
+            max-width: 130px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: inline-block;
-            vertical-align: middle;
+            flex: 1;
         }
     </style>
 </asp:Content>
@@ -191,7 +197,7 @@
 
     <%-- Hidden field to carry checked IDs for bulk delete --%>
     <asp:HiddenField ID="hdnDeleteIds" runat="server" />
-
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
 

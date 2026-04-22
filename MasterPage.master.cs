@@ -30,6 +30,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             foreach (Category c in cats)
             {
+                int productCount = GetProductCount(c.Id);
+
                 strNavCategories +=
                     "<a href='/Category/" + c.CategoryUrl + "' class='dropdown-item'>" +
                         "<div class='dropdown-icon'>" +
@@ -38,6 +40,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                             "</svg>" +
                         "</div>" +
                         "<span class='dropdown-text'>" + c.CategoryName + "</span>" +
+                        "<span class='dropdown-count'>(" + productCount + ")</span>" +
                     "</a>";
             }
         }
@@ -45,5 +48,32 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "BindNavCategories", ex.Message);
         }
+    }
+    public int GetProductCount(int catId)
+    {
+        int cnt = 0;
+
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(@"
+                SELECT COUNT(*) 
+                FROM ProductDetails 
+                WHERE Status = 'Active' 
+                AND CategoryId = @CategoryId", con);
+
+                cmd.Parameters.AddWithValue("@CategoryId", catId);
+
+                cnt = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+        catch (Exception ex)
+        {
+            // log if needed
+        }
+
+        return cnt;
     }
 }
