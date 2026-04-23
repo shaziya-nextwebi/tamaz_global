@@ -23,7 +23,7 @@
             <div class="flex items-center gap-2 text-sm text-slate-500">
                 <a href="Default.aspx" class="hover:text-red-700 transition-colors">Home</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
-                <a href="Blog.aspx" class="hover:text-red-700 transition-colors">Blog</a>
+                <a href="/Blog.aspx" class="hover:text-red-700 transition-colors">Blog</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
                 <span class="text-slate-900 font-medium blog-tittle-breadCrumb"><%= BlogTitle %></span>
             </div>

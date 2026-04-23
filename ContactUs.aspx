@@ -99,18 +99,18 @@
                     <div>
                         <h4 class="font-bold text-slate-900 mb-4">Follow Us</h4>
                         <div class="flex gap-3">
-                            <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
+                            <a href="https://www.facebook.com/tamazglobal" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
                                 <span class="iconify w-5 h-5" data-icon="lucide:facebook"></span>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/tamaz_global/" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
                                 <span class="iconify w-5 h-5" data-icon="lucide:instagram"></span>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
+                            <a href="https://twitter.com/" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
                                 <span class="iconify w-5 h-5" data-icon="lucide:twitter"></span>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
+                            <%--<a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-[#0a1b50] hover:text-white transition-colors">
                                 <span class="iconify w-5 h-5" data-icon="lucide:linkedin"></span>
-                            </a>
+                            </a>--%>
                         </div>
                     </div>
                 </div>
