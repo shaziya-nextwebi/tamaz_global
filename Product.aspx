@@ -115,7 +115,7 @@
             <nav class="text-sm text-[#64748B] breadcrumb">
                 <a href="Default.aspx" class="hover:text-[#B91C1C]">Home</a>
                 <span class="mx-2">/</span>
-                <a href="Category/<%=strCategoryUrl %>" class="hover:text-[#B91C1C]"><%=strCategory %></a>
+                <a href="/Category/<%=strCategoryUrl %>" class="hover:text-[#B91C1C]"><%=strCategory %></a>
                 <span class="mx-2">/</span>
                 <span class="text-[#0F172A] font-medium"><%=strProductName %></span>
             </nav>
@@ -261,14 +261,14 @@
 
                     <!-- Price -->
                     <div class="flex items-center gap-3 mb-6">
-                        <span class="text-3xl font-bold text-[#000]">
+                        <span class="text-3xl font-bold text-[#000] fs-24-mobile">
                             <% if (!string.IsNullOrEmpty(strRetailPrice))
                                 { %>
             Rs. <%=strRetailPrice %>
                             <% }
                                 else
                                 { %>
-                            <a href="/ContactUs.aspx" class="text-[#B91C1C] underline font-semibold">Contact Us
+                            <a href="/ContactUs.aspx" class="text-3xl font-bold text-[#000] fs-24-mobile">Contact Us
                             </a>
                             <% } %>
                         </span>
@@ -276,7 +276,7 @@
 
                     <!-- Actions -->
                     <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                        <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden item-to-cart-count">
                             <button type="button" class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="decreaseQty()">&#8722;</button>
                             <input type="number" id="productQty" value="1" min="1" class="w-10 text-center border-0 focus:ring-0 text-lg font-semibold" />
                             <button type="button" class="px-4 py-3 text-gray-600 hover:bg-gray-100 text-xl font-bold" onclick="increaseQty()">+</button>

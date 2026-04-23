@@ -72,7 +72,7 @@ public partial class CategoryPage : System.Web.UI.Page
             // Breadcrumb
             strBreadcrumb = "<a href='/' class='hover:text-[#B91C1C] transition-colors'>Home</a>" +
                             "<span class='mx-2'>/</span>" +
-                            "<a href='/Category' class='hover:text-[#B91C1C] transition-colors'>Category</a>" +
+                            "<a href='' class='hover:text-[#B91C1C] transition-colors'>Category</a>" +
                             "<span class='mx-2'>/</span>" +
                             "<span class='text-[#0F172A] font-medium'>" + cat.CategoryName + "</span>";
         }
