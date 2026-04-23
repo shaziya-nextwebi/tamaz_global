@@ -243,7 +243,7 @@
     <section class="features-section">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="feature-item fade-in">
+                <div class="feature-item ">
                     <div class="feature-icon bg-linear-gradient">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
                             <rect x="1" y="3" width="15" height="13" />
@@ -257,7 +257,7 @@
                         <div class="feature-desc">On orders over $150</div>
                     </div>
                 </div>
-                <div class="feature-item fade-in">
+                <div class="feature-item ">
                     <div class="feature-icon bg-linear-gradient">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -268,7 +268,7 @@
                         <div class="feature-desc">100% safe transactions</div>
                     </div>
                 </div>
-                <div class="feature-item fade-in">
+                <div class="feature-item ">
                     <div class="feature-icon bg-linear-gradient">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
                             <circle cx="12" cy="12" r="10" />
@@ -281,7 +281,7 @@
                         <div class="feature-desc">30-day guarantee</div>
                     </div>
                 </div>
-                <div class="feature-item fade-in">
+                <div class="feature-item ">
                     <div class="feature-icon bg-linear-gradient">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -495,7 +495,7 @@
     <section class="clients-section">
         <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-4 margin-bottom-20">
             <div class="text-center fade-in">
-                <h2 class="section-title">Our Trusted Partners</h2>
+                <h2 class="section-title">Top Brands on Tamaz Global</h2>
                 <p class="section-subtitle section-description mt-1">Working with leading wellness brands worldwide</p>
             </div>
         </div>
