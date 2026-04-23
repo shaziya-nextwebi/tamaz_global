@@ -54,7 +54,6 @@
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
 <script>
     function addToCart(productId, btn) {
-
         if (btn.innerText.trim() === 'View Cart') {
             window.location.href = '<%= ResolveUrl("~/Cart.aspx") %>';
         return;
@@ -63,35 +62,64 @@
     btn.disabled = true;
     btn.innerText = 'Adding...';
 
-        fetch('<%= ResolveUrl("~/Category.aspx/AddToCart") %>', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId: productId })
-        })
-            .then(res => res.json())
-            .then(data => {
-                const count = data.d;
-
-                if (count == -1) {
-                    btn.innerText = 'Error';
-                    btn.disabled = false;
-                    return;
-                }
-
-                const badge = document.getElementById('cartCount');
-                if (badge && count != '0') {
-                    badge.innerText = count;
-                    badge.style.display = 'inline';
-                }
-
-                btn.innerText = 'View Cart';
-                btn.style.background = '#162e7d';
-                btn.disabled = false;
-            })
-            .catch(() => {
+    fetch('<%= ResolveUrl("~/Category.aspx/AddToCart") %>', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: productId })
+    })
+        .then(res => res.json())
+        .then(data => {
+            const count = data.d;
+            if (count == -1) {
                 btn.innerText = 'Error';
                 btn.disabled = false;
-            });
-    }
+                return;
+            }
+
+            btn.innerText = 'View Cart';
+            btn.style.background = '#162e7d';
+            btn.disabled = false;
+
+            var newCount = parseInt(count) || 0;
+            if (newCount <= 0) return;
+
+            // ✅ Desktop badge
+            var countEl = document.getElementById('cartCount');
+            if (countEl) {
+                countEl.innerText = newCount;
+                countEl.style.display = 'flex';
+            } else {
+                var cartIcon = document.querySelector('.relative.p-3');
+                if (cartIcon) {
+                    var span = document.createElement('span');
+                    span.id = 'cartCount';
+                    span.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                    span.style.textAlign = 'center';
+                    span.innerText = newCount;
+                    cartIcon.appendChild(span);
+                }
+            }
+
+            // ✅ Mobile badge
+            var countElMobile = document.getElementById('cartCountMobile');
+            if (countElMobile) {
+                countElMobile.innerText = newCount;
+                countElMobile.style.display = 'flex';
+            } else {
+                var mobileCartIcon = document.querySelector('.mobile-cart-icon');
+                if (mobileCartIcon) {
+                    var spanM = document.createElement('span');
+                    spanM.id = 'cartCountMobile';
+                    spanM.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                    spanM.innerText = newCount;
+                    mobileCartIcon.appendChild(spanM);
+                }
+            }
+        })
+        .catch(() => {
+            btn.innerText = 'Error';
+            btn.disabled = false;
+        });
+}
 </script>
 </asp:Content>

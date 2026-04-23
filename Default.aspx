@@ -58,51 +58,44 @@
             .swiper-slide .max-w-7xl {
                 position: relative;
                 z-index: 1;
-                width:100%;
+                width: 100%;
             }
-      
 
+
+
+        .MobileHeroSlider {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
+            .MobileHeroSlider .swiper-slide {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* 👇 Important */
+            .MobileHeroSlider img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; /* ✅ FULL image visible */
+            }
+
+        /* Pagination */
+        .mobile-hero-pagination {
+            bottom: 0px !important;
+        }
+
+        @media(max-width:576px) {
+            .desktop-hero-banner {
+                display: none;
+            }
 
             .MobileHeroSlider {
-    width: 100%;
-    height: auto; 
-   
-    display:none;
-}
-
-.MobileHeroSlider .swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 👇 Important */
-.MobileHeroSlider img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;   /* ✅ FULL image visible */
-}
-
-/* Pagination */
-.mobile-hero-pagination {
-    bottom: 0px !important;
-}
-      @media(max-width:576px)
-      {
-          .desktop-hero-banner
-          {
-              display:none;
-          }
-          .MobileHeroSlider{
-              display:block;
-          }
-
-      }
-
-
-
-
-
+                display: block;
+            }
+        }
     </style>
 </asp:Content>
 
@@ -213,46 +206,46 @@
         </div>
     </section>
 
- <%--   //this is the banner section for Mobile--%>
-<section class="hero-banner mobile-hero-banner swiper-container MobileHeroSlider">
+    <%--   //this is the banner section for Mobile--%>
+    <section class="hero-banner mobile-hero-banner swiper-container MobileHeroSlider">
 
-    <div class="swiper-wrapper">
+        <div class="swiper-wrapper">
+            <%=strMobileBannerHtml %>
 
-        <div class="swiper-slide">
-            <a href="Product.aspx">
-                <img src="assests/Images/mobile-banner-images/1.png" />
-            </a>
+            <%--            <div class="swiper-slide">
+                <a href="Product.aspx">
+                    <img src="assests/Images/mobile-banner-images/1.png" />
+                </a>
+            </div>
+
+            <div class="swiper-slide">
+                <a href="Product.aspx">
+                    <img src="assests/Images/mobile-banner-images/2.png" />
+                </a>
+            </div>
+
+            <div class="swiper-slide">
+                <a href="Product.aspx">
+                    <img src="assests/Images/mobile-banner-images/3.png" />
+                </a>
+            </div>
+
+            <div class="swiper-slide">
+                <a href="Product.aspx">
+                    <img src="assests/Images/mobile-banner-images/4.png" />
+                </a>
+            </div>
+
+            <div class="swiper-slide">
+                <a href="Product.aspx">
+                    <img src="assests/Images/mobile-banner-images/5.png" />
+                </a>
+            </div>--%>
         </div>
 
-        <div class="swiper-slide">
-            <a href="Product.aspx">
-                <img src="assests/Images/mobile-banner-images/2.png" />
-            </a>
-        </div>
+        <div class="swiper-pagination mobile-hero-pagination"></div>
 
-        <div class="swiper-slide">
-            <a href="Product.aspx">
-                <img src="assests/Images/mobile-banner-images/3.png" />
-            </a>
-        </div>
-
-        <div class="swiper-slide">
-            <a href="Product.aspx">
-                <img src="assests/Images/mobile-banner-images/4.png" />
-            </a>
-        </div>
-
-        <div class="swiper-slide">
-            <a href="Product.aspx">
-                <img src="assests/Images/mobile-banner-images/5.png" />
-            </a>
-        </div>
-
-    </div>
-
-    <div class="swiper-pagination mobile-hero-pagination"></div>
-
-</section>
+    </section>
 
     <!-- ===================== FEATURES ===================== -->
     <section class="features-section">
@@ -611,22 +604,22 @@
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
- <script>
-     var mobileHeroSlider = new Swiper('.MobileHeroSlider', {
-         loop: true,
-         //autoplay: {
-         //    delay: 3000,
-         //    disableOnInteraction: false,
-         //},
+    <script>
+        var mobileHeroSlider = new Swiper('.MobileHeroSlider', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
 
-         pagination: {
-             el: '.mobile-hero-pagination',
-             clickable: true,
-         },
+            pagination: {
+                el: '.mobile-hero-pagination',
+                clickable: true,
+            },
 
-         speed: 600
-     });
-</script>
+            speed: 600
+        });
+    </script>
     <script>
         // Hero Slider
         new Swiper(".myHeroSlider", {
@@ -677,7 +670,6 @@
                 e.preventDefault();
             }
 
-            // If already in cart, go to cart page
             if (btn.classList.contains('view-cart-btn')) {
                 window.location.href = '/Cart.aspx';
                 return;
@@ -689,13 +681,13 @@
             fetch('/Default.aspx/AddToCart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ productId: productId.toString() })
+                body: JSON.stringify({ productId: productId.toString(), qty: 1 })
             })
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
                     var result = data.d || data;
                     if (result.success) {
-                        // Replace button with a direct link
+                        // Replace button with View Cart link
                         var a = document.createElement('a');
                         a.href = '/Cart.aspx';
                         a.className = 'view-cart-btn';
@@ -705,6 +697,45 @@
                         a.style.textDecoration = 'none';
                         a.setAttribute('onclick', 'event.stopPropagation();');
                         btn.parentNode.replaceChild(a, btn);
+
+                        // ✅ Update cart count badges
+                        var newCount = result.cartCount ? parseInt(result.cartCount) : 0;
+
+                        if (newCount > 0) {
+                            // --- Desktop badge ---
+                            var countEl = document.getElementById('cartCount');
+                            if (countEl) {
+                                countEl.innerText = newCount;
+                                countEl.style.display = 'flex';
+                            } else {
+                                var cartIcon = document.querySelector('.relative.p-3');
+                                if (cartIcon) {
+                                    var span = document.createElement('span');
+                                    span.id = 'cartCount';
+                                    span.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                                    span.style.textAlign = 'center';
+                                    span.innerText = newCount;
+                                    cartIcon.appendChild(span);
+                                }
+                            }
+
+                            // --- Mobile badge ---
+                            var countElMobile = document.getElementById('cartCountMobile');
+                            if (countElMobile) {
+                                countElMobile.innerText = newCount;
+                                countElMobile.style.display = 'flex';
+                            } else {
+                                var mobileCartIcon = document.querySelector('.mobile-cart-icon');
+                                if (mobileCartIcon) {
+                                    var spanM = document.createElement('span');
+                                    spanM.id = 'cartCountMobile';
+                                    spanM.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                                    spanM.innerText = newCount;
+                                    mobileCartIcon.appendChild(spanM);
+                                }
+                            }
+                        }
+
                     } else {
                         btn.disabled = false;
                         btn.innerText = 'Add to Cart';

@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -76,4 +77,5 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
         return cnt;
     }
+
 }

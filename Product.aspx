@@ -137,7 +137,31 @@
                             onclick="openImageModal(0)"
                             class="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105 cursor-pointer" />
                         <%=strLabelBadge %>
+
+                        <%-- Prev Arrow --%>
+                        <button type="button" onclick="navigateGallery(-1)"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center z-10 transition-all hover:scale-110">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.5">
+                                <polyline points="15 18 9 12 15 6" />
+                            </svg>
+                        </button>
+
+                        <%-- Next Arrow --%>
+                        <button type="button" onclick="navigateGallery(1)"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center z-10 transition-all hover:scale-110">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="2.5">
+                                <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                        </button>
                     </div>
+                    <%--                   <div class="relative w-full aspect-square bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 group">
+                        <img id="mainProductImage"
+                            src="/<%=strSmallImage %>"
+                            alt="<%=strProductName %>"
+                            onclick="openImageModal(0)"
+                            class="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105 cursor-pointer" />
+                        <%=strLabelBadge %>
+                    </div>--%>
 
                     <!-- Thumbnails — loaded from gallery via AJAX + thumb image as first item -->
                     <div class="thumb-grid" id="thumbGrid">
@@ -485,19 +509,50 @@
         Thank you! Your enquiry has been submitted.
     </div>
     <!-- Image Zoom Modal -->
-    <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
+    <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 99999; align-items: center; justify-content: center;">
+
+        <%-- Close --%>
+        <button type="button" onclick="closeImageModal()"
+            style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer; z-index: 2;">
+            &times;
+        </button>
+
+        <%-- Prev --%>
+        <button type="button" onclick="navigateModal(-1)"
+            style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+
+        <%-- Main Image --%>
+        <img id="modalImage" src=""
+            style="max-width: 88%; max-height: 88vh; border-radius: 10px; object-fit: contain; transition: opacity 0.2s;" />
+
+        <%-- Counter --%>
+        <div id="modalCounter"
+            style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; background: rgba(0,0,0,0.4); padding: 4px 14px; border-radius: 20px;">
+        </div>
+
+        <%-- Next --%>
+        <button type="button" onclick="navigateModal(1)"
+            style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
+    </div>
+    <%--    <div id="imageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center;">
         <button type="button" onclick="closeImageModal()" style="position: absolute; top: 20px; right: 20px; color: #fff; font-size: 32px; background: none; border: none; cursor: pointer;">&times;</button>
         <img id="modalImage" src="" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
-    </div>
-
-
-
+    </div>--%>
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <script>
+    <script src="/assests/js/pages/product.js"></script>
+    <%-- <script>
 
         var galleryImages = ['/<%=strSmallImage %>'];
         function showSnackbar(message) {
@@ -641,7 +696,6 @@
             }
         }
         function addToCartProduct(btn) {
-            // If already showing View Cart, navigate directly
             if (btn.classList.contains('view-cart-btn-product')) {
                 window.location.href = '/Cart.aspx';
                 return;
@@ -666,6 +720,45 @@
                         btn.classList.remove('bg-[#B91C1C]', 'hover:bg-red-700');
                         btn.classList.add('view-cart-btn-product', 'bg-[#162e7d]');
                         document.getElementById('btnAddToCartText').innerText = 'View Cart';
+
+                        // ✅ Update cart count badges
+                        var newCount = result.cartCount ? parseInt(result.cartCount) : 0;
+
+                        if (newCount > 0) {
+                            // Desktop badge
+                            var countEl = document.getElementById('cartCount');
+                            if (countEl) {
+                                countEl.innerText = newCount;
+                                countEl.style.display = 'flex';
+                            } else {
+                                var cartIcon = document.querySelector('.relative.p-3');
+                                if (cartIcon) {
+                                    var span = document.createElement('span');
+                                    span.id = 'cartCount';
+                                    span.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                                    span.style.textAlign = 'center';
+                                    span.innerText = newCount;
+                                    cartIcon.appendChild(span);
+                                }
+                            }
+
+                            // Mobile badge
+                            var countElMobile = document.getElementById('cartCountMobile');
+                            if (countElMobile) {
+                                countElMobile.innerText = newCount;
+                                countElMobile.style.display = 'flex';
+                            } else {
+                                var mobileCartIcon = document.querySelector('.mobile-cart-icon');
+                                if (mobileCartIcon) {
+                                    var spanM = document.createElement('span');
+                                    spanM.id = 'cartCountMobile';
+                                    spanM.className = 'absolute -top-1 -right-1 w-5 h-5 added-cart-count text-white text-xs rounded-full flex items-center justify-center';
+                                    spanM.innerText = newCount;
+                                    mobileCartIcon.appendChild(spanM);
+                                }
+                            }
+                        }
+
                     } else {
                         btn.disabled = false;
                         document.getElementById('btnAddToCartText').innerText = 'Add to Cart';
@@ -833,5 +926,5 @@
                 }
             });
         }
-    </script>
+    </script>--%>
 </asp:Content>

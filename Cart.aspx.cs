@@ -185,6 +185,12 @@ public partial class Cart : System.Web.UI.Page
             AddtoCart.Deletecartlist(conT, pid);
 
         BindCart();
+
+        // ✅ Force cart count span to reflect updated count immediately
+        string newCount = AddtoCart.GetcartlistQunatity(conT);
+        var masterPage = this.Master as MasterPage;
+        if (masterPage != null)
+            masterPage.strCartCount = newCount;
     }
     //protected void rptCart_ItemCommand(object source, RepeaterCommandEventArgs e)
     //{
@@ -201,7 +207,7 @@ public partial class Cart : System.Web.UI.Page
         string val = retailPriceObj != null ? retailPriceObj.ToString() : "";
         decimal.TryParse(val, out price);
         if (price <= 0)
-            return "<a href='/ContactUs.aspx' style='color:#162e7d; font-weight:600; font-size:14px; text-decoration:none;' onclick='event.stopPropagation();'>Contact Us for Price</a>";
+            return "<span style='font-weight:600; color:#64748B;'>-</span>";
         return "<span style='font-weight:600; color:#0F172A;'>&#8377; " + price.ToString("0.00") + "</span>";
     }
     protected string FormatSubtotal(object retailPriceObj, object qtyObj)
@@ -213,7 +219,8 @@ public partial class Cart : System.Web.UI.Page
         int.TryParse(qtyObj != null ? qtyObj.ToString() : "0", out qty);
 
         if (price <= 0)
-            return "<a href='/ContactUs.aspx' style='color:#162e7d; font-weight:600; font-size:14px; text-decoration:none;'>Contact Us</a>";
+            return "<span style='font-weight:600; color:#64748B;'>-</span>";
+
 
         return "&#8377; " + (price * qty).ToString("0.00");
     }

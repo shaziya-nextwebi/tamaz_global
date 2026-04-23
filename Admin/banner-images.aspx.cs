@@ -159,7 +159,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
             }
             if (mobileResult == "Size")
             {
-                ShowError("Mobile image size should be 800px × 1000px");
+                ShowError("Mobile image size should be 2820px × 1032px");
                 return;
             }
 
@@ -304,7 +304,7 @@ public partial class Admin_banner_images : System.Web.UI.Page
                 {
                     System.Drawing.Bitmap bmp =
                         new System.Drawing.Bitmap(FileUpload2.PostedFile.InputStream);
-                    if (bmp.Width != 800 || bmp.Height != 1000) return "Size";
+                    if (bmp.Width != 2820 || bmp.Height != 1032) return "Size";
 
                     System.Drawing.Image imgScaled =
                         CommonModel.ScaleImageBig(bmp, bmp.Height, bmp.Width);

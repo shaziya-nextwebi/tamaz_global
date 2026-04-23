@@ -100,8 +100,7 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">Mobile Banner Image<sup style="color: red;">*</sup></label>
                                     <asp:FileUpload ID="FileUpload2" runat="server" CssClass="form-control mb-1" />
-                                    <small style="color: red;">.png, .jpeg, .jpg, .webp formats required — 800px × 1000px
-                                    </small>
+                                 <small style="color: red;">.png, .jpeg, .jpg, .webp formats required — 2820px × 1032px</small>
                                     <div class="mt-2"><%=strThumbImageMob %></div>
                                     <asp:RequiredFieldValidator ID="reqUploadMob" runat="server"
                                         ControlToValidate="FileUpload2" Display="Dynamic" ForeColor="Red"

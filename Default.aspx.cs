@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
-    public string strBannerHtml = "", strBrandSlider = "", strSpotlight = "", strHomeProducts = "", strSpotlightMobile = "";
+    public string strBannerHtml = "", strBrandSlider = "", strSpotlight = "", strHomeProducts = "", strSpotlightMobile = "", strMobileBannerHtml = "";
     public string strTopCategories = "";
     SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
     protected void Page_Load(object sender, EventArgs e)
@@ -58,6 +58,14 @@ public partial class _Default : System.Web.UI.Page
 
                 <img src='" + item.MobImage + @"' alt='" + item.BannerTitle + @"' class='banner-mob-img' />
             </div>";
+
+                string link = item.Link != "" ? item.Link : "Product.aspx";
+                strMobileBannerHtml += @"
+        <div class='swiper-slide'>
+            <a href='" + link + @"'>
+                <img src='" + item.MobImage + @"' alt='" + item.BannerTitle + @"' />
+            </a>
+        </div>";
             }
         }
         catch (Exception ex)
@@ -264,7 +272,7 @@ public partial class _Default : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static object AddToCart(string productId)
+    public static object AddToCart(string productId, int qty = 1)
     {
         try
         {
@@ -274,7 +282,6 @@ public partial class _Default : System.Web.UI.Page
                 ? CommonModel.Decrypt(HttpContext.Current.Request.Cookies["t_new_vi"].Value)
                 : "";
 
-            // If no cookie, create a new guest guid and set cookie
             if (uid == "")
             {
                 uid = Guid.NewGuid().ToString();
@@ -289,20 +296,20 @@ public partial class _Default : System.Web.UI.Page
 
             if (existing != null)
             {
-                // Already in cart — just return inCart true
-                return new { success = true, inCart = true };
+                // ✅ Update qty if already in cart
+                existing.Qty = qty;
+                AddtoCart.Updatecartdetails(conT, existing);
+                return new { success = true, inCart = true, cartCount = AddtoCart.GetcartlistQunatity(conT) };
             }
 
             AddtoCart cart = new AddtoCart
             {
                 ProductId = pid,
-                Qty = 1,
+                Qty = qty,  // ✅ use passed qty
                 Userguid = uid
             };
 
             int result = AddtoCart.Insertcartdetails(conT, cart);
-
-            // Get updated cart count
             string count = AddtoCart.GetcartlistQunatity(conT);
 
             return new { success = result > 0, inCart = true, cartCount = count };
@@ -311,6 +318,48 @@ public partial class _Default : System.Web.UI.Page
         {
             ExceptionCapture.CaptureException("Default.aspx", "AddToCart", ex.Message);
             return new { success = false, inCart = false };
+        }
+    }
+
+    [WebMethod]
+    public static object SearchProducts(string query)
+    {
+        try
+        {
+            SqlConnection conT = new SqlConnection(
+                ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+
+            List<object> results = new List<object>();
+
+            using (SqlCommand cmd = new SqlCommand(
+                @"SELECT TOP 15 ProductName, SmallImage, ProductUrl 
+              FROM ProductDetails 
+              WHERE Status != 'Deleted' 
+              AND ProductName LIKE @q 
+              ORDER BY ProductName ASC", conT))
+            {
+                cmd.Parameters.AddWithValue("@q", "%" + query + "%");
+                conT.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        results.Add(new
+                        {
+                            name = dr["ProductName"].ToString(),
+                            img = "/" + dr["SmallImage"].ToString(),
+                            url = "/Product/" + dr["ProductUrl"].ToString()
+                        });
+                    }
+                }
+                conT.Close();
+            }
+            return results;
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException("Search", "SearchProducts", ex.Message);
+            return new List<object>();
         }
     }
 }

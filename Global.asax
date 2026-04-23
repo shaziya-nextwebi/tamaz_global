@@ -22,7 +22,7 @@
         routes.MapPageRoute("solutions", "solutions", "~/Listing.aspx");
         routes.MapPageRoute("SolutionsCategory", "solutions/{category}", "~/Listing.aspx");
 
-        routes.MapPageRoute("404", "404", "~/404.aspx");
+        routes.MapPageRoute("/404", "404", "~/404.aspx");
 
         routes.MapPageRoute("Category", "Category/{categoryurl}", "~/Category.aspx");
         routes.MapPageRoute("Product", "Product/{producturl}", "~/Product.aspx");

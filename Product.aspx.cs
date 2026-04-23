@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Web.UI;
-
+using System.Web.Script.Services;
 public partial class ProductDetails_Page : System.Web.UI.Page
 {
     SqlConnection conT = new SqlConnection(
@@ -56,17 +56,14 @@ public partial class ProductDetails_Page : System.Web.UI.Page
 
             if (pd != null)
             {
-                // SEO
+
                 Page.Title = !string.IsNullOrEmpty(pd.PageTitle)
                     ? pd.PageTitle
                     : pd.ProductName + " - TAMAZ Global";
 
                 if (!string.IsNullOrEmpty(pd.MetaDesc)) Page.MetaDescription = pd.MetaDesc;
                 if (!string.IsNullOrEmpty(pd.MetaKeys)) Page.MetaKeywords = pd.MetaKeys;
-
-                // Expose the numeric ID for the gallery AJAX call
                 strProductId = pd.Id.ToString();
-
                 strProductName = pd.ProductName;
                 strBrand = pd.Brand;
                 strCategory = pd.Category;
@@ -85,7 +82,6 @@ public partial class ProductDetails_Page : System.Web.UI.Page
                 strAvailability = pd.ProductAvailability;
                 strLabelName = pd.ProductLabelName;
 
-                // ---- Ingredient tags ----
                 string[] tagColors = {
                     "bg-[#dbeafe] text-sky-800 border-sky-200",
                     "bg-green-100 text-green-800 border-green-200",
@@ -106,7 +102,6 @@ public partial class ProductDetails_Page : System.Web.UI.Page
                     }
                 }
 
-                // ---- Availability badge ----
                 strAvailBadge = (pd.ProductAvailability == "Available" || pd.InStock == "Yes")
                     ? @"<span class='inline-flex items-center gap-2 bg-[#2E7D32] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-sm'>
                             <svg width='14' height='14' viewBox='0 0 23 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -116,12 +111,11 @@ public partial class ProductDetails_Page : System.Web.UI.Page
                        </span>"
                     : "<span class='inline-flex items-center gap-2 bg-gray-400 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-sm'>Out of Stock</span>";
 
-                // ---- Label badge ----
+
                 strLabelBadge = !string.IsNullOrEmpty(strLabelName)
                     ? "<span class='absolute top-4 left-4 bg-[#B91C1C] text-white text-xs font-bold px-3 py-1 rounded-full'>" + strLabelName + "</span>"
                     : "";
 
-                // ---- FAQs ----
                 BuildFaqHtml(strProductId);
             }
             else
@@ -169,6 +163,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
     }
 
     [System.Web.Services.WebMethod]
+    [System.Web.Script.Services.ScriptMethod]
     public static List<ProductGallery> GetProductGallery(string id)
     {
         var list = new List<ProductGallery>();
@@ -211,8 +206,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Status = "Active";
 
             ProductEnquiry.InsertProductEnquiry(con, obj);
-            HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
-            // ✅ SEND EMAIL
+            //HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             Emails.ProductWholesalepriceRequest(obj);
 
             return "Success";
@@ -252,8 +246,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Status = "Active";
 
             ProductEnquiry.InsertProductEnquiry(con, obj);
-            HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
-            // ✅ SEND EMAIL
+            //HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             Emails.ProductWholeENQRequest(obj);
 
             return "Success";

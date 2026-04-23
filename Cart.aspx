@@ -41,7 +41,7 @@
             <span class="iconify w-16 h-16 text-slate-300 mx-auto mb-4" data-icon="lucide:shopping-cart"></span>
             <h2 class="text-2xl font-bold text-slate-700 mb-2">Your cart is empty</h2>
             <p class="text-slate-400 mb-6">Browse our products and add items to your cart.</p>
-            <a href="Category.aspx" class="btn-primary inline-flex items-center gap-2">
+            <a href="/Category/glutathione-injections" class="btn-primary inline-flex items-center gap-2">
                 <span class="iconify w-5 h-5" data-icon="lucide:arrow-left"></span>
                 Continue Shopping
             </a>
