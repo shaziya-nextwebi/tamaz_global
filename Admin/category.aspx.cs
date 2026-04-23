@@ -141,7 +141,7 @@ public partial class Admin_category : System.Web.UI.Page
         {
             string ind1 = UploadThumbImage();
             if (ind1 == "Format") { ShowError("Invalid image format. Use .png .jpeg .jpg .gif .webp"); return; }
-            if (ind1 == "Size") { ShowError("Thumb image size should be 185px × 185px"); return; }
+            if (ind1 == "Size") { ShowError("Thumb image size should be 160px × 160px"); return; }
 
             string ind2 = UploadMobileImage();
             if (ind2 == "Format") { ShowError("Invalid mobile image format."); return; }
@@ -265,7 +265,7 @@ public partial class Admin_category : System.Web.UI.Page
             {
                 System.Drawing.Bitmap bmp =
                     new System.Drawing.Bitmap(fuIndSamll.PostedFile.InputStream);
-                if (bmp.Width != 185 || bmp.Height != 185) return "Size";
+                if (bmp.Width != 160 || bmp.Height != 160) return "Size";
 
                 System.Drawing.Image imgScaled =
                     CommonModel.ScaleImageBig(bmp, bmp.Height, bmp.Width);

@@ -77,7 +77,7 @@
             }
 
             btn.innerText = 'View Cart';
-            btn.style.background = '#162e7d';
+            btn.style.background = '#e97c13';
             btn.disabled = false;
 
             var newCount = parseInt(count) || 0;

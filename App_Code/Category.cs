@@ -82,6 +82,52 @@ public class Category
         }
         return categories;
     }
+    public static List<Category> GetTopCategory(SqlConnection conT)
+    {
+        List<Category> categories = new List<Category>();
+        try
+        {
+            string query = @"SELECT c.*, 
+                        (SELECT TOP 1 UserName 
+                         FROM CreateUser 
+                         WHERE UserGuid = c.AddedBy) AS AddedBy1
+                        FROM Category c
+                        WHERE c.Status = 'Active'
+                          AND c.DisplayHome = 'Yes'
+                        ORDER BY c.CategoryName";
+            using (SqlCommand cmd = new SqlCommand(query, conT))
+            {
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                categories = (from DataRow dr in dt.Rows
+                              select new Category()
+                              {
+                                  Id = Convert.ToInt32(Convert.ToString(dr["Id"])),
+                                  CategoryName = Convert.ToString(dr["CategoryName"]),
+                                  AddedBy = Convert.ToString(dr["AddedBy1"]),
+                                  PageTitle = Convert.ToString(dr["PageTitle"]),
+                                  CategoryUrl = Convert.ToString(dr["CategoryUrl"]),
+                                  ShortDesc = Convert.ToString(dr["ShortDesc"]),
+                                  FullDesc = Convert.ToString(dr["FullDesc"]),
+                                  MetaKeys = Convert.ToString(dr["MetaKeys"]),
+                                  MetaDesc = Convert.ToString(dr["MetaDesc"]),
+                                  DisplayHome = Convert.ToString(dr["DisplayHome"]),
+                                  DisplayOrder = Convert.ToString(dr["DisplayOrder"]) == "" ? 0 : Convert.ToInt32(Convert.ToString(dr["DisplayOrder"])),
+                                  AddedOn = Convert.ToDateTime(Convert.ToString(dr["AddedOn"])),
+                                  AddedIP = Convert.ToString(dr["AddedIP"]),
+                                  Status = Convert.ToString(dr["Status"]),
+                                  BannerImage = Convert.ToString(dr["BannerImage"]),
+                                  MobileImage = Convert.ToString(dr["MobileImage"])
+                              }).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "GetAllCategory", ex.Message);
+        }
+        return categories;
+    }
 
 
 

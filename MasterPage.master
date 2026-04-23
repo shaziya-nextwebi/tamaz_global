@@ -227,6 +227,54 @@
             scrollbar-width: thin;
             scrollbar-color: #bbb transparent;
         }
+
+        .plolicy-pages {
+            column-gap: 12px !important;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .plolicy-pages li {
+                /*            text-decoration:underline;*/
+                position: relative;
+            }
+
+                .plolicy-pages li a {
+                    padding-left: 10px;
+                    font-size: 12px;
+                }
+
+                    .plolicy-pages li a:hover {
+                        color: #fff;
+                    }
+
+                .plolicy-pages li:before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    width: 4px;
+                    height: 4px;
+                    background: #e5e7eb;
+                    top: 45%;
+                    border-radius: 50%;
+                }
+
+        .footer-bottom {
+            flex-wrap: wrap;
+        }
+
+        @media(max-width:768px) {
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .plolicy-pages {
+                row-gap: 8px !important;
+            }
+        }
     </style>
 
     <!-- Page-level head content -->
@@ -532,7 +580,16 @@
                     </div>
                 </div>
 
-                <div class="footer-bottom">
+                <div class="footer-bottom flex justify-between">
+                    <ul class="flex plolicy-pages ">
+                        <li><a href="/security.aspx">Security</a></li>
+                        <li><a href="/Return-Policy.aspx">Return Policy</a></li>
+                        <li><a href="/Shipping-Policy.aspx">Shipping Policy</a></li>
+                        <li><a href="/privacy-policy.aspx">Privacy Policy</a></li>
+                        <li><a href="/cookies-policy.aspx">Cookies Policy</a></li>
+                        <li><a href="/terms-and-conditions.aspx">Terms and Conditions</a></li>
+
+                    </ul>
                     <p>2026 TAMAZ Global. All rights reserved.</p>
                 </div>
             </div>

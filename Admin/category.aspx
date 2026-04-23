@@ -138,7 +138,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Thumb Image <sup>*</sup></label>
                                 <asp:FileUpload ID="fuIndSamll" runat="server" CssClass="form-control" />
-                                <small class="text-danger">.png .jpeg .jpg .gif .webp — 185px × 185px</small>
+                                <small class="text-danger">.png .jpeg .jpg .gif .webp — 160px × 160px</small>
                                 <asp:RequiredFieldValidator ID="ReqFileupload1" runat="server"
                                     ControlToValidate="fuIndSamll" Display="Dynamic"
                                     ForeColor="Red" SetFocusOnError="true"
