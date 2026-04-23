@@ -1382,6 +1382,7 @@ body.sticky-active {
 .faq-answer {
   border-top: 1px solid #f1f5f9;
   background: #f8fafc;
+  padding-top:10px ;
 }
 
 .contact-info-block {
@@ -1817,6 +1818,10 @@ body.sticky-active {
     .desktop-nav {
         display: none;
     }
+     .item-to-cart-count {
+         width:max-content;
+    }
+
 }
 
 @media (max-width: 576px) {
@@ -2038,6 +2043,11 @@ body.sticky-active {
     {
         font-size:12px !important;
     }
+    .fs-24-mobile
+    {
+        font-size:24px !important;
+    }
+
 
 }
 
