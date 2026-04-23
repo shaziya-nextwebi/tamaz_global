@@ -3,16 +3,8 @@
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <style>
         .view-cart-btn {
-            background: #162e7d;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
+            background: #e97c13 !important;
+          
         }
 
             .view-cart-btn:hover {
@@ -698,7 +690,7 @@
                         // Replace button with a direct link
                         var a = document.createElement('a');
                         a.href = '/Cart.aspx';
-                        a.className = 'view-cart-btn';
+                        a.className = 'view-cart-btn add-cart-btn';
                         a.innerText = 'View Cart';
                         a.style.display = 'block';
                         a.style.textAlign = 'center';
