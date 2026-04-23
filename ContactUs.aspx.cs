@@ -12,23 +12,23 @@ public partial class ContactUs : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Always re-set the image URL — ImageUrl is not stored in ViewState
-        FillCaptcha();
 
         if (!IsPostBack)
         {
             Session["captchanum"] = CreateRandomCode(5);
+            FillCaptcha();
         }
 
         btnSubmit.Attributes.Add("onclick",
             "if (Page_ClientValidate('ContactForm')) { this.disabled = true; this.value='Please Wait...'; "
             + Page.ClientScript.GetPostBackEventReference(btnSubmit, null) + "; }");
     }
-
     void FillCaptcha()
     {
-        Image1.ImageUrl = ResolveUrl("~/capcha.aspx") + "?" + DateTime.Now.Ticks.ToString();
+        // Use the session code as the cache-buster so the image stays in sync
+        Image1.ImageUrl = ResolveUrl("~/capcha.aspx") + "?" + Session["captchanum"].ToString();
     }
+
     string CreateRandomCode(int length)
     {
         const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -47,6 +47,8 @@ public partial class ContactUs : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        lblStatus.Style["display"] = "none";
+
         if (!Page.IsValid)
             return;
 
@@ -55,8 +57,8 @@ public partial class ContactUs : System.Web.UI.Page
                            Convert.ToString(Session["captchanum"]),
                            StringComparison.OrdinalIgnoreCase))
         {
-            lblStatus.Visible = true;
-            lblStatus.Text = "Invalid verification code. Please try again.";
+            lblStatus.Style["display"] = "block";
+            lblStatus.InnerText = "Invalid verification code. Please try again.";
             lblStatus.Attributes["class"] = "block mb-4 px-4 py-3 rounded-lg text-sm font-medium bg-red-50 text-red-700 border border-red-200";
             Session["captchanum"] = CreateRandomCode(5);
             FillCaptcha();
@@ -265,8 +267,7 @@ public partial class ContactUs : System.Web.UI.Page
 
     private void ShowSnackbarError(string msg)
     {
-        ScriptManager.RegisterStartupScript(this, GetType(), "Message",
-            "Snackbar.show({{pos:'top-right',text:'{msg}',actionTextColor:'#fff',backgroundColor:'#ea1c1c'}});",
-            true);
+        string script = "Snackbar.show({pos:'top-right',text:'" + msg + "',actionTextColor:'#fff',backgroundColor:'#ea1c1c'});";
+        ScriptManager.RegisterStartupScript(this, GetType(), "Message", script, true);
     }
 }

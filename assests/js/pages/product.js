@@ -299,6 +299,8 @@ function submitEnquiry(e) {
     if (!captcha) { showErr("errCaptcha", "Captcha required"); isValid = false; }
     if (parseInt(captcha) !== captchaAnswer) { showErr("errCaptcha", "Incorrect captcha"); isValid = false; }
     if (!isValid) return;
+    var btn = document.querySelector('#enquiry button[onclick="submitEnquiry()"]');
+    if (btn) { btn.disabled = true; btn.innerText = 'Please Wait...'; }
 
     $.ajax({
         type: 'POST',
@@ -355,7 +357,8 @@ function submitWholesale(e) {
     if (!phone) { showError("errWsPhone", "Phone is required"); isValid = false; }
     if (!email) { showError("errWsEmail", "Email is required"); isValid = false; }
     if (!isValid) return;
-
+    var btn = document.querySelector('#wholesaleModal button[onclick="submitWholesale()"]');
+    if (btn) { btn.disabled = true; btn.innerText = 'Please Wait...'; }
     $.ajax({
         type: 'POST',
         url: '/Product.aspx/SubmitWholesaleEnquiry',
