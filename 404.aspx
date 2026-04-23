@@ -128,7 +128,10 @@
             <!-- Action Buttons -->
             <div class="fade-in-up delay-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="/" class="inline-flex items-center gap-2 btn-primary">
-                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <svg style="transform: scaleX(-1);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                     Back to Homepage
                 </a>
 

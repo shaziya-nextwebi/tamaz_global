@@ -150,7 +150,7 @@
                                 <!-- Phone -->
                                 <div>
                                     <label class="block text-sm font-medium text-slate-700 mb-1">Phone <span class="text-red-500">*</span></label>
-                                    <asp:TextBox ID="txtPhone" runat="server" TextMode="Phone" placeholder="Phone Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                    <asp:TextBox ID="txtPhone" runat="server" TextMode="Phone" placeholder="Phone Number" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                         CssClass="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:border-red-500 bg-slate-50 text-sm" />
                                     <asp:RequiredFieldValidator ID="rfvPhone" runat="server"
                                         ControlToValidate="txtPhone"

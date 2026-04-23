@@ -192,6 +192,7 @@ public partial class Cart : System.Web.UI.Page
         if (masterPage != null)
             masterPage.strCartCount = newCount;
     }
+
     //protected void rptCart_ItemCommand(object source, RepeaterCommandEventArgs e)
     //{
     //    if (e.CommandName == "RemoveItem")
@@ -208,7 +209,7 @@ public partial class Cart : System.Web.UI.Page
         decimal.TryParse(val, out price);
         if (price <= 0)
             return "<span style='font-weight:600; color:#64748B;'>-</span>";
-        return "<span style='font-weight:600; color:#0F172A;'>&#8377; " + price.ToString("0.00") + "</span>";
+        return "<span style='font-weight:600; color:#0F172A;'> "+ "<i class='fa-solid fa-indian-rupee-sign pe-1 fs-13'></i>" + price.ToString("0.00") + "</span>";
     }
     protected string FormatSubtotal(object retailPriceObj, object qtyObj)
     {
@@ -222,7 +223,7 @@ public partial class Cart : System.Web.UI.Page
             return "<span style='font-weight:600; color:#64748B;'>-</span>";
 
 
-        return "&#8377; " + (price * qty).ToString("0.00");
+        return "<i class='fa-solid fa-indian-rupee-sign pe-1 fs-13'></i>" + (price * qty).ToString("0.00");
     }
 
     [System.Web.Services.WebMethod]
@@ -240,17 +241,37 @@ public partial class Cart : System.Web.UI.Page
 
         if (cartItem != null)
         {
-            if (action == "inc")
-                cartItem.Qty++;
-
-            if (action == "dec" && cartItem.Qty > 1)
-                cartItem.Qty--;
+            if (action == "inc") cartItem.Qty++;
+            if (action == "dec" && cartItem.Qty > 1) cartItem.Qty--;
 
             AddtoCart.Updatecartdetails(conT, cartItem);
             qty = cartItem.Qty;
         }
 
-        return new { success = true, qty = qty };
+        // Recalculate from fresh product list
+        List<AddtoCart> products = AddtoCart.GetAllcartproducts(conT);
+
+        decimal total = 0;
+        decimal itemSubtotal = 0;
+
+        foreach (var item in products)
+        {
+            decimal lineTotal = item.RetailPrice * item.Qty;
+            total += lineTotal;
+
+            // Match the updated item to get its fresh subtotal
+            if (item.ProductId == productId)
+                itemSubtotal = lineTotal;
+        }
+
+        return new
+        {
+            success = true,
+            qty = qty,
+            subtotal = total.ToString("0.00"),
+            total = total.ToString("0.00"),
+            itemSubtotal = itemSubtotal.ToString("0.00")
+        };
     }
     SmtpClient BuildSmtp()
     {

@@ -112,6 +112,9 @@ function openWholesaleModal() {
     var modal = document.getElementById('wholesaleModal');
     if (!modal) return;
     modal.classList.add('open');
+    var content = document.getElementById('modalContent');
+    content.style.transform = 'scale(1)';
+    content.style.opacity = '1';
     document.body.style.overflow = 'hidden';
 }
 
@@ -319,9 +322,9 @@ function submitEnquiry(e) {
                 var c2 = Math.floor(Math.random() * 9) + 1;
                 captchaAnswer = c1 + c2;
                 document.getElementById('captchaLabel').innerText = c1 + ' + ' + c2 + ' = ?';
-                setTimeout(function () {
-                    window.location.href = '/thank-you.aspx';
-                }, 1500);
+
+                window.location.href = '/thank-you.aspx';
+
             } else {
                 showSnackbar("Something went wrong. Try again.");
             }
@@ -371,6 +374,8 @@ function submitWholesale(e) {
                 document.getElementById('txtWsPhone').value = "";
                 document.getElementById('txtWsEmail').value = "";
                 document.getElementById('txtWsMessage').value = "";
+
+                window.location.href = '/thank-you.aspx';
             } else {
                 showSnackbar("Something went wrong. Try again.");
             }

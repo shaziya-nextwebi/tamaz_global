@@ -44,6 +44,9 @@
                     text-align: start !important;
                 }
         }
+        .fs-13{
+            font-size: 13px !important;
+        }
     </style>
 </asp:Content>
 
@@ -129,17 +132,19 @@
                                             <!-- Qty (col 3) -->
                                             <div class="md:col-span-3 flex items-center justify-center gap-2 tab-d-none">
                                                 <p class="text-xs text-slate-400 mb-1 md:hidden">Quantity</p>
-                                        <button type="button"
-    onclick="updateQty(<%# Eval("ProductId") %>, 'dec'); return false;"
-    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">−</button>
+                                                <button type="button"
+                                                    onclick="updateQty(<%# Eval("ProductId") %>, 'dec'); return false;"
+                                                    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+                                                    −</button>
 
-<span id="qty_<%# Eval("ProductId") %>">
-    <%# Eval("Qty") %>
-</span>
+                                                <span id="qty_<%# Eval("ProductId") %>">
+                                                    <%# Eval("Qty") %>
+                                                </span>
 
-<button type="button"
-    onclick="updateQty(<%# Eval("ProductId") %>, 'inc'); return false;"
-    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">+</button>
+                                                <button type="button"
+                                                    onclick="updateQty(<%# Eval("ProductId") %>, 'inc'); return false;"
+                                                    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">
+                                                    +</button>
                                             </div>
 
                                             <div class="price-quantity-for-mobile">
@@ -169,7 +174,7 @@
                                             <!-- Subtotal (col 2) -->
                                             <div class="md:col-span-2 text-right">
                                                 <p class="text-xs text-slate-400 mb-1 md:hidden">Subtotal</p>
-                                                <span class="font-semibold text-slate-900"><%# FormatSubtotal(Eval("RetailPrice"), Eval("Qty")) %></span>
+                                                <span id="subtotal_<%# Eval("ProductId") %>" class="font-semibold text-slate-900"><%# FormatSubtotal(Eval("RetailPrice"), Eval("Qty")) %></span>
                                             </div>
 
                                         </div>
@@ -287,22 +292,29 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
     </script>
-<script>
-    function updateQty(productId, action) {
+    <script>
+        function updateQty(productId, action) {
+            fetch('Cart.aspx/UpdateQty', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: productId, action: action })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.d.success) {
+                        // Update qty display
+                        document.getElementById("qty_" + productId).innerText = data.d.qty;
 
-        fetch('Cart.aspx/UpdateQty', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId: productId, action: action })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.d.success) {
-                    document.getElementById("qty_" + productId).innerText = data.d.qty;
+                        // ✅ Update per-item subtotal
+                        const subtotalEl = document.getElementById("subtotal_" + productId);
+                        if (subtotalEl) subtotalEl.innerText = "₹ " + data.d.itemSubtotal;
+
+                        // Update Quick Enquiry totals
+                        document.getElementById('<%= lblSubtotal.ClientID %>').innerText = "₹ " + data.d.subtotal;
+                    document.getElementById('<%= lblTotal.ClientID %>').innerText = "₹ " + data.d.total;
                 }
             });
-
-        return false; // 🔥 critical
-    }
-</script>
+            return false;
+        }
+    </script>
 </asp:Content>

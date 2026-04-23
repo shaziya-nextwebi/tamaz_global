@@ -360,7 +360,7 @@
     </section>
 
     <!-- ===================== ABOUT US ===================== -->
-    <section class="section-padding bg-sky-50 about-section bg-white overflow-hidden">
+    <section class="section-padding about-section bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="grid lg:grid-cols-2 gap-4 md:gap-10 lg:gap-12 items-center">
                 <div class="relative">
