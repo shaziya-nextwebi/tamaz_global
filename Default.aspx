@@ -299,7 +299,7 @@
     <!-- ===================== CATEGORIES ===================== -->
     <section class="w-full bg-white py-12 border-t border-gray-100 section-padding">
         <div class="w-full px-4 md:px-8">
-            <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
+            <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2 margin-bottom-20">
                 <div class="text-start md:text-center">
                     <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">Our Top Categories</h2>
                     <p class="text-[#64748B] mt-1 section-description">Browse our premium wellness collection</p>
@@ -493,7 +493,7 @@
 
     <!-- ===================== CLIENT SLIDER ===================== -->
     <section class="clients-section">
-        <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-4">
+        <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-4 margin-bottom-20">
             <div class="text-center fade-in">
                 <h2 class="section-title">Our Trusted Partners</h2>
                 <p class="section-subtitle section-description mt-1">Working with leading wellness brands worldwide</p>
@@ -616,6 +616,12 @@
         // Hero Slider
         new Swiper(".myHeroSlider", {
             loop: true,
+            
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+
             speed: 800,
             effect: "fade",
             navigation: {

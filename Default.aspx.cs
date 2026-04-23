@@ -245,7 +245,8 @@ public partial class _Default : System.Web.UI.Page
         try
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-            List<global::Category> cats = global::Category.GetAllCategory(con);
+            List<global::Category> cats = global::Category.GetTopCategory(con);
+            //List<global::Category> cats = global::Category.GetAllCategory(con);
 
             strTopCategories = "";
 

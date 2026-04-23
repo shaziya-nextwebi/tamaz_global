@@ -224,6 +224,34 @@ public partial class Cart : System.Web.UI.Page
 
         return "&#8377; " + (price * qty).ToString("0.00");
     }
+
+    [System.Web.Services.WebMethod]
+    public static object UpdateQty(int productId, string action)
+    {
+        SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
+
+        string uid = HttpContext.Current.Request.Cookies["t_new_vi"] != null
+            ? CommonModel.Decrypt(HttpContext.Current.Request.Cookies["t_new_vi"].Value)
+            : "";
+
+        var cartItem = AddtoCart.GetUserArpcartByUid(conT, uid, productId.ToString()).FirstOrDefault();
+
+        int qty = 1;
+
+        if (cartItem != null)
+        {
+            if (action == "inc")
+                cartItem.Qty++;
+
+            if (action == "dec" && cartItem.Qty > 1)
+                cartItem.Qty--;
+
+            AddtoCart.Updatecartdetails(conT, cartItem);
+            qty = cartItem.Qty;
+        }
+
+        return new { success = true, qty = qty };
+    }
     SmtpClient BuildSmtp()
     {
         return new SmtpClient

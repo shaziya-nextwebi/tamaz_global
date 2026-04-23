@@ -55,7 +55,7 @@
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <section class="relative bg-bg-light py-20 overflow-hidden">
+     <section class="relative bg-bg-light py-0 overflow-hidden">
     <div class="py-10 bg-bg-light">
         <div class="max-w-7xl mx-auto px-4 text-center">
 

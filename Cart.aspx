@@ -19,30 +19,29 @@
             margin-top: 4px;
             display: block;
         }
-        .cart-product-img
-        {
-            max-width:80px !important;
-            max-height:80px !important;
+
+        .cart-product-img {
+            max-width: 80px !important;
+            max-height: 80px !important;
         }
-        .price-quantity-for-mobile
-        {
-            display:none;
+
+        .price-quantity-for-mobile {
+            display: none;
         }
-        @media(max-width:768px)
-        {
-            .tab-d-none
-            {
-                display:none !important;
+
+        @media(max-width:768px) {
+            .tab-d-none {
+                display: none !important;
             }
-                .price-quantity-for-mobile
-    {
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-                 .price-quantity-for-mobile .price-mobile-block
-                {
-                     text-align:start !important;
+
+            .price-quantity-for-mobile {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+                .price-quantity-for-mobile .price-mobile-block {
+                    text-align: start !important;
                 }
         }
     </style>
@@ -130,39 +129,41 @@
                                             <!-- Qty (col 3) -->
                                             <div class="md:col-span-3 flex items-center justify-center gap-2 tab-d-none">
                                                 <p class="text-xs text-slate-400 mb-1 md:hidden">Quantity</p>
-                                                <asp:LinkButton runat="server"
-                                                    CommandName="DecQty"
-                                                    CommandArgument='<%# Eval("ProductId") %>'
-                                                    CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">−</asp:LinkButton>
-                                                <span class="font-semibold w-6 text-center"><%# Eval("Qty") %></span>
-                                                <asp:LinkButton runat="server"
-                                                    CommandName="IncQty"
-                                                    CommandArgument='<%# Eval("ProductId") %>'
-                                                    CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">+</asp:LinkButton>
+                                        <button type="button"
+    onclick="updateQty(<%# Eval("ProductId") %>, 'dec'); return false;"
+    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">−</button>
+
+<span id="qty_<%# Eval("ProductId") %>">
+    <%# Eval("Qty") %>
+</span>
+
+<button type="button"
+    onclick="updateQty(<%# Eval("ProductId") %>, 'inc'); return false;"
+    class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full">+</button>
                                             </div>
 
                                             <div class="price-quantity-for-mobile">
-                                                         <!-- Price (col 2) -->
-         <div class="md:col-span-2 text-center price-mobile-block">
-             <p class="text-xs text-slate-400 mb-1 md:hidden">Price</p>
-             <p class="text-sm mt-1"><%# FormatCartPrice(Eval("RetailPrice")) %></p>
-         </div>
+                                                <!-- Price (col 2) -->
+                                                <div class="md:col-span-2 text-center price-mobile-block">
+                                                    <p class="text-xs text-slate-400 mb-1 md:hidden">Price</p>
+                                                    <p class="text-sm mt-1"><%# FormatCartPrice(Eval("RetailPrice")) %></p>
+                                                </div>
 
-         <!-- Qty (col 3) -->
-         <div class="md:col-span-3 flex items-center justify-center gap-2 flex-col">
-             <p class="text-xs text-slate-400 mb-1 md:hidden">Quantity</p>
-             <div class="flex gap-1">
-             <asp:LinkButton runat="server"
-                 CommandName="DecQty"
-                 CommandArgument='<%# Eval("ProductId") %>'
-                 CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">−</asp:LinkButton>
-             <span class="font-semibold w-6 text-center"><%# Eval("Qty") %></span>
-             <asp:LinkButton runat="server"
-                 CommandName="IncQty"
-                 CommandArgument='<%# Eval("ProductId") %>'
-                 CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">+</asp:LinkButton>
-                 </div>
-         </div>
+                                                <!-- Qty (col 3) -->
+                                                <div class="md:col-span-3 flex items-center justify-center gap-2 flex-col">
+                                                    <p class="text-xs text-slate-400 mb-1 md:hidden">Quantity</p>
+                                                    <div class="flex gap-1">
+                                                        <asp:LinkButton runat="server"
+                                                            CommandName="DecQty"
+                                                            CommandArgument='<%# Eval("ProductId") %>'
+                                                            CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">−</asp:LinkButton>
+                                                        <span class="font-semibold w-6 text-center"><%# Eval("Qty") %></span>
+                                                        <asp:LinkButton runat="server"
+                                                            CommandName="IncQty"
+                                                            CommandArgument='<%# Eval("ProductId") %>'
+                                                            CssClass="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full font-bold text-lg transition-colors cursor-pointer">+</asp:LinkButton>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <!-- Subtotal (col 2) -->
@@ -286,4 +287,22 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
     </script>
+<script>
+    function updateQty(productId, action) {
+
+        fetch('Cart.aspx/UpdateQty', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId: productId, action: action })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.d.success) {
+                    document.getElementById("qty_" + productId).innerText = data.d.qty;
+                }
+            });
+
+        return false; // 🔥 critical
+    }
+</script>
 </asp:Content>
