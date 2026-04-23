@@ -122,7 +122,7 @@ public partial class _Default : System.Web.UI.Page
                 <div class='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient'></div>
                 <div class='relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end'>
                     <span class='text-sm font-bold uppercase tracking-wider mb-2' style='color:" + color + @";'>" + label + @"</span>
-                    <h3 class='text-white text-3xl font-bold mb-3 leading-tight'>" + p.Category.Replace(" ", "<br />") + @"</h3>
+                    <h3 class='text-white text-3xl font-bold mb-3 leading-tight'>" + p.Category + @"</h3>
                     <a href='" + categoryLink + @"' class='inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button'>
                         Shop Now
                         <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
@@ -205,13 +205,13 @@ public partial class _Default : System.Web.UI.Page
                 string btnHtml;
                 if (inCart)
                 {
-                    btnHtml = "<a href='/Cart.aspx' class='view-cart-btn' " +
+                    btnHtml = "<a href='/Cart.aspx' class=' add-cart-btn view-cart-btn' " +
                               "onclick='event.stopPropagation();' " +
                               "style='display:block; text-align:center; text-decoration:none;'>View Cart</a>";
                 }
                 else
                 {
-                    btnHtml = "<button class='add-cart-btn' " +
+                    btnHtml = "<button class='add-cart-btn ' " +
                               "onclick=\"event.stopPropagation(); event.preventDefault(); addToCart(this, " + p.Id + ", event);\">" +
                               "Add to Cart</button>";
                 }
