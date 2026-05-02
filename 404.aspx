@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="404.aspx.cs" Inherits="_404" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <meta name="description" content="Page not found" />
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
     <style>
         /* Float Animation for 404 Text */
         @keyframes float {

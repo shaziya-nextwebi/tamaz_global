@@ -20,6 +20,36 @@
             text-overflow: ellipsis;
             flex: 1;
         }
+
+        .table td, .table th {
+            white-space: nowrap;
+        }
+
+            .table td:nth-child(4) {
+                white-space: normal;
+                min-width: 160px;
+                max-width: 200px;
+            }
+
+            .table td:nth-child(9) {
+                white-space: nowrap;
+                max-width: 60px;
+                min-width: 50px;
+            }
+
+            .table td:nth-child(10) {
+                white-space: nowrap;
+                min-width: 220px;
+                max-width: 280px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .table td:nth-child(11) {
+                white-space: nowrap;
+                min-width: 110px;
+            }
+
     </style>
 </asp:Content>
 
@@ -94,12 +124,11 @@
                         </button>
                     </div>
 
-                    <%-- Table --%>
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered dt-responsive align-middle" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th style="width: 40px;">
+                                    <th style="width: 40px; text-align: end;">
                                         <input type="checkbox" id="chkAll" class="form-check-input" />
                                     </th>
                                     <th>#</th>
@@ -120,7 +149,6 @@
                         </table>
                     </div>
 
-                    <%-- Pagination --%>
                     <%if (intTotalPages > 1)
                         { %>
                     <nav class="mt-3">
@@ -134,7 +162,11 @@
 
         </div>
     </div>
-
+    <asp:Button runat="server" ID="btnPageNav"
+        CssClass="d-none"
+        CausesValidation="false"
+        OnClick="btnPageNav_Click" />
+    <asp:HiddenField ID="hdnPageIndex" runat="server" Value="1" />
     <%-- View Message Modal --%>
     <div class="modal fade" id="msgModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -195,7 +227,6 @@
         </div>
     </div>
 
-    <%-- Hidden field to carry checked IDs for bulk delete --%>
     <asp:HiddenField ID="hdnDeleteIds" runat="server" />
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script>
@@ -204,23 +235,28 @@
             // Initialize date pickers
             flatpickr("#<%= txtFrom.ClientID %>", {
                 dateFormat: "d/M/Y",
-                allowInput: true
+                allowInput: true,
+                maxDate: "today"
             });
 
             flatpickr("#<%= txtTo.ClientID %>", {
                 dateFormat: "d/M/Y",
-                allowInput: true
+                allowInput: true,
+                maxDate: "today"
             });
 
         });
         $(document).ready(function () {
+            $(document).on('click', '.pageNav', function () {
+                $('#<%=hdnPageIndex.ClientID %>').val($(this).attr('data-page'));
+            $('#<%=btnPageNav.ClientID %>').click();
+            return false;
+        });
 
-            // Select All checkbox
             $('#chkAll').on('change', function () {
                 $('.rowChk').prop('checked', $(this).prop('checked'));
             });
 
-            // View message modal
             $(document).on('click', '.viewMsg', function () {
                 var btn = $(this);
                 $('#mdName').text(btn.attr('data-name'));
@@ -236,7 +272,6 @@
                 new bootstrap.Modal(document.getElementById('msgModal')).show();
             });
 
-            // Bulk delete
             $('#btnBulkDelete').on('click', function () {
                 var ids = [];
                 $('.rowChk:checked').each(function () {

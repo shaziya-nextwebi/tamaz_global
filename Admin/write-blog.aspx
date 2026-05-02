@@ -122,6 +122,10 @@
                         <%-- Full Description --%>
                         <div class="col-lg-12 mb-3">
                             <label class="form-label">Full Description <sup>*</sup></label>
+                                <button type="button" class="clean-html-btn"
+        data-editor="<%=txtDesc.ClientID%>">
+        ✦ Clean HTML
+    </button>
                             <asp:TextBox runat="server" ID="txtDesc" TextMode="MultiLine"
                                 CssClass="form-control summernote" />
                             <asp:RequiredFieldValidator ID="rfvDesc" runat="server"
@@ -165,12 +169,15 @@
 
         </div>
     </div>
-
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-
+            $(document).on('click', '.clean-html-btn', function () {
+                var editorId = $(this).data('editor');
+                cleanEditor(editorId);
+            });
             // Select2 for tags
             $('.select2-multi').select2({
                 placeholder: "Select blog tags",
@@ -203,7 +210,69 @@
                 $(spId).css("color", len > max ? "red" : "green");
             });
         });
+        function cleanEditor(editorId) {
 
+            var editor = null;
+            if (typeof tinymce !== 'undefined') {
+                editor = tinymce.get(editorId);
+                if (!editor) {
+                    tinymce.editors.forEach(function (ed) {
+                        if (ed.id === editorId || ed.id.indexOf(editorId) !== -1) {
+                            editor = ed;
+                        }
+                    });
+                }
+            }
+
+            var raw = editor ? editor.getContent() : $('#' + editorId).val();
+
+            if (!raw || raw.trim() === '') {
+                Swal.fire('Info', 'Editor is already empty.', 'info');
+                return;
+            }
+
+            Swal.fire({
+                title: 'Cleaning HTML...',
+                text: 'AI is cleaning your content, please wait.',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: function () { Swal.showLoading(); }
+            });
+
+            fetch('/clean-html.ashx', {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+                body: raw
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    var cleanedHtml = data.html.trim();
+
+                    if (editor) {
+                        editor.setContent(cleanedHtml);
+                    } else {
+                        $('#' + editorId).val(cleanedHtml);
+                    }
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'HTML cleaned!',
+                        text: 'AI has cleaned your content successfully.',
+                        timer: 1800,
+                        showConfirmButton: false
+                    });
+                })
+                .catch(function (err) {
+                    console.error('cleanEditor error:', err);
+                    Swal.fire('Error!', 'AI cleaning failed: ' + err.message, 'error');
+                });
+        }
         function prepareTags() {
             var selected = $('.select2-multi').val();
             if (selected && selected.length > 0)

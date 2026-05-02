@@ -178,8 +178,6 @@ public class AddtoCart
         }
         return result;
     }
-
-
     public static int Updatecartdetails(SqlConnection conT, AddtoCart Wish)
     {
         int x = 0;
@@ -319,4 +317,53 @@ WHERE v.Status = 'Active' AND s.Userguid = @Userguid";
         return result;
     }
     #endregion
+    public string FormattedRetailPrice
+    {
+        get
+        {
+            if (RetailPrice <= 0)
+                return "";
+
+            return RetailPrice.ToString("N0"); // 1000 → 1,000
+        }
+    }
+
+    public static string ProductDetails(SqlConnection conT, string oGuid)
+    {
+        string pTable = "";
+        try
+        {
+            string query = "Select * from OrderItems where OrderGuid= @OrderGuid";
+            SqlCommand cmd = new SqlCommand(query, conT);
+            cmd.Parameters.AddWithValue("@OrderGuid", SqlDbType.NVarChar).Value = oGuid;
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    decimal p1 = Convert.ToDecimal(Convert.ToString(dr["Price"]));
+                    decimal qty = Convert.ToDecimal(Convert.ToString(dr["Qty"]));
+                    decimal price = (p1 * qty);
+                    pTable += @"<tr valign='middle'>
+                                    <td align='left' valign='middle' style='float:left;width:60%;margin-bottom:10px;margin-top:20px;margin-bottom:25px;line-height:25px;' class='flexibleContainerCell'><span style='font-size:16px;'><b>" + dr["ProductName"] + @"</b></span><br />
+                        " + dr["Size"] + @"x" + dr["Thickness"] + @"</td><td align='left' valign='middle' style='float:left;width:20%;margin-bottom:10px;margin-top:20px;text-align:center' class='flexibleContainerCell'>" + dr["Qty"] + @"</td>
+                                                                <td align='left' valign='middle' style='float:left;width:20%;margin-bottom:10px;margin-top:20px;text-align:center' class='flexibleContainerCell'>₹" + price + @" </td>
+ </tr>";
+                }
+                pTable = @"<tr style='border-bottom:1px solid #573e40!important;margin-bottom:10px'>
+                                                                <th align='left' valign='top' style='border-bottom:1px solid #573e40!important;float:left;width:60%;color:#573e40;margin-bottom:10px;font-size:18px;font-weight:500' class='flexibleContainerCell'>ITEM NAME </th>
+                                                                <th align='left' valign='top' style='border-bottom:1px solid #573e40!important;float:left;width:20%;color:#573e40;margin-bottom:10px;font-size:18px;font-weight:500;text-align:center' class='flexibleContainerCell'> QUANTITY </th>
+                                                                <th align='left' valign='top' style='border-bottom:1px solid #573e40!important;float:left;width:20%;color:#573e40;margin-bottom:10px;font-size:18px;font-weight:500;text-align:center' class='flexibleContainerCell'> SUB TOTAL </th>
+                                                            </tr>" + pTable + "";
+            }
+        }
+        catch (Exception ex)
+        {
+            CommonModel.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "ProductDetails", ex.Message);
+        }
+        return pTable;
+    }
+
 }

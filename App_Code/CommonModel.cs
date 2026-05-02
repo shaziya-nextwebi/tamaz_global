@@ -111,8 +111,7 @@ public class CommonModel
         return null;
     }
     public static string Encrypt(string clearText)
-    {
-        //string EncryptionKey = "SPORTICORESORT220919981510$%^&*ENCODE";
+    { 
         string EncryptionKey = "GV1001234567890$%^&*MYQ";
         byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
         using (Aes encryptor = Aes.Create())

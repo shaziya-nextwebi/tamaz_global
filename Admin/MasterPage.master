@@ -188,15 +188,12 @@
 
         </div>
 
-        <%-- ============================================================
-             SCRIPTS — order matters, do not rearrange
-             ============================================================ --%>
 
         <%-- 1. jQuery ONCE (removed duplicate from <head>) --%>
         <script src="assets/js/jquery-3.6.0.min.js"></script>
 
         <%-- 2. jQuery UI — REQUIRED for .autocomplete() --%>
-        <script src="assets/libs/jquery-ui/jquery-ui.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
         <%-- 3. Core UI libs --%>
         <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

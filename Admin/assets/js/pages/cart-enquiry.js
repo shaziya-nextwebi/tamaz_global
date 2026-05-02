@@ -1,15 +1,52 @@
 ﻿$(document).ready(function () {
-
     // View message modal
     $(document).on('click', '.viewMsg', function () {
         var btn = $(this);
         $('#mdName').text(btn.attr('data-name'));
         $('#mdMobile').text(btn.attr('data-mobile'));
         $('#mdCity').text(btn.attr('data-city'));
-        $('#mdProduct').text(btn.attr('data-product'));
         $('#mdDate').text(btn.attr('data-date'));
         $('#modalSenderName').text(btn.attr('data-name'));
-        $('#mdMessage').html(btn.attr('data-message'));
+        $('#mdMessage').html(
+            $('<textarea>').html(btn.attr('data-message')).text()
+        );
+
+        // Parse and render products nicely
+        var rawProduct = $('<textarea>').html(btn.attr('data-product')).text();
+        var items = rawProduct.split('|');
+        var html = '';
+
+        $.each(items, function (i, item) {
+            item = item.trim();
+            if (!item) return;
+
+            var parts = item.split('#');
+            var namePart = parts[0].trim();
+            var qtyPart = parts[1] ? parts[1].trim() : '';
+
+            var priceMatch = namePart.match(/\((₹[\d,]+(?:\.\d{1,2})?)\)$/);
+            var price = priceMatch ? priceMatch[1] : '';
+            var prodName = namePart.replace(/\s*\(₹[\d,]+(?:\.\d{1,2})?\)$/, '').trim();
+
+            html += '<div class="product-item">';
+            html += '  <div class="prod-name">' + $('<div>').text(prodName).html() + '</div>';
+            html += '  <div class="prod-meta">';
+            if (price) html += '<span class="me-3">Price: <strong>' + price + '</strong></span>';
+            if (qtyPart) {
+                var qtyMatch = qtyPart.match(/Qty-(\d+)\s*=\s*(₹[\d,]+(?:\.\d{1,2})?)/);
+                if (qtyMatch) {
+                    html += '<span class="me-3">Qty: <strong>' + qtyMatch[1] + '</strong></span>';
+                    html += '<span>Total: <strong>' + qtyMatch[2] + '</strong></span>';
+                } else {
+                    html += '<span>' + $('<div>').text(qtyPart).html() + '</span>';
+                }
+            }
+            html += '  </div>';
+            html += '</div>';
+        });
+
+        $('#mdProduct').html(html || '<span class="text-muted">—</span>');
+
         var modal = new bootstrap.Modal(document.getElementById('msgModal'));
         modal.show();
     });
@@ -47,5 +84,4 @@
             }
         });
     });
-
 });

@@ -32,8 +32,8 @@ public partial class ProductDetails_Page : System.Web.UI.Page
     public string strIngredientTags = "";
     public string strAvailBadge = "";
     public string strLabelBadge = "";
-    public string strProdFaqs = "";   
-
+    public string strProdFaqs = "";
+   // public string strAvailBadge = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         strProductUrl = Convert.ToString(RouteData.Values["producturl"]);
@@ -75,12 +75,25 @@ public partial class ProductDetails_Page : System.Web.UI.Page
                 strBenefitsDesc = pd.BenefitsDesc;
                 strIngredientsDesc = pd.IngredientsDesc;
                 strUsageDesc = pd.UsageDesc;
-                strRetailPrice = pd.RetailPrice;
+                strRetailPrice = pd.FormattedRetailPrice;
                 strSmallImage = !string.IsNullOrEmpty(pd.SmallImage)
                                         ? pd.SmallImage
                                         : "assests/Images/placeholder.jpg";
                 strAvailability = pd.ProductAvailability;
                 strLabelName = pd.ProductLabelName;
+
+        
+                bool hasDescription = !string.IsNullOrWhiteSpace(strFullDesc);
+                bool hasBenefits = !string.IsNullOrWhiteSpace(strBenefitsDesc);
+                bool hasIngredients = !string.IsNullOrWhiteSpace(strIngredientsDesc);
+                bool hasUsage = !string.IsNullOrWhiteSpace(strUsageDesc);
+                int faqCount = BuildFaqHtml(strProductId);
+                bool hasFaq = faqCount > 0;
+                ViewState["hasDescription"] = hasDescription;
+                ViewState["hasBenefits"] = hasBenefits;
+                ViewState["hasIngredients"] = hasIngredients;
+                ViewState["hasUsage"] = hasUsage;
+                ViewState["hasFaq"] = hasFaq;
 
                 string[] tagColors = {
                     "bg-[#dbeafe] text-sky-800 border-sky-200",
@@ -116,7 +129,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
                     ? "<span class='absolute top-4 left-4 bg-[#B91C1C] text-white text-xs font-bold px-3 py-1 rounded-full'>" + strLabelName + "</span>"
                     : "";
 
-                BuildFaqHtml(strProductId);
+                //BuildFaqHtml(strProductId);
             }
             else
             {
@@ -130,35 +143,40 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         }
     }
 
-    private void BuildFaqHtml(string pid)
+    private int BuildFaqHtml(string pid)
     {
         try
         {
+            int count = 0;
+            strProdFaqs = "";
+
             var faqs = FAQs.GetAllProductFAQ(conT)
                            .Where(x => x.Pid.Trim() == pid.Trim())
                            .ToList();
 
             foreach (FAQs faq in faqs)
             {
+                count++;
+
                 strProdFaqs += @"
-                <div class='faq-item border border-gray-200 rounded-xl overflow-hidden'>
-                    <span class='faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] hover:bg-gray-50 transition-colors'>
-                        <span>" + faq.Question + @"</span>
-                        <svg class='faq-icon w-5 h-5 transform transition-transform flex-shrink-0' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/>
-                        </svg>
-                    </span>
-                    <div class='faq-answer hidden px-5 pb-5 text-[#64748B]'>" + faq.Answer + @"</div>
-                </div>";
+            <div class='faq-item border border-gray-200 rounded-xl overflow-hidden'>
+                <span class='faq-question w-full flex items-center justify-between p-5 text-left font-semibold text-[#0F172A] bg-white md:bg-transaprent hover:bg-gray-50 transition-colors'>
+                    <span>" + faq.Question + @"</span>
+                    <svg class='faq-icon w-5 h-5 transform transition-transform flex-shrink-0' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/>
+                    </svg>
+                </span>
+                <div class='faq-answer hidden px-5 pb-5 text-[#000] bg-white md:bg-transaprent'>" + faq.Answer + @"</div>
+            </div>";
             }
 
-            if (string.IsNullOrEmpty(strProdFaqs))
-                strProdFaqs = "<p class='text-gray-400 text-sm'>No FAQs available for this product.</p>";
+            return count; 
         }
         catch (Exception ex)
         {
             ExceptionCapture.CaptureException(
                 HttpContext.Current.Request.Url.PathAndQuery, "BuildFaqHtml", ex.Message);
+            return 0; 
         }
     }
 
@@ -182,10 +200,11 @@ public partial class ProductDetails_Page : System.Web.UI.Page
         }
         return list;
     }
+
     [System.Web.Services.WebMethod]
     [System.Web.Script.Services.ScriptMethod]
     public static string SubmitEnquiry(string name, string city, string phone,
-                                       string email, string message, string product)
+                                       string email, string message, string product,string sourcePage)
     {
         try
         {
@@ -198,7 +217,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Name = name;
             obj.Mobile = phone;
             obj.Email = email;
-            obj.SourcePage = "Product Page (Retail Enquiry)";
+            obj.SourcePage = sourcePage;
             obj.City = city;
             obj.Message = message;
             obj.AddedOn = DateTime.Now;
@@ -206,6 +225,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Status = "Active";
 
             ProductEnquiry.InsertProductEnquiry(con, obj);
+            Emails.ProductRetailUserMail(obj);
             //HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             Emails.ProductWholesalepriceRequest(obj);
 
@@ -225,7 +245,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
     [System.Web.Services.WebMethod]
     [System.Web.Script.Services.ScriptMethod]
     public static string SubmitWholesaleEnquiry(string name, string city, string phone,
-                                                string email, string message, string product)
+                                                string email, string message, string product, string sourcePage)
     {
         try
         {
@@ -238,7 +258,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             obj.Name = name;
             obj.Mobile = phone;
             obj.Email = email;
-            obj.SourcePage = "Product Page (Wholesale Enquiry)";
+            obj.SourcePage = sourcePage;
             obj.City = city;
             obj.Message = message;
             obj.AddedOn = DateTime.Now;
@@ -248,7 +268,7 @@ public partial class ProductDetails_Page : System.Web.UI.Page
             ProductEnquiry.InsertProductEnquiry(con, obj);
             //HttpContext.Current.Response.Redirect("/thank-you.aspx", false);
             Emails.ProductWholeENQRequest(obj);
-
+            Emails.ProductWholesaleUserMail(obj);
             return "Success";
         }
         catch (Exception ex)

@@ -1,6 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Shipping-Policy.aspx.cs" Inherits="Shipping_Policy" %>
+﻿<%@ Page Title="Shipping & Delivery Policy Of Product | TamazGlobal" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="shipping-policy.aspx.cs" Inherits="Shipping_Policy" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+      <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
+     <meta name="description" content="Explore Tamaz Global’s Shipping Policy to learn about delivery timelines, shipping charges, order tracking, and hassle-free shipping options for your purchases." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -111,7 +113,7 @@ margin-bottom: 1rem;
         <p>If delivery is delayed for any reason, we will let you know as soon as possible and will advise you of a revised estimated date for delivery.</p>
 
         <h2 class="content-h2">Questions About Returns?</h2>
-        <p>If you have questions about returns, please review our <a href="Return-Policy.aspx" class="text-blue-600 hover:underline">Return Policy</a>.</p>
+        <p>If you have questions about returns, please review our <a href="return-policy.aspx" class="text-blue-600 hover:underline">Return Policy</a>.</p>
 
         <h2 class="content-h2">How Can You Contact Us About This Policy?</h2>
         <p>If you have any further questions or comments, you may contact us by:</p>

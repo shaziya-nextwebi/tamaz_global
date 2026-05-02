@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="Our Blog - TAMAZ Global" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Blog.aspx.cs" Inherits="Blog" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
+    <meta name="description" content="TamazGlobal Blog Page" />
     <style>
         .reveal {
             opacity: 0;
@@ -20,7 +22,8 @@
     <!-- Hero Section -->
     <section class="relative bg-bg-light py-20 overflow-hidden">
         <div class="absolute inset-0">
-            <img src="assests/Images/blog-banner.png" alt="Background" class="w-full h-full object-cover" />
+
+            <img src="assests/Images/pages-banner-Image/2.png" alt="Background" class="w-full h-full object-cover" />
         </div>
         <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
             <div class="reveal">

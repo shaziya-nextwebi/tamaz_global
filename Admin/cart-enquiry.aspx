@@ -1,18 +1,73 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPage.master" AutoEventWireup="true" CodeFile="cart-enquiry.aspx.cs" Inherits="Admin_product_enquiry" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <style>
-        sup {
-            color: red !important;
-        }
+   <style>
+    sup { color: red !important; }
 
-        .message-preview {
-            max-width: 200px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+    .message-preview {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table td, .table th {
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .table td:nth-child(2) {
+        white-space: normal;
+        min-width: 180px;
+        max-width: 220px;
+        line-height: 1.4;
+        font-size: 13px;
+    }
+
+    .table td:nth-child(4) {
+        min-width: 105px;
+        max-width: 115px;
+        font-size: 13px;
+    }
+
+    .table td:nth-child(7) {
+        min-width: 90px;
+        white-space: nowrap;
+    }
+    .product-item {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.product-item .prod-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.product-item .prod-meta {
+    color: #6c757d;
+    font-size: 12px;
+    margin-top: 2px;
+}
+.prod-table-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    white-space: normal;
+    line-height: 1.4;
+}
+
+.prod-table-qty {
+    font-size: 11px;
+    color: #6c757d;
+    white-space: nowrap;
+}
+</style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

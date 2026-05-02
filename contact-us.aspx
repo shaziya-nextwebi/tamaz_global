@@ -1,6 +1,8 @@
-﻿<%@ Page Title="Contact Us - TAMAZ Global" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ContactUs.aspx.cs" Inherits="ContactUs" %>
+﻿<%@ Page Title="Contact Us | TamazGlobal" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="contact-us.aspx.cs" Inherits="ContactUs" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
+    <meta name="description" content="Call TamazGlobal Customer Care 9988227622 & Email us sales@tamazglobal.com" />
     <style>
         .reveal {
             opacity: 0;
@@ -27,7 +29,8 @@
     <!-- Hero Section -->
     <section class="relative bg-bg-light py-20 overflow-hidden">
         <div class="absolute inset-0">
-            <img src="assests/Images/conatct-us-banner.png" alt="Background" class="w-full h-full object-cover" />
+            
+            <img src="assests/Images/pages-banner-Image/3.png" alt="Background" class="w-full h-full object-cover" />
         </div>
         <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
             <div class="reveal">

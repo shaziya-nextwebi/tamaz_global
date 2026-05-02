@@ -13,7 +13,11 @@ public partial class Admin_dashboard : System.Web.UI.Page
                   strBlogs = "",
                   strTotalCustomer = "",
                   strContact = "",
-                  strToday = "";
+                  strToday = "",
+          strTotalOrders = "",
+              strPendingOrders = "",
+              strDeliveredOrders = "",
+              strDispatchedOrders = "";
 
     // Helper — always returns a fresh connection
     private SqlConnection NewCon()
@@ -38,6 +42,10 @@ public partial class Admin_dashboard : System.Web.UI.Page
             strTotalCustomer = DashBoard.GetStudentCount(NewCon()).ToString();
             strContact = DashBoard.ContactUs(NewCon()).ToString();
             strToday = DashBoard.ProductEnquiry(NewCon()).ToString();
+            strTotalOrders = DashBoard.GetOrderCount(NewCon(), "").ToString();
+            strPendingOrders = DashBoard.GetOrderCount(NewCon(), "Pending").ToString();
+            strDispatchedOrders = DashBoard.GetOrderCount(NewCon(), "Dispatched").ToString();
+            strDeliveredOrders = DashBoard.GetOrderCount(NewCon(), "Delivered").ToString();
         }
         catch (Exception ex)
         {

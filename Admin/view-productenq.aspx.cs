@@ -30,10 +30,17 @@ public partial class Admin_view_productenq : System.Web.UI.Page
         }
         else
         {
-            // Handle bulk delete postback triggered from JS
             string target = Request.Form["__EVENTTARGET"];
+            string argument = Request.Form["__EVENTARGUMENT"];
+
             if (target == "btnBulkDeleteServer")
                 DoBulkDelete();
+            else if (target == "btnPageNav")
+            {
+                int pageIndex = 1;
+                int.TryParse(argument, out pageIndex);
+                BuildEnquiryTable(pageIndex);
+            }
         }
     }
 
@@ -79,7 +86,6 @@ public partial class Admin_view_productenq : System.Web.UI.Page
             intResultCount = list.Count;
             intTotalPages = (int)Math.Ceiling((double)intResultCount / PageSize);
 
-            // Clamp page index
             if (pageIndex < 1) pageIndex = 1;
             if (pageIndex > intTotalPages && intTotalPages > 0) pageIndex = intTotalPages;
 
@@ -116,7 +122,6 @@ public partial class Admin_view_productenq : System.Web.UI.Page
                     <td>" + HttpUtility.HtmlEncode(enq.City ?? "") + @"</td>
 <td>
   <div class='msg-cell'>
-    <span class='message-preview'>" + HttpUtility.HtmlEncode(preview) + @"</span>
     <a href='javascript:void(0);' class='viewMsg ms-1 link-info'
        data-name='" + HttpUtility.HtmlAttributeEncode(enq.Name ?? "") + @"'
        data-email='" + HttpUtility.HtmlAttributeEncode(enq.Email ?? "") + @"'
@@ -234,7 +239,12 @@ public partial class Admin_view_productenq : System.Web.UI.Page
                 "DoBulkDelete", ex.Message);
         }
     }
-
+    protected void btnPageNav_Click(object sender, EventArgs e)
+    {
+        int pageIndex = 1;
+        int.TryParse(hdnPageIndex.Value, out pageIndex);
+        BuildEnquiryTable(pageIndex);
+    }
     protected void btnExport_Click(object sender, EventArgs e)
     {
         try

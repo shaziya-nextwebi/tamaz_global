@@ -2,7 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style>
-        sup { color: red !important; }
+        sup {
+            color: red !important;
+        }
     </style>
 </asp:Content>
 
@@ -74,7 +76,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 mb-3" style="display:none;">
+                                <div class="col-lg-12 mb-3" style="display: none;">
                                     <label class="form-label">Short Description</label>
                                     <asp:TextBox runat="server" ID="txtShortDesc" TextMode="MultiLine"
                                         CssClass="form-control" Rows="3" />
@@ -82,6 +84,10 @@
 
                                 <div class="col-lg-12 mb-3">
                                     <label class="form-label">Full Description</label>
+                                    <button type="button" class="clean-html-btn"
+                                        data-editor="<%=txtFullDesc.ClientID%>">
+                                        ✦ Clean HTML
+                                    </button>
                                     <asp:TextBox runat="server" ID="txtFullDesc" TextMode="MultiLine"
                                         CssClass="form-control summernote" Rows="6" />
                                 </div>
@@ -143,7 +149,7 @@
                             </div>
 
                             <%-- Mobile image hidden --%>
-                            <div style="display:none;">
+                            <div style="display: none;">
                                 <asp:FileUpload ID="fuIndThumb" runat="server" CssClass="form-control" />
                                 <div class="mt-2"><%=strMobileImage %></div>
                             </div>
@@ -181,7 +187,7 @@
                         <div class="card-body">
                             <table id="alternative-pagination"
                                 class="table table-nowrap align-middle table-striped table-bordered myTable"
-                                style="width:100%;">
+                                style="width: 100%;">
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>
@@ -206,6 +212,6 @@
         </div>
     </div>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
-<script src="assets/js/pages/brand.js"></script>
+    <script src="assets/js/pages/brand.js"></script>
 
 </asp:Content>

@@ -53,8 +53,8 @@ public partial class Admin_view_contact : System.Web.UI.Page
                     <td>" + con.UserName + @"</td>
                     <td>" + con.PhoneNo + @"</td>
                     <td>" + con.City + @"</td>
-                    <td>
-                        <span class='message-preview d-inline-block'>" + System.Web.HttpUtility.HtmlEncode(preview) + @"</span>
+                    <td class='text-center'>
+                      
                         <a href='javascript:void(0);' class='viewMsg ms-1 link-info'
                            data-name='" + System.Web.HttpUtility.HtmlAttributeEncode(con.UserName ?? "") + @"'
                            data-phone='" + System.Web.HttpUtility.HtmlAttributeEncode(con.PhoneNo ?? "") + @"'
@@ -62,7 +62,7 @@ public partial class Admin_view_contact : System.Web.UI.Page
                            data-date='" + con.AddedOn.ToString("dd/MMM/yyyy hh:mm tt") + @"'
                            data-message='" + attrMsg + @"'
                            title='View Message'>
-                            <i class='mdi mdi-eye-outline fs-18'></i>
+                            View Message
                         </a>
                     </td>
                     <td>" + con.AddedOn.ToString("dd/MMM/yyyy") + @"</td>

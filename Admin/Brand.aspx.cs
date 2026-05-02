@@ -26,8 +26,6 @@ public partial class Admin_Brand : System.Web.UI.Page
         }
     }
 
-    // ===================== GET ALL =====================
-
     private void GetAllBrands()
     {
         try
@@ -85,8 +83,6 @@ public partial class Admin_Brand : System.Web.UI.Page
         }
     }
 
-    // ===================== LOAD FOR EDIT =====================
-
     private void GetBrand()
     {
         try
@@ -131,9 +127,6 @@ public partial class Admin_Brand : System.Web.UI.Page
                 "GetBrand", ex.Message);
         }
     }
-
-    // ===================== SAVE / UPDATE =====================
-
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if (!Page.IsValid) return;
@@ -206,8 +199,6 @@ public partial class Admin_Brand : System.Web.UI.Page
         Response.Redirect("Brand.aspx");
     }
 
-    // ===================== DELETE (WebMethod) =====================
-
     [WebMethod(EnableSession = true)]
     public static string Delete(string id)
     {
@@ -234,8 +225,6 @@ public partial class Admin_Brand : System.Web.UI.Page
             return "W";
         }
     }
-
-    // ===================== UPLOAD THUMB IMAGE =====================
 
     private string UploadThumbImage()
     {
@@ -281,8 +270,6 @@ public partial class Admin_Brand : System.Web.UI.Page
         return thumbImage;
     }
 
-    // ===================== UPLOAD MOBILE IMAGE =====================
-
     private string UploadMobileImage()
     {
         string mobileImage = "";
@@ -312,8 +299,6 @@ public partial class Admin_Brand : System.Web.UI.Page
         }
         return mobileImage;
     }
-
-    // ===================== HELPERS =====================
 
     private void ShowSuccess(string msg)
     {

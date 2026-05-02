@@ -151,6 +151,7 @@ public partial class Admin_add_products : System.Web.UI.Page
             cat.SmallImage = ind1;
             cat.CategoryId = ddlCategory.SelectedValue;
             cat.BrandId = "";
+            cat.DeliveredBy = "";
             cat.DisplayHome = chbDispHome.Checked ? "Yes" : "No";
             cat.AddedBy = aid;
             cat.AddedOn = CommonModel.UTCTime();

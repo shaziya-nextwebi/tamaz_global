@@ -1,9 +1,11 @@
-﻿<%@ Page Title="TAMAZ Global - Premium Wellness Products" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="Tamaz Global Trading Company" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+     <meta name="description" content="Tamaz Global Trading Company is a wholesale distributor of beauty, personal care, and Fitness products." />
+ <link rel="canonical" href="https://www.tamazglobal.com/" hreflang="en"/>
     <style>
         .view-cart-btn {
-            background: #e97c13 !important;
+            background: #e51c4c !important;
           
         }
 
@@ -34,12 +36,12 @@
         /* Mobile: flip visibility */
         @media (max-width: 768px) {
             .banner-desktop-img {
-                display: none;
-            }
-
-            .banner-mob-img {
                 display: block;
             }
+
+         /*   .banner-mob-img {
+                display: block;
+            }*/
         }
 
         /* Keep slide content above the background image */
@@ -79,6 +81,7 @@
             bottom: 0px !important;
         }
 
+
         @media(max-width:576px) {
             .desktop-hero-banner {
                 display: none;
@@ -87,107 +90,197 @@
             .MobileHeroSlider {
                 display: block;
             }
+
+           
+            .category-name
+            {
+                font-size:10px !important;
+                line-height:12px !important;
+            }
+            .margin-bottom-20
+            {
+                margin-bottom:14px !important;
+            }
+            .section-title
+            {
+                        margin-bottom: 0px !important;
+            }
+                .main-header .logo-image {
+        width: 80px;
+    }
         }
+        .category-swiper {
+    width: 100%;
+    overflow: hidden;
+}
+.category-swiper .swiper-slide {
+    height: auto;
+    min-height:max-content;
+    width:max-content;
+/*    margin:0px 10px !important;*/
+}
+        .fs-9 {
+            font-size: 9px !important;
+        }
+
+        .myFeatureSlider .swiper-slide {
+            min-height: auto !important;
+            /*width: max-content !important;*/
+        }
+        .spotlight-button.sp-desktop {
+            padding: 4px 8px !important;
+            font-size: 12px !important;
+        }
+
+        /* ===== SWIPER SLIDE ===== */
+.brand-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+.swiper-slide.brand-col
+{
+    min-height:0px !important;
+}
+/* ===== BRAND CARD ===== */
+.brand-wrapper {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.brand-wrapper:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+    transform: translateY(-3px);
+}
+
+.brand-wrapper a {
+    display: block;
+    padding: 4px 12px;
+    text-align: center;
+}
+
+.brand-wrapper img {
+    max-height: 80px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.brand-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== BRAND CAPTION ===== */
+.brand-caption {
+    background: #f5f5f5;
+    padding: 8px 12px;
+    text-align: center;
+    border-top: 1px solid #e8e8e8;
+}
+
+.partner-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a4fba;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.partner-link:hover {
+    color: #e53935;
+    text-decoration: none;
+}
+
+/* ===== SHINE EFFECT ===== */
+.shine-overlay {
+    position: relative;
+}
+
+.shine {
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.4) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.brand-wrapper:hover .shine {
+    animation: shineAnim 0.6s ease forwards;
+}
+
+@keyframes shineAnim {
+    0%   { left: -75%; opacity: 1; }
+    100% { left: 125%; opacity: 1; }
+}
+
+/* ===== SWIPER PAGINATION DOTS ===== */
+.brand-pagination {
+    margin-top: 20px;
+    position: relative !important;
+    bottom: auto !important;
+}
+
+.brand-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    opacity: 1;
+}
+
+.brand-pagination .swiper-pagination-bullet-active {
+    background: #e53935;
+    width: 24px;
+    border-radius: 5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+    .clients-section .section-title {
+        font-size: 22px;
+    }
+    .brand-wrapper img {
+        max-height: 80px;
+    }
+    .partner-link {
+        font-size: 12px;
+    }
+    .brand-slider-outer
+    {
+        padding:0px 12px 12px ;
+    }
+        .brand-wrapper:hover {
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+            transform: translateY(0px);
+        }
+}
+
     </style>
+
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- ===================== HERO BANNER ===================== -->
-    <%--    <section class="hero-banner" id="hero">
-        <div class="swiper myHeroSlider">
-            <div class="swiper-wrapper">
-
-                <!-- Slide 1 -->
-                <div class="swiper-slide slide-1">
-                    <div class="max-w-7xl mx-auto px-4 py-12 slide-banner">
-                        <div class="grid lg:grid-cols-2 gap-8 items-center">
-                            <div class="hero-content fade-in">
-                                <div class="hero-badge">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                    Premium Quality
-                                </div>
-                                <h1 class="hero-title"><span class="tag-text">Best Source Of</span><br />Skin Whitening Capsule</h1>
-                                <p class="hero-desc">Discover premium health and wellness products.</p>
-                                <a href="Category.aspx" class="btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="swiper-slide slide-2">
-                    <div class="max-w-7xl mx-auto px-4 py-12 slide-banner">
-                        <div class="grid lg:grid-cols-2 gap-8 items-center">
-                            <div class="hero-content fade-in">
-                                <div class="hero-badge">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                    Premium Quality
-                                </div>
-                                <h1 class="hero-title"><span class="tag-text">Best Source Of</span><br />Skin Whitening Products</h1>
-                                <p class="hero-desc">Discover premium health and wellness products.</p>
-                                <a href="Category.aspx" class="btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="swiper-slide slide-3">
-                    <div class="max-w-7xl mx-auto px-4 py-12 slide-banner">
-                        <div class="grid lg:grid-cols-2 gap-8 items-center">
-                            <div class="hero-content fade-in">
-                                <div class="hero-badge">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                    Premium Quality
-                                </div>
-                                <h1 class="hero-title"><span class="tag-text">Best Source Of</span><br />Skin Whitening Injections</h1>
-                                <p class="hero-desc">Discover premium health and wellness products.</p>
-                                <a href="Category.aspx" class="btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 4 -->
-                <div class="swiper-slide slide-4">
-                    <div class="max-w-7xl mx-auto px-4 py-12 slide-banner">
-                        <div class="grid lg:grid-cols-2 gap-8 items-center">
-                            <div class="hero-content fade-in">
-                                <div class="hero-badge">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                    Premium Quality
-                                </div>
-                                <h1 class="hero-title"><span class="tag-text">Best Source Of</span><br />Skin Whitening Soaps</h1>
-                                <p class="hero-desc">Discover premium health and wellness products.</p>
-                                <a href="Category.aspx" class="btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 5 -->
-                <div class="swiper-slide slide-5">
-                    <div class="max-w-7xl mx-auto px-4 py-12 slide-banner">
-                        <div class="grid lg:grid-cols-2 gap-8 items-center">
-                            <div class="hero-content fade-in">
-                                <div class="hero-badge">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                                    Premium Quality
-                                </div>
-                                <h1 class="hero-title"><span class="tag-text">Best Source Of</span><br />Weight Gain Capsules</h1>
-                                <p class="hero-desc">Discover premium health and wellness products.</p>
-                                <a href="Category.aspx" class="btn-primary">Shop Now <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </section>--%>
+   
     <section class="hero-banner desktop-hero-banner" id="hero">
         <div class="swiper myHeroSlider">
             <div class="swiper-wrapper">
@@ -204,35 +297,6 @@
         <div class="swiper-wrapper">
             <%=strMobileBannerHtml %>
 
-            <%--            <div class="swiper-slide">
-                <a href="Product.aspx">
-                    <img src="assests/Images/mobile-banner-images/1.png" />
-                </a>
-            </div>
-
-            <div class="swiper-slide">
-                <a href="Product.aspx">
-                    <img src="assests/Images/mobile-banner-images/2.png" />
-                </a>
-            </div>
-
-            <div class="swiper-slide">
-                <a href="Product.aspx">
-                    <img src="assests/Images/mobile-banner-images/3.png" />
-                </a>
-            </div>
-
-            <div class="swiper-slide">
-                <a href="Product.aspx">
-                    <img src="assests/Images/mobile-banner-images/4.png" />
-                </a>
-            </div>
-
-            <div class="swiper-slide">
-                <a href="Product.aspx">
-                    <img src="assests/Images/mobile-banner-images/5.png" />
-                </a>
-            </div>--%>
         </div>
 
         <div class="swiper-pagination mobile-hero-pagination"></div>
@@ -240,340 +304,128 @@
     </section>
 
     <!-- ===================== FEATURES ===================== -->
-    <section class="features-section">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="feature-item ">
-                    <div class="feature-icon bg-linear-gradient">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
-                            <rect x="1" y="3" width="15" height="13" />
-                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-                            <circle cx="5.5" cy="18.5" r="2.5" />
-                            <circle cx="18.5" cy="18.5" r="2.5" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="feature-title">Free Shipping</div>
-                        <div class="feature-desc">On orders over $150</div>
-                    </div>
-                </div>
-                <div class="feature-item ">
-                    <div class="feature-icon bg-linear-gradient">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="feature-title">Secure Payment</div>
-                        <div class="feature-desc">100% safe transactions</div>
-                    </div>
-                </div>
-                <div class="feature-item ">
-                    <div class="feature-icon bg-linear-gradient">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
-                            <path d="M12 18V6" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="feature-title">Money Back</div>
-                        <div class="feature-desc">30-day guarantee</div>
+  <section class="features-section">
+    <div class="max-w-7xl mx-auto px-4">
+
+        <div class="swiper myFeatureSlider">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <div class="feature-item">
+                       <%-- bg-linear-gradient--%>
+                        <div class="feature-icon ">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" class="text-white"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-badge-check-icon lucide-badge-check">
+                                <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+
+                        </div>
+                        <div>
+                            <div class="feature-title">Genuine Products</div>
+                            <div class="feature-desc">Trusted Original Product</div>
+                        </div>
                     </div>
                 </div>
-                <div class="feature-item ">
-                    <div class="feature-icon bg-linear-gradient">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="feature-title">Expert Support</div>
-                        <div class="feature-desc">Talk to specialists</div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <div class="feature-item">
+                        <div class="feature-icon ">
+
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" class="text-white">
+                                <rect x="1" y="3" width="15" height="13" />
+                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                                <circle cx="5.5" cy="18.5" r="2.5" />
+                                <circle cx="18.5" cy="18.5" r="2.5" />
+                            </svg>
+
+                        </div>
+                        <div>
+                            <div class="feature-title">Free Shipping</div>
+                            <div class="feature-desc">
+                                On Order Above ₹2000
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <div class="feature-item">
+                        <div class="feature-icon ">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" class="text-white"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="lucide lucide-headset-icon lucide-headset">
+                                <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" />
+                                <path d="M21 16v2a4 4 0 0 1-4 4h-5" />
+                            </svg>
+
+                        </div>
+                        <div>
+                            <div class="feature-title">Expert Support</div>
+                            <div class="feature-desc">Talk to specialists</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
 
+    </div>
+</section>
     <!-- ===================== CATEGORIES ===================== -->
     <section class="w-full bg-white py-12 border-t border-gray-100 section-padding">
         <div class="w-full px-4 md:px-8">
-            <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2 margin-bottom-20">
+            <div class="flex items-start md:items-center justify-start md:justify-center mb-4 md:mb-8 px-2 margin-bottom-20">
                 <div class="text-start md:text-center">
-                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">Our Top Categories</h2>
-                    <p class="text-[#64748B] mt-1 section-description">Browse our premium wellness collection</p>
+                    <h1 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">Our Top Categories</h1>
+                    <%--<p class="text-[#64748B] mt-1 section-description">Browse our premium wellness collection</p>--%>
                 </div>
             </div>
-            <div class="flex justify-center gap-5 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 category-scroll-container">
-                <%=strTopCategories %>
-                <%--<a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/1.png" alt="Glutathione Injections" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Glutathione Injections</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/2.png" alt="Other Injections" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Other Injections</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/3.png" alt="Skin Whitening Pills" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Skin Whitening Pills</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/4.png" alt="Whitening Cream" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Whitening Cream</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/5.png" alt="Whitening Soap" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Whitening Soap</h3>
-                </a>
-                <a href="#" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/6.png" alt="Whitening Lotions" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Whitening Lotions</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/7.png" alt="Skin Whitening Products" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Skin Whitening Products</h3>
-                </a>
-                <a href="Category.aspx" class="flex-shrink-0 w-[140px] md:w-[160px] group block category-box">
-                    <div class="relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl">
-                        <img src="assests/Images/category-img/8.png" alt="Weight Gain/Loss" class="w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img" />
-                    </div>
-                    <h3 class="text-sm font-semibold text-[#0F172A] text-center">Weight Gain/Loss</h3>
-                </a>--%>
-            </div>
+           
+            <div class="swiper category-swiper">
+    <div class="swiper-wrapper">
+        <%=strTopCategories %>
+    </div>
+</div>
         </div>
     </section>
-
-    <!-- ===================== ABOUT US ===================== -->
-    <section class="section-padding about-section bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="grid lg:grid-cols-2 gap-4 md:gap-10 lg:gap-12 items-center">
-                <div class="relative">
-                    <img src="assests/Images/about.png" alt="About Us Image" class="w-full rounded-lg object-cover about-us-image fade-in" />
-                </div>
-                <div class="lg:pl-8 about-us-content">
-                    <span class="inline-block text-xs md:text-sm font-bold text-[#1E3A8A] uppercase tracking-wider mb-4 relative">DEDICATED TO QUALITY
-                       
-                        <span class="absolute bottom-0 left-0 w-12 h-0.5 bg-[#B91C1C] -mb-2"></span>
-                    </span>
-                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">Your Trusted Global Trading Partner in <span class="">Wellness</span>
-                    </h2>
-                    <p class="text-muted text-base leading-relaxed mb-4 mt-1">
-                        At Tamaz Global Trading, we source premium health and wellness products from world-renowned laboratories. We are committed to providing safe, effective, and innovative solutions to enhance your well-being.
-                   
-                    </p>
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-start gap-4">
-                            <div class="feature-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                                    <path d="M9 12l2 2 4-4" />
-                                    <circle cx="12" cy="12" r="10" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Direct collaboration with certified laboratories</h4>
-                                <p class="text-sm text-[#64748B]">We work directly with top-tier certified labs globally.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Strict quality control and verification</h4>
-                                <p class="text-sm text-[#64748B]">Every product undergoes rigorous testing protocols.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="feature-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <line x1="2" y1="12" x2="22" y2="12" />
-                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Global cold chain express delivery</h4>
-                                <p class="text-sm text-[#64748B]">Safe and fast delivery maintaining product integrity.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="About.aspx" class="inline-flex items-center gap-2 btn-primary text-white">Learn More
-                       
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-desktop">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
-                <div class="text-start md:text-center">
-                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">In The Spotlight</h2>
-                    <p class="text-[#64748B] mt-1 section-description">Discover our exclusive deals and trending collections</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <%=strSpotlight %>
-            </div>
-        </div>
-    </section>
-    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex items-start md:items-center justify-start md:justify-center mb-8 sm:mb-4 px-2">
-                <div class="text-start md:text-center">
-                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">In The Spotlight</h2>
-                    <p class="text-[#64748B] mt-1 section-description">Discover our exclusive deals and trending collections</p>
-                </div>
-            </div>
-            <div class="md:hidden">
-                <div class="swiper spotlightSwiper">
-                    <div class="swiper-wrapper">
-                        <%=strSpotlightMobile %>
-                        <%--                        <div class="swiper-slide">
-                            <div class="relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card">
-                                <img src="assests/Images/spotlight-images/sp-1.png" class="absolute inset-0 w-full h-full object-cover" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
-                                    <span class="spotlight-bridge text-[#FEE2E2] text-sm font-bold mb-2">30% Off</span>
-                                    <h3 class="text-white text-2xl font-bold mb-3">Premium Skin Care</h3>
-                                    <a href="Category.aspx" class="bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card">
-                                <img src="assests/Images/spotlight-images/sp-2.png" class="absolute inset-0 w-full h-full object-cover" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
-                                    <span class="spotlight-bridge text-[#FEE2E2] text-sm font-bold mb-2">New Arrival</span>
-                                    <h3 class="text-white text-2xl font-bold mb-3">Whitening Injections</h3>
-                                    <a href="Category.aspx" class="bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card">
-                                <img src="assests/Images/spotlight-images/sp-3.png" class="absolute inset-0 w-full h-full object-cover" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient"></div>
-                                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
-                                    <span class="spotlight-bridge text-[#FEE2E2] text-sm font-bold mb-2">Best Seller</span>
-                                    <h3 class="text-white text-2xl font-bold mb-3">Health Supplements</h3>
-                                    <a href="Category.aspx" class="bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>--%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===================== CLIENT SLIDER ===================== -->
-    <section class="clients-section">
-        <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-4 margin-bottom-20">
-            <div class="text-center fade-in">
-                <h2 class="section-title">Top Brands on Tamaz Global</h2>
-                <p class="section-subtitle section-description mt-1">Working with leading wellness brands worldwide</p>
-            </div>
-        </div>
-        <div class="slider-container">
-            <div class="slider-track" id="clientSlider">
-                <%=strBrandSlider %>
-                <%--                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/1.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/2.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/3.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/4.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/5.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/6.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/7.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/8.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/9.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/10.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/12.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/13.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/14.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/15.jpg" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/16.png" alt="clients" /></span>
-                </div>
-                <div class="client-card">
-                    <span class="client-logo">
-                        <img src="assests/Images/clients/17.png" alt="clients" /></span>
-                </div>--%>
-            </div>
-        </div>
-    </section>
+<section class="clients-section">
+    <div class="max-w-7xl mx-auto px-4 mb-2 md:mb-4">
+        <div class="text-center fade-in">
+            <h2 class="section-title">
+                Top Brands on Tamaz Global
 
-    <!-- ===================== PRODUCTS ===================== -->
-    <section class="products-section">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex items-center justify-between mb-10 fade-in product-title-wrapper">
+            </h2>
+            <p class="section-subtitle mt-1">Working with leading wellness brands worldwide</p>
+        </div>
+    </div>
+
+    <div class="brand-slider-outer max-w-7xl  mx-auto py-3 pb-2">
+        <div class="swiper brandSwiper">
+            <div class="swiper-wrapper" id="clientSlider">
+                <%=strBrandSlider %>
+            </div>
+      
+        </div>
+    </div>
+</section>
+
+        <!-- ===================== PRODUCTS ===================== -->
+    <section class="products-section pt-0">
+        <div class="max-w-7xl mx-auto px-3  md:px-4 md:px-8">
+            <div class="flex items-center justify-between mb-10 fade-in product-title-wrapper margin-bottom-20">
                 <div>
                     <h2 class="section-title">Tamaz Global Top Products</h2>
                     <p class="section-subtitle section-description mt-1">Top-rated products loved by customers</p>
@@ -593,9 +445,196 @@
         </div>
     </section>
 
+    <!-- ===================== ABOUT US ===================== -->
+    <section class="section-padding about-section bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid lg:grid-cols-2 gap-4 md:gap-10 lg:gap-12 items-center">
+                <div class="relative order-2 md:order-1">
+                    <img src="/assests/Images/about-deskop.jpg" alt="About Us Image" class="w-full rounded-lg object-cover about-us-image fade-in" />
+                </div>
+                <div class="lg:pl-8 about-us-content order-1 md:order-2">
+                    <span class="inline-block text-xs md:text-sm font-bold text-[#1E3A8A] uppercase tracking-wider mb-4 relative">DEDICATED TO QUALITY
+                       
+                        <span class="absolute bottom-0 left-0 w-12 h-0.5 bg-[#B91C1C] -mb-2"></span>
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">Your Trusted Global Trading Partner in <span class="">Wellness</span>
+                    </h2>
+                    <p class="text-muted text-base leading-relaxed mb-4 mt-1">
+                        At Tamaz Global Trading, we source premium health and wellness products from world-renowned laboratories. We are committed to providing safe, effective, and innovative solutions to enhance your well-being.
+                   
+                    </p>
+                    <ul class="space-y-4 mb-5 md:mb-10">
+                        <li class="flex items-start gap-4">
+                            <div class="feature-icon bg-light-gradient">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                                    <path d="M9 12l2 2 4-4" />
+                                    <circle cx="12" cy="12" r="10" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Direct collaboration with certified laboratories</h4>
+                                <p class="text-sm text-[#000]">We work directly with top-tier certified labs globally.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="feature-icon bg-light-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Strict quality control and verification</h4>
+                                <p class="text-sm text-[#000]">Every product undergoes rigorous testing protocols.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="feature-icon bg-light-gradient">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-[#0F172A] text-base mb-1">Global cold chain express delivery</h4>
+                                <p class="text-sm text-[#000]">Safe and fast delivery maintaining product integrity.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="about.aspx" class="inline-flex items-center gap-2 btn-primary text-white">Learn More
+                       
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-desktop">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-start md:items-center justify-start md:justify-center mb-4 md:mb-8 px-2">
+                <div class="text-start md:text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">In The Spotlight</h2>
+                    <%--<p class="text-[#64748B] mt-1 section-description">Discover our exclusive deals and trending collections</p>--%>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <%=strSpotlight %>
+            </div>
+        </div>
+    </section>
+    <section class="py-16 bg-white overflow-hidden spotlight-section show-in-mobile">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-start md:items-center justify-start md:justify-center mb-4 md:mb-8 px-2">
+                <div class="text-start md:text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#0F172A] section-title">In The Spotlight</h2>
+                    <p class="text-[#000] mt-1 section-description">Discover our exclusive deals and trending collections</p>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <div class="swiper spotlightSwiper">
+                    <div class="swiper-wrapper">
+                        <%=strSpotlightMobile %>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
+
+
+
+    <script>
+        var brandSwiper = new Swiper('.brandSwiper', {
+            loop: true,
+            speed: 600,
+            loopedSlides: 8, 
+            autoplay: {
+                delay: 2500,
+                disableoninteraction: false,
+                pauseonmouseenter: true,
+            },
+            //pagination: {
+            //    el: '.brand-pagination',
+            //    clickable: true,
+            //},
+            breakpoints: {
+                0: {
+                    slidesPerView: 2.5,    // mobile  → 1 slide = 2 logos
+                    spaceBetween: 12,
+                },
+                768: {
+                    slidesPerView: 6,    // tablet  → 2 slides = 4 logos
+                    spaceBetween: 16,
+                },
+                1024: {
+                    slidesPerView: 8,    // desktop → 3 slides = 6 logos
+                    spaceBetween: 20,
+                }
+            }
+        });
+</script>
+    <script>
+        var swiper = new Swiper(".myFeatureSlider", {
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            spaceBetween: 15,
+            slidesPerView: 1.5, // mobile
+
+            breakpoints: {
+                768: {
+                    slidesPerView: 3 // desktop
+                }
+            }
+        });
+</script>
+    <script>
+    
+    new Swiper('.category-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 1500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        speed: 600,
+        slidesPerView: 3.5,
+        spaceBetween: 12,
+        grabCursor: true,
+        breakpoints: {
+            0: {
+                slidesPerView: 3,
+            },
+            380: {
+                slidesPerView: 3.5,
+            },
+        
+            768: {          // tablet
+                slidesPerView: 6,
+                spaceBetween: 16
+            },
+            1024: {         // desktop
+                slidesPerView: 8,
+                spaceBetween: 20
+            }
+        }
+    });
+</script>
+   
     <script>
         var mobileHeroSlider = new Swiper('.MobileHeroSlider', {
             loop: true,
@@ -669,7 +708,7 @@
             }
 
             if (btn.classList.contains('view-cart-btn')) {
-                window.location.href = '/Cart.aspx';
+                window.location.href = '/cart.aspx';
                 return;
             }
 
@@ -687,7 +726,7 @@
                     if (result.success) {
                         // Replace button with View Cart link
                         var a = document.createElement('a');
-                        a.href = '/Cart.aspx';
+                        a.href = '/cart.aspx';
                         a.className = 'view-cart-btn add-cart-btn';
                         a.innerText = 'View Cart';
                         a.style.display = 'block';

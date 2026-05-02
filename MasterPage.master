@@ -4,8 +4,39 @@
 <html lang="en">
 <head runat="server">
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TAMAZ Global</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 ">
+    <!-- Title goes here -->
+    <title>Tamaz Global Trading Company</title>
+    <meta name="google-site-verification" content="w43-i5KsFWKG-jME617yAb0no-FaprL4eqV0L8Om7jg" />
+    <!-- Meta tags goes here -->
+    <meta name="geo.region" content="IN" />
+    <!-- Country code only -->
+    <meta name="geo.placename" content="India" />
+    <meta name="geo.position" content="20.5937;78.9629" />
+    <meta name="ICBM" content="20.5937, 78.9629" />
+
+    <meta name="keywords" content="Beauty products wholesale, Buy skin care products wholesale in india , skin whitening injections &amp; pills wholesale, weight gain capsules wholesale, weight loss pills wholesale, weight loss capsules wholesale" />
+    <meta name="author" content="Nextwebi">
+    <meta name="subject" content="Tamaz Global Trading Co." />
+    <meta name="copyright" content="www.tamazglobal.com" />
+    <meta name="language" content="EN" />
+    <meta name="robots" content="index,follow" />
+    <meta name="url" content="https://www.tamazglobal.com" />
+    <meta name="identifier-URL" content="https://www.tamazglobal.com" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+
+    <!-- OG tags goes here -->
+    <meta property="og:title" content="Tamaz Global Trading Co." />
+    <meta property="og:site_name" content="tamazglobal.com" />
+    <meta property="og:url" content="https://www.tamazglobal.com/" />
+    <meta property="og:description" content="Tamaz Global Trading Company is a wholesale distributor of beauty, personal care, and Fitness products." />
+    <meta property="og:type" content="product" />
+    <meta property="og:image" content="https://www.tamazglobal.com/assests/Images/logo.png" />
+    <meta name="p:domain_verify" content="6343726e4b70cf9bdb3f72744209cb0f" />
+    <meta name="google-site-verification" content="4rkEgsTSO1DdgUlKPA1rgt1fBCMY3lht31uz8mbxdrA" />
+    <meta name="google-site-verification" content="ox154ceJpVbzpq5E-jLs0y2PFPuN1VC33EC157-pMt8" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assests/Images/favicon.png" />
@@ -20,7 +51,7 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
@@ -52,7 +83,7 @@
         .visible-xs {
             display: none;
         }
-
+        
         @media(max-width:576px) {
             .logo-image {
                 width: 100px;
@@ -80,10 +111,10 @@
             }
 
             .search-btn {
-                width: 30px;
-                height: 30px;
-                right: 22px;
-                top: 38%;
+                      width: 31px;
+        height: 31px;
+        right: 20px;
+        top: 37%;
             }
         }
 
@@ -275,8 +306,74 @@
                 row-gap: 8px !important;
             }
         }
+        @media(max-width:576px)
+        {
+            .plolicy-pages {
+        row-gap: 3px !important;
+        column-gap: 9px !important;
+    }
+        }
+        .payment-img img{
+            width:200px ;
+        }
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133460536-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
+        gtag('config', 'UA-133460536-1');
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B11JRXJG58"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-B11JRXJG58');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BM3ZNGHVZ2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-BM3ZNGHVZ2');
+    </script>
+    <script type="application/ld+json">
+ {
+   "@context": "https://schema.org",
+   "@type": "TheaterGroup",
+   "name": "Tamaz Global Trading Co.",
+   "alternateName": "Tamaz Global",
+   "url": "https://www.tamazglobal.com/",
+   "logo": "https://www.tamazglobal.com/Images/logo.png",
+   "contactPoint": {
+     "@type": "ContactPoint",
+     "telephone": "+919900746748",
+     "contactType": "customer service",
+     "contactOption": "HearingImpairedSupported",
+     "areaServed": "IN",
+     "availableLanguage": "en"
+   }
+ }
+    </script>
+
+    <script type="application/ld+json">
+ {
+   "@context": "https://schema.org/",
+   "@type": "WebSite",
+   "name": "Tamaz Global Trading Co.",
+   "url": "https://www.tamazglobal.com/",
+   "potentialAction": {
+     "@type": "SearchAction",
+    "target": "https://www.tamazglobal.com/?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+ }
+    </script>
     <!-- Page-level head content -->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -289,10 +386,16 @@
         <header class="main-header">
             <div class="py-4 header-wrap pt-0">
                 <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-4">
-
+                      <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
                     <!-- Logo -->
-                    <a href="/Default.aspx" class="flex items-center gap-3 logo-image-wrap">
-                        <img src="/assests/Images/TAMAZ-logo.png" class="logo-image" alt="TAMAZ Global" />
+                    <a href="/" class="flex items-center gap-3 logo-image-wrap">
+                        <img src="/assests/Images/logo.png" class="logo-image" alt="TAMAZ Global" />
                     </a>
 
                     <!-- Search -->
@@ -318,7 +421,7 @@
                                     </svg>
                                 </div>
                                 <div class="text-sm">
-                                    <div class="text-xs text-gray-500">Retail Orders <span class="text-small">(Dr.Aliya)</span></div>
+                                    <div class="text-xs text-gray-500">For Retail Orders <span class="text-small">(Dr.Aliya)</span></div>
                                     <div class="font-semibold">+91 99882 27622</div>
                                 </div>
                             </div>
@@ -332,13 +435,13 @@
                                     </svg>
                                 </div>
                                 <div class="text-sm">
-                                    <div class="text-xs text-gray-500">Wholesale <span>(Mr. Aby)</span></div>
+                                    <div class="text-xs text-gray-500">For Wholesale <span>(Mr. Aby)</span></div>
                                     <div class="font-semibold">+91 99007 46748</div>
                                 </div>
                             </div>
                         </a>
 
-                        <a class="relative p-3 hover:bg-gray-100 rounded-xl transition-colors" href="/Cart.aspx">
+                        <a class="relative p-3 hover:bg-gray-100 rounded-xl transition-colors" href="/cart.aspx">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                                 <line x1="3" y1="6" x2="21" y2="6" />
@@ -359,14 +462,14 @@
                         </svg>
                     </button>--%>
                     <div class="flex  items-center gap-1 md:hidden">
-                        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+                     <%--   <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="3" y1="12" x2="21" y2="12" />
                                 <line x1="3" y1="6" x2="21" y2="6" />
                                 <line x1="3" y1="18" x2="21" y2="18" />
                             </svg>
-                        </button>
-                        <a class="relative p-1 mobile-cart-icon" href="/Cart.aspx">
+                        </button>--%>
+                        <a class="relative p-1 mobile-cart-icon" href="/cart.aspx">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                                 <line x1="3" y1="6" x2="21" y2="6" />
@@ -383,7 +486,7 @@
                 <!-- Mobile Search -->
                 <div class="search-container w-full mobile-search-bar md:hidden px-4 pb-3 mt-2" style="position: relative;">
                     <input type="text" id="mobileSearchInput" placeholder="Search for products, brands and more..." autocomplete="off" />
-                    <span class="search-btn" >
+                    <span class="search-btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8" />
                             <path d="m21 21-4.35-4.35" />
@@ -392,10 +495,10 @@
                 </div>
 
                 <!-- Desktop Nav -->
-                <nav class="desktop-nav mt-4 pt-4 border-t border-gray-100 bg-linear-gradient">
+                <nav class="desktop-nav mt-4 pt-4 border-t ">
                     <div class="flex items-center justify-center gap-2">
-                        <a href="/Default.aspx" class="nav-link">Home</a>
-                        <a href="/About.aspx" class="nav-link">About Us</a>
+                        <a href="/" class="nav-link">Home</a>
+                        <a href="/about.aspx" class="nav-link">About Us</a>
 
                         <!-- Categories Dropdown -->
                         <div class="nav-item-group relative">
@@ -472,7 +575,7 @@
                                                 </div>
                                                 <div>
                                                     <button class="w-full bg-[#0a1b50] text-[#000] py-2 text-sm font-semibold rounded rounded-1">
-                                                        <a href="/Product/original-vita-glow-skin-whitening-night-cream" class="text-[#fff] no-underline">Book Now</a>
+                                                        <a href="/Product/advanced-vita-glow-skin-whitening-night-cream" class="text-[#fff] no-underline">Book Now</a>
                                                     </button>
                                                 </div>
                                             </div>
@@ -482,8 +585,8 @@
                             </div>
                         </div>
 
-                        <a href="/Blog.aspx" class="nav-link">Blog</a>
-                        <a href="/ContactUs.aspx" class="nav-link">Contact Us</a>
+                        <a href="/blog.aspx" class="nav-link">Blog</a>
+                        <a href="/contact-us.aspx" class="nav-link">Contact Us</a>
                     </div>
                 </nav>
             </div>
@@ -498,13 +601,13 @@
         <!-- ===================== FOOTER ===================== -->
         <footer class="footer">
             <div class="max-w-7xl mx-auto px-4 md:px-8">
-                <div class="grid md:grid-cols-4 gap-10">
+                <div class="grid grid md:grid-cols-3 lg:grid-cols-4  gap-10">
                     <div>
                         <div class="footer-logo">
                             <img src="/assests/Images/logo.png" width="100" alt="TAMAZ Global" />
                         </div>
                         <p class="footer-desc">Your trusted partner for premium health and wellness products. Quality guaranteed with worldwide shipping.</p>
-                        <div class="flex gap-4 mt-6">
+                      <%--  <div class="flex gap-4 mt-6">
                             <a href="https://twitter.com/" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
@@ -520,18 +623,21 @@
                                     <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                                 </svg>
                             </a>
+                        </div>--%>
+                        <div class="payment-img mt-4">
+                            <img src="/assests/Images/payments1.png" />
                         </div>
                     </div>
 
                     <div>
                         <h4 class="footer-title">Popular Brands</h4>
                         <ul class="footer-links">
-                            <li><a href="/Brand/active-white-products">Active White Products</a></li>
-                            <li><a href="/Brand/aqua-skin">Aqua Skin</a></li>
-                            <li><a href="/Brand/dr-james-products">Dr James Products</a></li>
-                            <li><a href="/Brand/gluta-c-products">Gluta C Products</a></li>
-                            <li><a href="/Brand/glutax-series">Glutax Series</a></li>
-                            <li><a href="/Brand/health-tone-products">Health Tone Products</a></li>
+                            <li><a href="/TopBrands/active-white-products">Active White Products</a></li>
+                            <li><a href="/TopBrands/aqua-skin">Aqua Skin</a></li>
+                            <li><a href="/TopBrands/dr-james-products">Dr James Products</a></li>
+                            <li><a href="/TopBrands/gluta-c-products">Gluta C Products</a></li>
+                            <li><a href="/TopBrands/glutax-series">Glutax Series</a></li>
+                            <li><a href="/TopBrands/health-tone-products">Health Tone Products</a></li>
                         </ul>
                     </div>
 
@@ -554,8 +660,8 @@
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                             </svg>
                             <div>
-                                <div class="text-sm opacity-70">Retail Orders (Dr. Aliya)</div>
-                                <div>+91 99882 27622</div>
+                                <div class="text-sm opacity-70">For Retail Orders (Dr. Aliya)</div>
+                                <div><a href="tel:919988227622">+91 99882 27622</a></div>
                             </div>
                         </div>
                         <div class="footer-contact-item">
@@ -563,8 +669,8 @@
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                             </svg>
                             <div>
-                                <div class="text-sm opacity-70">Wholesale Orders (Mr. Aby)</div>
-                                <div>+91 99007 46748</div>
+                                <div class="text-sm opacity-70">For Wholesale Orders (Mr. Aby)</div>
+                                <div><a href="tel:919900746748">+91 99007 46748</a></div>
                             </div>
                         </div>
                         <div class="footer-contact-item">
@@ -583,11 +689,12 @@
                 <div class="footer-bottom flex justify-between">
                     <ul class="flex plolicy-pages ">
                         <li><a href="/security.aspx">Security</a></li>
-                        <li><a href="/Return-Policy.aspx">Return Policy</a></li>
-                        <li><a href="/Shipping-Policy.aspx">Shipping Policy</a></li>
+                        <li><a href="/return-policy.aspx">Return Policy</a></li>
+                        <li><a href="/shipping-policy.aspx">Shipping Policy</a></li>
                         <li><a href="/privacy-policy.aspx">Privacy Policy</a></li>
                         <li><a href="/cookies-policy.aspx">Cookies Policy</a></li>
-                        <li><a href="/terms-and-conditions.aspx">Terms and Conditions</a></li>
+                        <li><a href="/tos.aspx">Terms & Conditions</a></li>
+                        <li><a href="/sitemap.aspx">Sitemap</a></li>
 
                     </ul>
                     <p>2026 TAMAZ Global. All rights reserved.</p>
@@ -646,10 +753,36 @@
 
             <!-- Main Menu Tab -->
             <div id="panelMainMenu" class="overflow-y-auto flex-1 hidden">
-                <a href="/Default.aspx" class="mobile-nav-item">Home</a>
-                <a href="/About.aspx" class="mobile-nav-item">About Us</a>
-                <a href="/Blog.aspx" class="mobile-nav-item">Blog</a>
-                <a href="/ContactUs.aspx" class="mobile-nav-item">Contact Us</a>
+                <a href="/" class="mobile-nav-item">Home</a>
+                <a href="/about.aspx" class="mobile-nav-item">About Us</a>
+                <a href="/blog.aspx" class="mobile-nav-item">Blog</a>
+                <a href="/contact-us.aspx" class="mobile-nav-item">Contact Us</a>
+                <a href="tel:919988227622">
+                    <div class="phone-item">
+                        <div class="phone-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <div class="text-sm">
+                            <div class="text-xs text-gray-500">For Retail Orders <span class="text-small">(Dr.Aliya)</span></div>
+                            <div class="font-semibold">+91 99882 27622</div>
+                        </div>
+                    </div>
+                </a>
+                <a href="tel:919900746748">
+                    <div class="phone-item">
+                        <div class="phone-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <div class="text-sm">
+                            <div class="text-xs text-gray-500"> For Wholesale <span>(Mr. Aby)</span></div>
+                            <div class="font-semibold">+91 99007 46748</div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
         <script>
@@ -663,7 +796,7 @@
                 { name: "Collagen Booster Injection", category: "Other Injections", img: "/assests/Images/products/p7.png" },
                 { name: "Glutax 2GS Recombined White", category: "Glutathione Injections", img: "/assests/Images/products/p8.png" }
             ];
-
+            var latestResults = [];
             const fallbackImg = "/assests/Images/favicon.png";
 
             function buildSuggestions(query, containerId) {
@@ -684,6 +817,7 @@
                     .then(function (r) { return r.json(); })
                     .then(function (data) {
                         var results = data.d || data;
+                        latestResults = results; 
                         if (!results || results.length === 0) {
                             box.innerHTML = '<div class="suggestion-no-result">No results found for "<strong>' + q + '</strong>"</div>';
                         } else {
@@ -728,18 +862,24 @@
 
             initSearch('desktopSearchInput', 'desktopSuggestions');
             initSearch('mobileSearchInput', 'mobileSuggestions');
-            document.querySelectorAll('.search-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var input = this.closest('.search-container').querySelector('input');
-                    if (input && input.value.trim()) {
-                        window.location.href = '/Search.aspx?q=' + encodeURIComponent(input.value.trim());
-                    }
-                });
-            });
+            //document.querySelectorAll('.search-btn').forEach(function (btn) {
+            //    btn.addEventListener('click', function () {
+            //        var input = this.closest('.search-container').querySelector('input');
+            //        if (input && input.value.trim()) {
+            //            window.location.href = '/Search.aspx?q=' + encodeURIComponent(input.value.trim());
+            //        }
+            //    });
+            //});
             document.querySelectorAll('#desktopSearchInput, #mobileSearchInput').forEach(function (input) {
                 input.addEventListener('keydown', function (e) {
-                    if (e.key === 'Enter' && this.value.trim()) {
-                        window.location.href = '/Search.aspx?q=' + encodeURIComponent(this.value.trim());
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // stop default behavior
+
+                        if (latestResults.length > 0) {
+                            window.location.href = latestResults[0].url; // 👈 go to first product
+                        } else {
+                            alert("No product found");
+                        }
                     }
                 });
             });
@@ -847,8 +987,7 @@
 
     </form>
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 
     <!-- Sticky Header Script -->
     <script>

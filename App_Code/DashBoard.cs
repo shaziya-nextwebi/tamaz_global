@@ -403,6 +403,33 @@ public class DashBoard
         }
         return chart;
     }
+    public static int GetOrderCount(SqlConnection conT, string status)
+    {
+        int x = 0;
+        try
+        {
+            string query = string.IsNullOrEmpty(status)
+                ? "SELECT COUNT(Id) FROM orders WHERE OrderStatus != 'Deleted'"
+                : "SELECT COUNT(Id) FROM orders WHERE OrderStatus = @status";
+
+            using (SqlCommand cmd = new SqlCommand(query, conT))
+            {
+                if (!string.IsNullOrEmpty(status))
+                    cmd.Parameters.AddWithValue("@status", status);
+                conT.Open();
+                x = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionCapture.CaptureException(HttpContext.Current.Request.Url.PathAndQuery, "GetOrderCount", ex.Message);
+        }
+        finally
+        {
+            if (conT.State == ConnectionState.Open) conT.Close();
+        }
+        return x;
+    }
 }
 
 public class MonthlyChart

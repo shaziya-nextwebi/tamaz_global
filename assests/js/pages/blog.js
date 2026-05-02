@@ -7,7 +7,7 @@ function BindBlogs(pageNo) {
 
     $.ajax({
         type: "POST",
-        url: "Blog.aspx/BindBlogs",
+        url: "blog.aspx/BindBlogs",
         data: JSON.stringify({ pNo: pageNo, pSize: 6 }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -47,7 +47,7 @@ function BindPagination(currentPage, totalCount, pageSize) {
     var end = Math.min(totalPages, currentPage + 2);
 
     if (start > 1) {
-        html += `<li><a onclick="BindBlogs(1)" class="page-btn">1</a></li>`;
+        html += `<li><a onclick="BindBlogs(1)" class="page-btn w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-700 font-medium cursor-pointer">1</a></li>`;
         if (start > 2) html += `<li><span class="px-2">...</span></li>`;
     }
 
@@ -67,7 +67,7 @@ function BindPagination(currentPage, totalCount, pageSize) {
 
     if (end < totalPages) {
         if (end < totalPages - 1) html += `<li><span class="px-2">...</span></li>`;
-        html += `<li><a onclick="BindBlogs(${totalPages})" class="page-btn">${totalPages}</a></li>`;
+        html += `<li><a onclick="BindBlogs(${totalPages})" class="page-btn w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-700 font-medium cursor-pointer">${totalPages}</a></li>`;
     }
 
     $("#blogPagination").html(html);

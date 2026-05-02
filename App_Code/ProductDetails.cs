@@ -881,4 +881,21 @@ FROM ProductDetails as pd inner join Brand as c on c.BrandName = pd.Brand where 
         }
         return result;
     }
+    public string FormattedRetailPrice
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(RetailPrice) || RetailPrice == "0" || RetailPrice == "0.00")
+                return "";
+
+            decimal price;
+            if (decimal.TryParse(RetailPrice, out price))
+            {
+                return price.ToString("N0"); // 👉 1000 → 1,000
+            }
+
+            return RetailPrice;
+        }
+    }
+
 }

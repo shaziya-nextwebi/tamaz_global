@@ -2,18 +2,98 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style>
-        sup { color: red !important; }
-        .tab-nav { display:flex; gap:4px; border-bottom:2px solid #ddd; margin-bottom:24px; justify-content:center; }
-        .tab-btn { padding:10px 28px; border:none; background:#f1f1f1; border-radius:6px 6px 0 0; cursor:pointer; font-weight:500; color:#555; font-size:15px; }
-        .tab-btn.active { background:#0b3ab8; color:#fff; }
-        .tab-pane { display:none; }
-        .tab-pane.active { display:block; }
-        .gallery-grid { display:flex; flex-wrap:wrap; gap:16px; margin-top:20px; }
-        .gallery-item { position:relative; width:220px; border:1px solid #e0e0e0; border-radius:8px; overflow:hidden; background:#fff; cursor:grab; }
-        .gallery-item img { width:100%; height:160px; object-fit:cover; display:block; }
-        .gallery-item .del-btn { display:flex; justify-content:center; align-items:center; padding:6px; background:#f8f8f8; border-top:1px solid #eee; }
-        .gallery-item .del-btn a { color:#e53935; font-size:20px; }
-        .gallery-item .del-btn a:hover { color:#b71c1c; }
+        sup {
+            color: red !important;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 10px 28px;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+            font-size: 15px;
+        }
+
+            .tab-btn.active {
+                background: #0b3ab8;
+                color: #fff;
+            }
+
+        .tab-pane {
+            display: none;
+        }
+
+            .tab-pane.active {
+                display: block;
+            }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 220px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            cursor: grab;
+        }
+
+            .gallery-item img {
+                width: 100%;
+                height: 160px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .gallery-item .del-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 6px;
+                background: #f8f8f8;
+                border-top: 1px solid #eee;
+            }
+
+                .gallery-item .del-btn a {
+                    color: #e53935;
+                    font-size: 20px;
+                }
+
+                    .gallery-item .del-btn a:hover {
+                        color: #b71c1c;
+                    }
+
+        .clean-html-btn {
+            font-size: 12px;
+            padding: 3px 10px;
+            margin-left: 8px;
+            vertical-align: middle;
+            cursor: pointer;
+            background: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+            .clean-html-btn:hover {
+                background: #e0e0e0;
+            }
     </style>
 </asp:Content>
 
@@ -41,7 +121,8 @@
                 <div class="card-body">
 
                     <%-- Tabs — only show when editing --%>
-                    <%if (Request.QueryString["id"] != null) { %>
+                    <%if (Request.QueryString["id"] != null)
+                        { %>
                     <div class="tab-nav">
                         <button type="button" class="tab-btn active" onclick="switchTab('general',this)">General Info</button>
                         <button type="button" class="tab-btn" onclick="switchTab('seo',this)">SEO</button>
@@ -139,24 +220,40 @@
 
                             <div class="col-lg-12 mb-3">
                                 <label class="form-label">Product Description</label>
+                                <button type="button" class="clean-html-btn"
+                                    data-editor="<%=txtFullDesc.ClientID%>">
+                                    ✦ Clean HTML
+                                </button>
                                 <asp:TextBox runat="server" ID="txtFullDesc" TextMode="MultiLine"
                                     CssClass="form-control summernote" />
                             </div>
 
                             <div class="col-lg-12 mb-3">
                                 <label class="form-label">Benefits Description</label>
+                                <button type="button" class="clean-html-btn"
+                                    data-editor="<%=txtBrnfdesc.ClientID%>">
+                                    ✦ Clean HTML
+                                </button>
                                 <asp:TextBox runat="server" ID="txtBrnfdesc" TextMode="MultiLine"
                                     CssClass="form-control summernote" />
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Ingredients Description</label>
+                                <button type="button" class="clean-html-btn"
+                                    data-editor="<%=txtIngDesc.ClientID%>">
+                                    ✦ Clean HTML
+                                </button>
                                 <asp:TextBox runat="server" ID="txtIngDesc" TextMode="MultiLine"
                                     CssClass="form-control summernote" />
                             </div>
 
                             <div class="col-lg-6 mb-3">
                                 <label class="form-label">Usage Description</label>
+                                <button type="button" class="clean-html-btn"
+                                    data-editor="<%=txtUsgDesc.ClientID%>">
+                                    ✦ Clean HTML
+                                </button>
                                 <asp:TextBox runat="server" ID="txtUsgDesc" TextMode="MultiLine"
                                     CssClass="form-control summernote" />
                             </div>
@@ -180,7 +277,7 @@
                             </div>
 
                             <div class="col-lg-12 mt-2">
-                                <p style="color:red;font-weight:bold;">Note : <sup>*</sup> are required fields</p>
+                                <p style="color: red; font-weight: bold;">Note : <sup>*</sup> are required fields</p>
                                 <asp:Button runat="server" ID="btnSave"
                                     CssClass="btn btn-primary waves-effect waves-light"
                                     Text="Save" ValidationGroup="Save"
@@ -194,7 +291,8 @@
                     </div>
                     <%-- end General --%>
 
-                    <%if (Request.QueryString["id"] != null) { %>
+                    <%if (Request.QueryString["id"] != null)
+                        { %>
 
                     <%-- ===== SEO ===== --%>
                     <div id="tab-seo" class="tab-pane">
@@ -230,7 +328,7 @@
                     <%-- ===== GALLERY ===== --%>
                     <div id="tab-gallery" class="tab-pane">
                         <div class="d-flex align-items-center gap-3 flex-wrap mb-2">
-                            <input type="file" id="fileUp" class="form-control" style="max-width:400px;" multiple />
+                            <input type="file" id="fileUp" class="form-control" style="max-width: 400px;" multiple />
                             <button type="button" id="btnSaveGallery" class="btn btn-primary">Upload</button>
                             <input type="hidden" id="pid" value="<%=Request.QueryString["id"] %>" />
                         </div>
@@ -260,6 +358,10 @@
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label class="form-label">Answer <sup>*</sup></label>
+                                <button type="button" class="clean-html-btn"
+                                    data-editor="<%=txtAnswer.ClientID%>">
+                                    ✦ Clean HTML
+                                </button>
                                 <asp:TextBox runat="server" ID="txtAnswer" TextMode="MultiLine"
                                     CssClass="form-control summernote" />
                                 <asp:RequiredFieldValidator ID="rfvAnswer" runat="server"
@@ -280,7 +382,7 @@
                             </div>
                             <div class="col-lg-12 mt-3">
                                 <table class="table dt-responsive align-middle table-striped table-bordered"
-                                    style="width:100%;">
+                                    style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -309,4 +411,5 @@
     <input type="hidden" id="TourId" value="<%=strTourId %>" />
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/pages/add-products.js"></script>
+
 </asp:Content>

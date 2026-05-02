@@ -65,6 +65,7 @@ public partial class BrandPage : System.Web.UI.Page
 
             strBrandName = brand.BrandName;
             strPageTitle = brand.PageTitle != "" ? brand.PageTitle : brand.BrandName + " - TAMAZ Global";
+            this.Title = strPageTitle;
             strMetaDesc = brand.MetaDesc;
             strMetaKeys = brand.MetaKeys;
             strFullDesc = brand.FullDesc;
@@ -73,7 +74,7 @@ public partial class BrandPage : System.Web.UI.Page
             // Breadcrumb
             strBreadcrumb = "<a href='/' class='hover:text-[#B91C1C] transition-colors'>Home</a>" +
                             "<span class='mx-2'>/</span>" +
-                            "<a href='/Brand' class='hover:text-[#B91C1C] transition-colors'>Brand</a>" +
+                            "<span class='text-[#0F172A] font-medium'>Brand</span>" +
                             "<span class='mx-2'>/</span>" +
                             "<span class='text-[#0F172A] font-medium'>" + brand.BrandName + "</span>";
         }
@@ -105,7 +106,8 @@ public partial class BrandPage : System.Web.UI.Page
                 string image = p.SmallImage != "" ? "/" + p.SmallImage : "/assests/Images/placeholder.png";
                 string name = p.ProductName.Replace("'", "&#39;").Replace("\"", "&quot;");
                 string url = "/Product/" + p.ProductUrl;
-                string retailPrice = p.RetailPrice != null ? p.RetailPrice.Trim() : "";
+                //string retailPrice = p.RetailPrice != null ? p.RetailPrice.Trim() : "";
+                string retailPrice = p.FormattedRetailPrice;
                 string label = p.ProductLabelName != "" ? p.ProductLabelName : "";
 
                 string badge = label != ""
@@ -113,13 +115,12 @@ public partial class BrandPage : System.Web.UI.Page
                     : "";
 
                 string price = (retailPrice == "" || retailPrice == "0" || retailPrice == "0.00")
-                    ? "<a href='/ContactUs.aspx' class='contact-us-link' style='color:#162e7d; font-weight:600; font-size:15px; text-decoration:none;' onclick='event.stopPropagation();'>Contact Us</a>"
-                    : "<span class='current-price'><i class='fa-solid fa-indian-rupee-sign pe-1 fs-16'></i>" + retailPrice + "</span>";
+                    ? "<a href='/contact-us.aspx' class='contact-us-link' style='color:#162e7d; font-weight:600; font-size:15px; text-decoration:none;' onclick='event.stopPropagation();'>Price On Request</a>"
+                    : "<span class='current-price'><span class='text-rupee'>₹</span>" + retailPrice + "</span>";
 
                 strProducts +=
-                    "<div class='product-card' style='cursor:pointer;' onclick=\"window.location='" + url + "'\">" +
+                    "<div class='product-card' style='cursor:pointer;' onclick=window.location='" + url + "'>" +
                         "<div class='product-image'>" +
-                            //badge +
                             "<button class='wishlist-btn' onclick='event.stopPropagation();'>" +
                                 "<svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>" +
                                     "<path d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' />" +

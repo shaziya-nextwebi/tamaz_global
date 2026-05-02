@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Disallow: /contact-us.aspx
+Sitemap: https://www.tamazglobal.com/sitemap.xml

@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Admin",
+    "\\Admin\\assets",
+    "\\Admin\\assets\\libs",
+    "\\Admin\\assets\\libs\\choices.js",
+    "\\Admin\\assets\\libs\\choices.js\\src",
+    "\\Admin\\assets\\libs\\choices.js\\src\\scripts"
+  ],
+  "SelectedNode": "\\Admin\\assets\\libs\\choices.js\\src\\scripts\\choices.ts",
+  "PreviewInSolutionExplorer": false
+}

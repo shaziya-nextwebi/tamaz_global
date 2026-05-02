@@ -2,7 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style>
-        sup { color: red !important; }
+        sup {
+            color: red !important;
+        }
     </style>
 </asp:Content>
 
@@ -78,7 +80,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 mb-3" style="display:none;">
+                                <div class="col-lg-12 mb-3" style="display: none;">
                                     <label class="form-label">Short Description</label>
                                     <asp:TextBox runat="server" ID="txtShortDesc" TextMode="MultiLine"
                                         CssClass="form-control" Rows="3" />
@@ -86,6 +88,10 @@
 
                                 <div class="col-lg-12 mb-3">
                                     <label class="form-label">Full Description</label>
+                                    <button type="button" class="clean-html-btn"
+                                        data-editor="<%=txtFullDesc.ClientID%>">
+                                        ✦ Clean HTML
+                                    </button>
                                     <asp:TextBox runat="server" ID="txtFullDesc" TextMode="MultiLine"
                                         CssClass="form-control summernote" Rows="6" />
                                 </div>
@@ -138,7 +144,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Thumb Image <sup>*</sup></label>
                                 <asp:FileUpload ID="fuIndSamll" runat="server" CssClass="form-control" />
-                                <small class="text-danger">.png .jpeg .jpg .gif .webp — 160px × 160px</small>
+                                <small class="text-danger">.png .jpeg .jpg .gif .webp — 500px × 500px</small>
                                 <asp:RequiredFieldValidator ID="ReqFileupload1" runat="server"
                                     ControlToValidate="fuIndSamll" Display="Dynamic"
                                     ForeColor="Red" SetFocusOnError="true"
@@ -147,7 +153,7 @@
                             </div>
 
                             <%-- Mobile image hidden --%>
-                            <div style="display:none;">
+                            <div style="display: none;">
                                 <asp:FileUpload ID="fuIndThumb" runat="server" CssClass="form-control" />
                                 <div class="mt-2"><%=strMobileImage %></div>
                             </div>
@@ -185,7 +191,7 @@
                         <div class="card-body">
                             <table id="alternative-pagination"
                                 class="table table-nowrap align-middle table-striped table-bordered myTable"
-                                style="width:100%;">
+                                style="width: 100%;">
                                 <thead class="table-light">
                                     <tr>
                                         <th>#</th>

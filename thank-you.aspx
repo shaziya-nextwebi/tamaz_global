@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="thank-you.aspx.cs" Inherits="thank_you" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <meta name="description" content="Thank you - Visit our site again" />
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
     <style>
         @keyframes scaleIn {
             0% {

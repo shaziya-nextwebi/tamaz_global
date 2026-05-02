@@ -86,7 +86,7 @@
 
         </div>
     </div>
-
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.select2-multi').select2({

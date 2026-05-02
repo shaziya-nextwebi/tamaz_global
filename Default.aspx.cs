@@ -42,7 +42,7 @@ public partial class _Default : System.Web.UI.Page
                                 <svg width='14' height='14' viewBox='0 0 24 24' fill='currentColor'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2' /></svg>
                                 Premium Quality
                             </div>
-                            <h1 class='hero-title'>" + item.BannerTitle + @"</h1>
+                            <h2 class='hero-title'>" + item.BannerTitle + @"</h2>
                             <p class='hero-desc'>Discover premium health and wellness products.</p>
                             <a href='" + (item.Link != "" ? item.Link : "Category.aspx") + @"' class='btn-primary'>Shop Now 
                                 <svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
@@ -73,6 +73,9 @@ public partial class _Default : System.Web.UI.Page
             // handle silently
         }
     }
+    //    <div class='brand-caption'>
+    //    <a href = '/Brand/" + b.BrandUrl + @"' class='partner-link'>" + b.BrandName + @"</a>
+    //</div>
     public void BindBrandSlider()
     {
         try
@@ -80,15 +83,27 @@ public partial class _Default : System.Web.UI.Page
             SqlConnection conT = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
             List<Brand> brands = Brand.GetAllBrand(conT);
             strBrandSlider = "";
-            foreach (Brand b in brands)
+
+            for (int i = 0; i < brands.Count; i += 2)
             {
-                string img = b.BannerImage != "" ? "/" + b.BannerImage : "/assests/Images/clients/placeholder.png";
-                strBrandSlider += @"
-<div class='client-card'>
-    <a href='/Brand/" + b.BrandUrl + @"' class='client-logo'>
-        <img src='" + img + @"' alt='" + b.BrandName + @"' title='" + b.BrandName + @"' />
+                strBrandSlider += "<div class='swiper-slide brand-col'>";
+
+                for (int j = i; j < i + 2 && j < brands.Count; j++)
+                {
+                    Brand b = brands[j];
+                    string img = b.BannerImage != "" ? "/" + b.BannerImage : "/assests/Images/clients/placeholder.png";
+
+                    strBrandSlider += @"
+<div class='brand-wrapper shine-overlay'>
+    <a href='/TopBrands/" + b.BrandUrl + @"'>
+        <img src='" + img + @"' alt='" + b.BrandName + @"' />
     </a>
+
+    <div class='shine'></div>
 </div>";
+                }
+
+                strBrandSlider += "</div>";
             }
         }
         catch (Exception ex)
@@ -116,14 +131,17 @@ public partial class _Default : System.Web.UI.Page
                 string color = badgeColors[i % badgeColors.Length];
 
                 strSpotlight += @"
-            <div class='group relative h-[450px] br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card'>
+            <div class='group relative h-full br-12 overflow-hidden shadow-lg cursor-pointer spotlight-card'>
                 <img src='" + image + @"' alt='" + p.Category + @"' 
-                     class='absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' />
+                     class=' w-full h-full object-cover transition-transform duration-700 group-hover:scale-110' />
                 <div class='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient'></div>
-                <div class='relative z-10 h-full p-8 p-4-tablet flex flex-col justify-end'>
-                    <span class='text-sm font-bold uppercase tracking-wider mb-2' style='color:" + color + @";'>" + label + @"</span>
-                    <h3 class='text-white text-3xl font-bold mb-3 leading-tight'>" + p.Category + @"</h3>
-                    <a href='" + categoryLink + @"' class='inline-flex items-center gap-2 bg-white text-[#0F172A] px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors self-start spotlight-button'>
+                     <div class='absolute bottom-0 w-full'>
+                <div class='relative z-10 h-full p-4 p-4-tablet flex  justify-between items-center gap-2'>
+<div>
+                    <span class='text-sm font-bold uppercase tracking-wider mb-2 ' style='color:" + color + @";font-size:12px;'>" + label + @"</span>
+                    <h3 class='text-white text-xl font-bold mb-3 leading-tight'>" + p.Category + @"</h3>
+</div>
+                    <a href='" + categoryLink + @"' class='inline-flex items-center gap-2 bg-white text-[#0F172A] px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors  spotlight-button sp-desktop'>
                         Shop Now
                         <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
                             <line x1='5' y1='12' x2='19' y2='12' />
@@ -131,17 +149,23 @@ public partial class _Default : System.Web.UI.Page
                         </svg>
                     </a>
                 </div>
+</div>
             </div>";
                 strSpotlightMobile += @"
 <div class='swiper-slide'>
-    <div class='relative h-[420px] rounded-2xl overflow-hidden shadow-lg spotlight-card'>
-        <img src='" + image + @"' class='absolute inset-0 w-full h-full object-cover' />
+    <div class='relative h-full rounded-2xl overflow-hidden shadow-lg spotlight-card'>
+        <img src='" + image + @"' class=' w-full h-full object-cover' />
         <div class='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent overlay-gradient'></div>
-        <div class='relative z-10 h-full p-6 flex flex-col justify-end'>
+        <div class='absolute bottom-0 w-full'>
+
+        <div class='relative z-10 h-full p-6 flex  justify-between items-end'>
+<div>
             <span class='spotlight-bridge text-sm font-bold mb-2' style='color:" + color + @";'>" + label + @"</span>
-            <h3 class='text-white text-2xl font-bold mb-3'>" + p.Category + @"</h3>
+            <h3 class='text-white text-1xl md:text-2xl font-bold mb-3'>" + p.Category + @"</h3>
+</div>
             <a href='" + categoryLink + @"' class='bg-white px-5 py-2 rounded-lg font-semibold text-sm w-fit spotlight-btn'>Shop Now</a>
         </div>
+</div>
     </div>
 </div>";
                 i++;
@@ -180,14 +204,14 @@ public partial class _Default : System.Web.UI.Page
                 string label = p.ProductLabelName != "" ? p.ProductLabelName : "";
                 string url = p.ProductUrl != "" ? "/Product/" + p.ProductUrl : "#";
                 string name = p.ProductName.Replace("'", "&#39;").Replace("\"", "&quot;");
-                string retailPrice = p.RetailPrice != null ? p.RetailPrice.Trim() : "";
-
+                //string retailPrice = p.RetailPrice != null ? p.RetailPrice.Trim() : "";
+                string retailPrice = p.FormattedRetailPrice;
                 string price;
                 if (retailPrice == "" || retailPrice == "0" || retailPrice == "0.00")
                 {
-                    price = "<a href='/ContactUs.aspx' class='contact-us-link' " +
+                    price = "<a href='/contact-us.aspx' class='contact-us-link' " +
                             "style='color:#162e7d; font-weight:600; font-size:15px; text-decoration:none;' " +
-                            "onclick='event.stopPropagation();'>Contact Us</a>";
+                            "onclick='event.stopPropagation();'>Price On Request</a>";
                 }
                 else
                 {
@@ -205,7 +229,7 @@ public partial class _Default : System.Web.UI.Page
                 string btnHtml;
                 if (inCart)
                 {
-                    btnHtml = "<a href='/Cart.aspx' class=' add-cart-btn view-cart-btn' " +
+                    btnHtml = "<a href='/cart.aspx' class=' add-cart-btn view-cart-btn' " +
                               "onclick='event.stopPropagation();' " +
                               "style='display:block; text-align:center; text-decoration:none;'>View Cart</a>";
                 }
@@ -219,12 +243,13 @@ public partial class _Default : System.Web.UI.Page
                     "<div class='product-card fade-in' style='cursor:pointer;' " +
                         "onclick=\"window.location='" + url + "'\">" +
                         "<div class='product-image'>" +
-                            badge +
+                          
                             "<img src='" + image + "' alt='" + name + "' loading='lazy' />" +
                         "</div>" +
                         "<div class='product-info'>" +
                             "<h3 class='product-name'>" + p.ProductName + "</h3>" +
                             "<div class='product-price'>" + price + "</div>" +
+                              badge +
                         btnHtml +
                         "</div>" +
                     "</div>";
@@ -245,11 +270,12 @@ public partial class _Default : System.Web.UI.Page
         try
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conT"].ConnectionString);
-            List<global::Category> cats = global::Category.GetTopCategory(con);
-            //List<global::Category> cats = global::Category.GetAllCategory(con);
+            List<global::Category> cats = global::Category.GetTopCategory(con)
+                .Where(x => x.Status == "Active")
+                .OrderBy(o => o.DisplayOrder)
+                .ToList();
 
             strTopCategories = "";
-
             foreach (var c in cats)
             {
                 string img = !string.IsNullOrEmpty(c.BannerImage)
@@ -257,13 +283,15 @@ public partial class _Default : System.Web.UI.Page
                     : "/assests/Images/category-img/placeholder.png";
 
                 strTopCategories += @"
-            <a href='/Category/" + c.CategoryUrl + @"' class='flex-shrink-0 w-[140px] md:w-[160px] group block category-box'>
+        <div class='swiper-slide'>
+            <a href='/Category/" + c.CategoryUrl + @"' class='group block category-box'>
                 <div class='relative rounded-2xl overflow-hidden mb-3 bg-gray-50 transition-all duration-300 group-hover:shadow-xl'>
-                    <img src='" + img + @"' alt='" + c.CategoryName + @"' 
+                    <img src='" + img + @"' alt='" + c.CategoryName + @"'
                         class='w-full h-[140px] md:h-[160px] object-cover transition-transform duration-500 group-hover:scale-110 category-img' />
                 </div>
-                <h3 class='text-sm font-semibold text-[#0F172A] text-center'>" + c.CategoryName + @"</h3>
-            </a>";
+                <h3 class='text-sm font-semibold text-[#0F172A] text-center category-name'>" + c.CategoryName + @"</h3>
+            </a>
+        </div>";
             }
         }
         catch (Exception ex)

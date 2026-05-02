@@ -17,8 +17,8 @@
 
         routes.MapPageRoute("NewsDetails", "news/{url}", "~/news-detail.aspx");
         routes.MapPageRoute("Products", "products-categories/{caturl}", "~/products.aspx");
-        routes.MapPageRoute("BlogList", "blog", "~/Blog.aspx");
-        routes.MapPageRoute("BlogDetail", "blog/{BUrl}", "~/BlogDetail.aspx");
+        routes.MapPageRoute("BlogList", "blog", "~/blog.aspx");
+        routes.MapPageRoute("BlogDetail", "blog/{BUrl}", "~/blog-details.aspx");
         routes.MapPageRoute("solutions", "solutions", "~/Listing.aspx");
         routes.MapPageRoute("SolutionsCategory", "solutions/{category}", "~/Listing.aspx");
 
@@ -26,9 +26,9 @@
 
         routes.MapPageRoute("Category", "Category/{categoryurl}", "~/Category.aspx");
         routes.MapPageRoute("Product", "Product/{producturl}", "~/Product.aspx");
-
+        routes.MapPageRoute("/Cart", "Cart", "~/cart.aspx");
         routes.MapPageRoute("SubCategory", "SubCategory/{SubCategoryName}", "~/SubCategory.aspx");
-        routes.MapPageRoute("BrandRoute", "Brand/{brandurl}", "~/Brand.aspx");
+        routes.MapPageRoute("BrandRoute", "TopBrands/{brandurl}", "~/Brand.aspx");
     }
 
     void Application_End(object sender, EventArgs e)

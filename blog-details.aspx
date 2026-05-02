@@ -1,6 +1,7 @@
-﻿<%@ Page Title="Glutathione Injection Sharing - TAMAZ Global" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="BlogDetail.aspx.cs" Inherits="BlogDetail" %>
+﻿<%@ Page Title="Glutathione Injection Sharing - TAMAZ Global" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="blog-details.aspx.cs" Inherits="BlogDetail" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
     <style>
         .reveal {
             opacity: 0;
@@ -18,14 +19,14 @@
 <asp:Content ID="MainContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <!-- Breadcrumb -->
-    <div class="bg-[#f8fafc] py-3 border-b border-gray-200">
+    <div class="bg-[#f8fafc] py-1 md:py-3 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex items-center gap-2 text-sm text-slate-500">
+            <div class="flex items-center gap-2 text-sm text-slate-500 breadCrumb-text breadcrumb">
                 <a href="Default.aspx" class="hover:text-red-700 transition-colors">Home</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
                 <a href="/Blog.aspx" class="hover:text-red-700 transition-colors">Blog</a>
                 <span class="iconify w-4 h-4" data-icon="lucide:chevron-right"></span>
-                <span class="text-slate-900 font-medium blog-tittle-breadCrumb"><%= BlogTitle %></span>
+                <span class="text-slate-900 font-medium  breadCrumb-text"><%= BlogTitle %></span>
             </div>
         </div>
     </div>
@@ -44,7 +45,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent blog-Detailcard-overlay"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-6">
                                 <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-semibold mb-3 inline-block"><%= CategoryName %></span>
-                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4 blog-detail-title" ><%= BlogTitle %></h1>
+                                <h1 class="text-2xl md:text-3xl font-bold text-[#fff] mb-4 blog-detail-title"><%= BlogTitle %></h1>
                             </div>
                         </div>
 
@@ -130,13 +131,38 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold text-slate-600">Share:</span>
-                                <a href="#" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors text-slate-500">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/sharer.php?u=<%=Request.Url.AbsoluteUri%>"
+                                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center
+          hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors text-slate-500">
                                     <span class="iconify w-4 h-4" data-icon="lucide:facebook"></span>
                                 </a>
-                                <a href="#" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-sky-500 hover:text-white hover:border-sky-500 transition-colors text-slate-500">
+
+                                <!-- Twitter / X -->
+                                <a href="https://twitter.com/share?url=<%=Request.Url.AbsoluteUri%>"
+                                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center
+          hover:bg-black hover:text-white hover:border-black transition-colors text-slate-500">
                                     <span class="iconify w-4 h-4" data-icon="lucide:twitter"></span>
                                 </a>
-                                <a href="#" class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-green-600 hover:text-white hover:border-green-600 transition-colors text-slate-500">
+
+                                <!-- Pinterest -->
+                                <a href="https://pinterest.com/pin/create/bookmarklet/?media=[post-img]&url=<%=Request.Url.AbsoluteUri%>"
+                                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center
+          hover:bg-[#E60023] hover:text-white hover:border-[#E60023] transition-colors text-slate-500">
+                                    <span class="iconify w-4 h-4 text-current" data-icon="simple-icons:pinterest"></span>
+                                </a>
+
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/"
+                                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center
+          hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-colors text-slate-500">
+                                    <span class="iconify w-4 h-4" data-icon="lucide:instagram"></span>
+                                </a>
+
+                                <!-- Generic Share -->
+                                <a href="javascript:void(0)" onclick="sharePage()"
+                                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center
+          hover:bg-green-600 hover:text-white hover:border-green-600 transition-colors text-slate-500">
                                     <span class="iconify w-4 h-4" data-icon="lucide:share"></span>
                                 </a>
                             </div>
@@ -223,8 +249,8 @@
                         <div class="bg-white p-6 br-12 shadow-sm border border-slate-100 reveal">
                             <h3 class="text-lg font-bold text-slate-900 mb-4">Categories</h3>
                             <ul class="space-y-3">
-                                  <%= Categories %>
-                               <%-- <li>
+                                <%= Categories %>
+                                <%-- <li>
                                     <a href="#" class="flex justify-between items-center text-slate-600 hover:text-red-700 transition-colors text-sm">
                                         <span>Skin Care</span>
                                         <span class="bg-slate-100 px-2 py-0.5 rounded text-xs text-slate-500">12</span>
@@ -255,8 +281,8 @@
                         <div class="bg-white p-6 br-12 shadow-sm border border-slate-100 reveal">
                             <h3 class="text-lg font-bold text-slate-900 mb-4">Recent Posts</h3>
                             <div class="space-y-4">
-                                 <%= RecentPosts %>
-                               <%-- <a href="#" class="flex gap-3 group">
+                                <%= RecentPosts %>
+                                <%-- <a href="#" class="flex gap-3 group">
                                     <img src="https://picsum.photos/seed/recent1/100/100" alt="Recent Post" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
                                     <div>
                                         <h4 class="text-sm font-semibold text-slate-900 group-hover:text-red-700 transition-colors leading-tight">Top 5 Benefits of NAD+ Therapy</h4>
@@ -289,13 +315,27 @@
         </div>
     </section>
 
- 
+
 
 </asp:Content>
 
 <asp:Content ID="ScriptsContent" ContentPlaceHolderID="scripts" runat="server">
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script>
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(function (err) {
+                    console.log("Share cancelled", err);
+                });
+            } else {
+                // fallback
+                navigator.clipboard.writeText(window.location.href);
+                alert("Link copied to clipboard!");
+            }
+        }
         const reveals = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             reveals.forEach(el => {

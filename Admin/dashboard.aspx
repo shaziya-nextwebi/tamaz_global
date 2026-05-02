@@ -248,6 +248,75 @@
                 </div>
 
             </div>
+            <%-- Orders --%>
+<div class="col-xl-12 col-md-12 mb-4">
+    <div class="card card-animate shadow-sm" style="border-radius:15px;overflow:hidden;">
+        <div class="card-body p-3">
+
+            <div class="d-flex align-items-center mb-3">
+                <div class="avatar-sm flex-shrink-0">
+                    <span class="avatar-title fs-2"><i class="bx bx-receipt"></i></span>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <p class="text-uppercase fw-bold text-muted mb-0" style="font-size:11px;">Orders Overview</p>
+                </div>
+                <a href="/Admin/report.aspx" class="view-link">View All <i class="ri-arrow-right-s-line align-middle"></i></a>
+            </div>
+
+            <div class="row g-3">
+
+                <%-- Total Orders --%>
+                <div class="col-xl-3 col-6">
+                    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;">
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#3b82f6;font-weight:700;margin-bottom:6px;">
+                            <i class="bx bx-list-ul me-1"></i> Total Orders
+                        </div>
+                        <div style="font-size:28px;font-weight:700;color:#1e40af;line-height:1;">
+                            <span class="counter-value" data-target="<%=strTotalOrders %>"><%=strTotalOrders %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- Pending Orders --%>
+                <div class="col-xl-3 col-6">
+                    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;">
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#d97706;font-weight:700;margin-bottom:6px;">
+                            <i class="bx bx-time-five me-1"></i> Pending
+                        </div>
+                        <div style="font-size:28px;font-weight:700;color:#92400e;line-height:1;">
+                            <span class="counter-value" data-target="<%=strPendingOrders %>"><%=strPendingOrders %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- Dispatched Orders --%>
+                <div class="col-xl-3 col-6">
+                    <div style="background:#e0f2fe;border:1px solid #7dd3fc;border-radius:10px;padding:14px 16px;">
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#0284c7;font-weight:700;margin-bottom:6px;">
+                            <i class="bx bx-truck me-1"></i> Dispatched
+                        </div>
+                        <div style="font-size:28px;font-weight:700;color:#075985;line-height:1;">
+                            <span class="counter-value" data-target="<%=strDispatchedOrders %>"><%=strDispatchedOrders %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <%-- Delivered Orders --%>
+                <div class="col-xl-3 col-6">
+                    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;">
+                        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#16a34a;font-weight:700;margin-bottom:6px;">
+                            <i class="bx bx-check-circle me-1"></i> Delivered
+                        </div>
+                        <div style="font-size:28px;font-weight:700;color:#065f46;line-height:1;">
+                            <span class="counter-value" data-target="<%=strDeliveredOrders %>"><%=strDeliveredOrders %></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 </asp:Content>

@@ -1,6 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="privacy-policy.aspx.cs" Inherits="privacy_policy" %>
+﻿<%@ Page Title="Privacy Policy | TamazGlobal" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="privacy-policy.aspx.cs" Inherits="privacy_policy" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
+    <link rel="canonical" href="<%= Request.Url.AbsoluteUri.ToLower() %>" />
+    <meta name="description" content="By accessing this web site, you expressly approve the policies as well as conditions of this Privacy Plan."/>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {

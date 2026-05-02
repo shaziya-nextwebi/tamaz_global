@@ -38,10 +38,54 @@ public partial class Admin_product_enquiry : System.Web.UI.Page
                     .Replace("&#13;&#10;", "<br/>")
                     .Replace("&#10;", "<br/>")
                     .Replace("&#13;", "<br/>");
+                int itemCount = (con.ProductName ?? "")
+             .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+             .Count();
 
+                string productCell;
+                if (itemCount > 1)
+                {
+                    productCell = "<span class='badge bg-info text-dark fs-12'>"
+                                + itemCount + " items — click 👁 to view</span>";
+                }
+                else
+                {
+                    string raw = con.ProductName ?? "";
+
+                    //  FIX ALL DATA ISSUES HERE
+                    raw = raw.Replace("\r", "")
+                             .Replace("\n", "")
+                             .Replace("& #8377;", "₹")
+                             .Replace("&#8377;", "₹")
+                             .Replace("#8377;", "₹");
+
+                    // now split
+                    string single = raw.Split('|')[0].Trim();
+
+                    string[] singleParts = single.Split('#');
+                    string singleName = System.Web.HttpUtility.HtmlDecode(singleParts[0].Trim());
+                    string singleQty = singleParts.Length > 1
+     ? "#" + System.Web.HttpUtility.HtmlDecode(singleParts[1].Trim())
+     : "";
+
+                    productCell = "<span class='d-block prod-table-name'>"
+                                + System.Web.HttpUtility.HtmlEncode(singleName)
+                                + "</span>"
+                                + (singleQty != ""
+                                    ? "<span class='prod-table-qty'>"
+                                      + System.Web.HttpUtility.HtmlEncode(singleQty)
+                                      + "</span>"
+                                    : "");
+                }
                 // Safe attribute value — encode for data-* attribute
                 string attrMsg = System.Web.HttpUtility.HtmlAttributeEncode(
                     con.Message ?? "");
+                string cleanProduct = (con.ProductName ?? "")
+    .Replace("\r", "")
+    .Replace("\n", "|")   // convert to pipe for JS
+    .Replace("#8377;", "₹")
+    .Replace("&#8377;", "₹");
+
 
                 // Short preview in the table cell
                 string preview = con.Message ?? "";
@@ -50,12 +94,21 @@ public partial class Admin_product_enquiry : System.Web.UI.Page
 
                 strContact += @"<tr>
                     <td>" + i + @"</td>
-                    <td>" + System.Web.HttpUtility.HtmlEncode(con.ProductName ?? "") + @"</td>
+<td>" +                 @"<a href='javascript:void(0);' class='viewMsg ms-1 link-info'
+                           data-name='" + System.Web.HttpUtility.HtmlAttributeEncode(con.Name ?? "") + @"'
+                           data-mobile='" + System.Web.HttpUtility.HtmlAttributeEncode(con.Mobile ?? "") + @"'
+                           data-city='" + System.Web.HttpUtility.HtmlAttributeEncode(con.City ?? "") + @"'
+                                         data-product = '" + HttpUtility.HtmlAttributeEncode(cleanProduct) + @"'
+                           data-date='" + con.AddedOn.ToString("dd/MMM/yyyy hh:mm tt") + @"'
+                           data-message='" + attrMsg + @"'
+                           title='View Full Details'>
+
+                     " + productCell + @"</a></td>
                     <td>" + System.Web.HttpUtility.HtmlEncode(con.Name ?? "") + @"</td>
                     <td>" + System.Web.HttpUtility.HtmlEncode(con.Mobile ?? "") + @"</td>
                     <td>" + System.Web.HttpUtility.HtmlEncode(con.City ?? "") + @"</td>
                     <td>
-                        <span class='message-preview d-inline-block'>" + System.Web.HttpUtility.HtmlEncode(preview) + @"</span>
+                        
                         <a href='javascript:void(0);' class='viewMsg ms-1 link-info'
                            data-name='" + System.Web.HttpUtility.HtmlAttributeEncode(con.Name ?? "") + @"'
                            data-mobile='" + System.Web.HttpUtility.HtmlAttributeEncode(con.Mobile ?? "") + @"'
